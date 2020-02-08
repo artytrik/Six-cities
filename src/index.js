@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app.jsx';
+import App from './components/app/app.jsx';
 
 const RENTAL_OFFERS = 10;
 const RENTAL_NAMES = [`Beautiful & luxurious apartment at great location`, `Wood and stone place`];

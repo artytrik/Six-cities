@@ -1,6 +1,8 @@
 import React from 'react';
-import Main from './main.jsx';
+import Main from '../main/main.jsx';
 import PropTypes from 'prop-types';
+
+const headerClickHandler = () => {};
 
 const App = (props) => {
   const {rentalOffers, rentalNames} = props;
@@ -9,6 +11,7 @@ const App = (props) => {
     <Main
       rentalOffers={rentalOffers}
       rentalNames={rentalNames}
+      onHeaderClick={headerClickHandler}
     />
   );
 };
