@@ -7,6 +7,7 @@ it(`Main should render correctly`, () => {
     .create(<Main
       rentalOffers={3}
       rentalNames={[`Lux`]}
+      onHeaderClick={jest.fn()}
     />)
     .toJSON();
 
