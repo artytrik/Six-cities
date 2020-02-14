@@ -6,23 +6,13 @@ class OffersList extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      offer: {
-        name: ``,
-        type: ``
-      }
-    };
+    this.state = {};
 
     this._handleMouseHover = this._handleMouseHover.bind(this);
   }
 
-  _handleMouseHover(name, type) {
-    this.setState({
-      offer: {
-        name,
-        type
-      }
-    });
+  _handleMouseHover(offer) {
+    this.setState(offer);
   }
 
   render() {
