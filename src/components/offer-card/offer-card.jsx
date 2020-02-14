@@ -61,7 +61,7 @@ OfferCard.propTypes = {
     picture: PropTypes.string.isRequired,
     premium: PropTypes.bool.isRequired
   }).isRequired,
-  onMouseHover: PropTypes.func
+  onMouseHover: PropTypes.func.isRequired
 };
 
 export default OfferCard;
