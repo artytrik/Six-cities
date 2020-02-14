@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app.jsx';
+import OffersList from './offers-list.jsx';
 
 const offers = [
   {
@@ -33,11 +33,11 @@ const offers = [
   },
 ];
 
-it(`App should render correctly`, () => {
+it(`OffersList should render correctly`, () => {
   const tree = renderer
-    .create(<App
-      offersNumber={3}
+    .create(<OffersList
       offers={offers}
+      onHeaderClick={jest.fn()}
     />)
     .toJSON();
 
