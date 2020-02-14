@@ -5,20 +5,20 @@ import PropTypes from 'prop-types';
 const headerClickHandler = () => {};
 
 const App = (props) => {
-  const {rentalOffers, rentalNames} = props;
+  const {offersNumber, offers} = props;
 
   return (
     <Main
-      rentalOffers={rentalOffers}
-      rentalNames={rentalNames}
+      offersNumber={offersNumber}
+      offers={offers}
       onHeaderClick={headerClickHandler}
     />
   );
 };
 
 App.propTypes = {
-  rentalOffers: PropTypes.number.isRequired,
-  rentalNames: PropTypes.array.isRequired
+  offersNumber: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired
 };
 
 export default App;

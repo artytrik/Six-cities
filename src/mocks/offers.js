@@ -1,8 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import App from './app.jsx';
+export const OFFERS_NUMBER = 10;
 
-const offers = [
+export const offers = [
   {
     name: `Beautiful & luxurious apartment at great location`,
     type: `Apartment`,
@@ -32,14 +30,3 @@ const offers = [
     premium: true
   },
 ];
-
-it(`App should render correctly`, () => {
-  const tree = renderer
-    .create(<App
-      offersNumber={3}
-      offers={offers}
-    />)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
