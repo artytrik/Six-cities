@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const OfferCard = (props) => {
-  const {offer, onMouseHover} = props;
+  const {offer, onMouseHover, onHeaderClick} = props;
   const {name, type, price, picture, premium} = offer;
 
   return (
@@ -44,7 +44,7 @@ const OfferCard = (props) => {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name">
+        <h2 className="place-card__name" onClick={onHeaderClick}>
           <a href="#">{name}</a>
         </h2>
         <p className="place-card__type">{type}</p>
@@ -61,7 +61,8 @@ OfferCard.propTypes = {
     picture: PropTypes.string.isRequired,
     premium: PropTypes.bool.isRequired
   }).isRequired,
-  onMouseHover: PropTypes.func.isRequired
+  onMouseHover: PropTypes.func.isRequired,
+  onHeaderClick: PropTypes.func.isRequired
 };
 
 export default OfferCard;

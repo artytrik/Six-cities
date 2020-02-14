@@ -1,3 +1,5 @@
+export const OFFERS_NUMBER = 10;
+
 export const offers = [
   {
     name: `Beautiful & luxurious apartment at great location`,

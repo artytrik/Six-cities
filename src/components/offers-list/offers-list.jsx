@@ -8,8 +8,8 @@ class OffersList extends React.PureComponent {
 
     this.state = {
       offer: {
-        name: `Beautiful & luxurious apartment at great location`,
-        type: `Apartment`
+        name: ``,
+        type: ``
       }
     };
 
@@ -26,7 +26,7 @@ class OffersList extends React.PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, onHeaderClick} = this.props;
 
     return (
       <div className="cities__places-list places__list tabs__content">
@@ -35,6 +35,7 @@ class OffersList extends React.PureComponent {
             key={`offer-${i}`}
             offer={offer}
             onMouseHover={this._handleMouseHover}
+            onHeaderClick={onHeaderClick}
           />
         ))}
       </div>
@@ -49,7 +50,8 @@ OffersList.propTypes = {
     price: PropTypes.number.isRequired,
     picture: PropTypes.string.isRequired,
     premium: PropTypes.bool.isRequired
-  })).isRequired
+  })).isRequired,
+  onHeaderClick: PropTypes.func.isRequired
 };
 
 export default OffersList;
