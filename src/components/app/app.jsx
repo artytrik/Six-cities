@@ -20,7 +20,9 @@ const App = (props) => {
           />
         </Route>
         <Route exact path="/offer-information">
-          <OfferInformation />
+          <OfferInformation
+            offer={offers[0]}
+          />
         </Route>
       </Switch>
     </BrowserRouter>
