@@ -10,6 +10,7 @@ module.exports = {
     contentBase: path.join(__dirname, `public`),
     open: false,
     port: 1338,
+    historyApiFallback: true
   },
   module: {
     rules: [
@@ -22,6 +23,5 @@ module.exports = {
       }
     ],
   },
-  devtool: `source-map`,
-  historyApiFallback: true
+  devtool: `source-map`
 };
