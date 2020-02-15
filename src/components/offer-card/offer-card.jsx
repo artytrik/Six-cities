@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {starRating} from '../../utils.js';
 
 const OfferCard = (props) => {
   const {offer, onMouseHover, onHeaderClick} = props;
-  const {name, type, price, picture, premium} = offer;
+  const {name, type, price, picture, premium, rating} = offer;
+  const roundRating = Math.round(rating);
 
   return (
     <article className="cities__place-card place-card"
@@ -40,12 +42,12 @@ const OfferCard = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `80%`}} />
+            <span style={{width: starRating.get(roundRating)}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name" onClick={onHeaderClick}>
-          <a href="#">{name}</a>
+        <h2 className="place-card__name">
+          <a href="#" onClick={() => onHeaderClick(offer)}>{name}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

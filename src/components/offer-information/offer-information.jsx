@@ -4,7 +4,7 @@ import {starRating} from '../../utils.js';
 const OfferInformation = (props) => {
   const {offer} = props;
   const {name, type, price, premium, gallery, rating, bedrooms, adults,
-  description, inside, user} = offer;
+    description, inside, user} = offer;
   const roundRating = Math.round(rating);
   const {avatar, name: userName, superStar} = user;
 
