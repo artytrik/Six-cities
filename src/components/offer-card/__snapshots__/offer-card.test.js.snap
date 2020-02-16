@@ -90,10 +90,10 @@ exports[`OfferCard should render correctly 1`] = `
     </div>
     <h2
       className="place-card__name"
-      onClick={[MockFunction]}
     >
       <a
         href="#"
+        onClick={[Function]}
       >
         Beautiful & luxurious apartment at great location
       </a>

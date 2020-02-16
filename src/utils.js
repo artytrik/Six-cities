@@ -6,4 +6,3 @@ export const starRating = new Map([
   [4, `80%`],
   [5, `100%`]
 ]);
-

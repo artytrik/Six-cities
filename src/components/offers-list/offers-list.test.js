@@ -8,28 +8,32 @@ const offers = [
     type: `Apartment`,
     price: 120,
     picture: `img/apartment-01.jpg`,
-    premium: true
+    premium: true,
+    rating: 4
   },
   {
     name: `Wood and stone place`,
     type: `Private room`,
     price: 80,
     picture: `img/room.jpg`,
-    premium: false
+    premium: false,
+    rating: 4
   },
   {
     name: `Canal View Prinsengracht`,
     type: `Apartment`,
     price: 132,
     picture: `img/apartment-02.jpg`,
-    premium: false
+    premium: false,
+    rating: 4
   },
   {
     name: `Nice, cozy, warm big bed apartment`,
     type: `Apartment`,
     price: 180,
     picture: `img/apartment-03.jpg`,
-    premium: true
+    premium: true,
+    rating: 4
   },
 ];
 

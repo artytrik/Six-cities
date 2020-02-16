@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {starRating} from '../../utils.js';
 
 const OfferInformation = (props) => {
@@ -420,5 +421,28 @@ const OfferInformation = (props) => {
   );
 };
 
-export default OfferInformation;
+OfferInformation.propTypes = {
+  offer: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    premium: PropTypes.bool.isRequired,
+    gallery: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ).isRequired,
+    rating: PropTypes.number.isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    adults: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    inside: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ),
+    user: PropTypes.shape({
+      avatar: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      superStar: PropTypes.bool.isRequired
+    }).isRequired
+  }).isRequired
+};
 
+export default OfferInformation;

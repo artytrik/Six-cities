@@ -12,7 +12,8 @@ const offer = {
   type: `Apartment`,
   price: 120,
   picture: `img/apartment-01.jpg`,
-  premium: true
+  premium: true,
+  rating: 4
 };
 
 it(`Correct information should be in OfferCard after hover`, () => {

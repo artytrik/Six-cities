@@ -61,7 +61,8 @@ OfferCard.propTypes = {
     type: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     picture: PropTypes.string.isRequired,
-    premium: PropTypes.bool.isRequired
+    premium: PropTypes.bool.isRequired,
+    rating: PropTypes.number.isRequired
   }).isRequired,
   onMouseHover: PropTypes.func.isRequired,
   onHeaderClick: PropTypes.func.isRequired
