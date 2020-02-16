@@ -7,7 +7,8 @@ const offer = {
   type: `Apartment`,
   price: 120,
   picture: `img/apartment-01.jpg`,
-  premium: true
+  premium: true,
+  rating: 4
 };
 
 it(`OfferCard should render correctly`, () => {
