@@ -1,5 +1,6 @@
 import React from 'react';
 import leaflet from 'leaflet';
+import PropTypes from 'prop-types';
 
 class Map extends React.PureComponent {
   constructor(props) {
@@ -50,5 +51,11 @@ class Map extends React.PureComponent {
     );
   }
 }
+
+Map.propTypes = {
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    coordinates: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  })).isRequired
+};
 
 export default Map;
