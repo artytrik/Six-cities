@@ -47,14 +47,16 @@ class Map extends React.PureComponent {
 
   render() {
     return (
-      <section ref={this._mapRef} className="cities__map map"></section>
+      <section className="cities__map map">
+        <div ref={this._mapRef} id="map" style={{height: `100%`}}></div>
+      </section>
     );
   }
 }
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape({
-    coordinates: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+    coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
   })).isRequired
 };
 

@@ -26,7 +26,8 @@ const offers = [
       avatar: `img/avatar-angelina.jpg`,
       name: `Angelina`,
       superStar: true
-    }
+    },
+    coordinates: [52.3909553943508, 4.85309666406198]
   },
   {
     name: `Wood and stone place`,
@@ -51,7 +52,8 @@ const offers = [
       avatar: `img/avatar-angelina.jpg`,
       name: `Angelina`,
       superStar: true
-    }
+    },
+    coordinates: [52.369553943508, 4.85309666406198]
   },
   {
     name: `Canal View Prinsengracht`,
@@ -76,7 +78,8 @@ const offers = [
       avatar: `img/avatar-angelina.jpg`,
       name: `Angelina`,
       superStar: true
-    }
+    },
+    coordinates: [52.3909553943508, 4.929309666406198]
   },
   {
     name: `Nice, cozy, warm big bed apartment`,
@@ -101,7 +104,8 @@ const offers = [
       avatar: `img/avatar-angelina.jpg`,
       name: `Angelina`,
       superStar: true
-    }
+    },
+    coordinates: [52.3809553943508, 4.939309666406198]
   },
 ];
 
