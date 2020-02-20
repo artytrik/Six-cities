@@ -9,7 +9,8 @@ const offers = [
     price: 120,
     picture: `img/apartment-01.jpg`,
     premium: true,
-    rating: 4
+    rating: 4,
+    coordinates: [1, 1]
   },
   {
     name: `Wood and stone place`,
@@ -17,7 +18,8 @@ const offers = [
     price: 80,
     picture: `img/room.jpg`,
     premium: false,
-    rating: 4
+    rating: 4,
+    coordinates: [2, 2]
   },
   {
     name: `Canal View Prinsengracht`,
@@ -25,7 +27,8 @@ const offers = [
     price: 132,
     picture: `img/apartment-02.jpg`,
     premium: false,
-    rating: 4
+    rating: 4,
+    coordinates: [3, 3]
   },
   {
     name: `Nice, cozy, warm big bed apartment`,
@@ -33,7 +36,8 @@ const offers = [
     price: 180,
     picture: `img/apartment-03.jpg`,
     premium: true,
-    rating: 4
+    rating: 4,
+    coordinates: [4, 4]
   },
 ];
 
