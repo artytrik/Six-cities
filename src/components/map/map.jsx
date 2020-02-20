@@ -13,7 +13,7 @@ class Map extends React.PureComponent {
     const mapRef = this._mapRef.current;
 
     if (mapRef) {
-      const {offers} = this.props;
+      const {coordinates} = this.props;
 
       const city = [52.38333, 4.9];
 
@@ -37,9 +37,9 @@ class Map extends React.PureComponent {
         })
         .addTo(map);
 
-      offers.map((offer) => {
+      coordinates.map((coordinate) => {
         leaflet
-        .marker(offer.coordinates, {icon})
+        .marker(coordinate, {icon})
         .addTo(map);
       });
     }
@@ -47,9 +47,7 @@ class Map extends React.PureComponent {
 
   render() {
     return (
-      <section className="cities__map map">
-        <div ref={this._mapRef} id="map" style={{height: `100%`}}></div>
-      </section>
+      <div ref={this._mapRef} id="map" style={{height: `100%`}}></div>
     );
   }
 }

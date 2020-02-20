@@ -1,8 +1,10 @@
 import React from 'react';
 import {starRating} from '../../utils.js';
+import PropTypes from 'prop-types';
 
 const Review = (props) => {
-  const {name, avatar, rating, text, date} = props;
+  const {review} = props;
+  const {name, avatar, rating, text, date} = review;
 
   return (
     <li className="reviews__item">
@@ -34,6 +36,10 @@ const Review = (props) => {
       </div>
     </li>
   );
+};
+
+Review.propTypes = {
+
 };
 
 export default Review;
