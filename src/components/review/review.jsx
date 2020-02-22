@@ -39,7 +39,14 @@ const Review = (props) => {
 };
 
 Review.propTypes = {
-
+  review: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired
+  })
 };
 
 export default Review;

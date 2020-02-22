@@ -42,6 +42,7 @@ it(`OffersList should render correctly`, () => {
     .create(<OffersList
       offers={offers}
       onHeaderClick={jest.fn()}
+      className="places"
     />)
     .toJSON();
 

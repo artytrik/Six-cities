@@ -289,17 +289,8 @@ OfferInformation.propTypes = {
       name: PropTypes.string.isRequired,
       superStar: PropTypes.bool.isRequired
     }).isRequired,
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          name: PropTypes.string.isRequired,
-          avatar: PropTypes.string.isRequired,
-          rating: PropTypes.number.isRequired,
-          text: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired
-        })
-    ),
-    nearbyOffers: PropTypes.array.isRequired
+    reviews: PropTypes.array,
+    nearbyOffers: PropTypes.array
   }).isRequired,
   onHeaderClick: PropTypes.func.isRequired
 };
