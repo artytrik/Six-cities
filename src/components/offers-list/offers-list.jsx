@@ -16,10 +16,10 @@ class OffersList extends React.PureComponent {
   }
 
   render() {
-    const {offers, onHeaderClick} = this.props;
+    const {offers, onHeaderClick, className} = this.props;
 
     return (
-      <div className="cities__places-list places__list tabs__content">
+      <div className={`${className} places__list`}>
         {offers.map((offer, i) => (
           <OfferCard
             key={`offer-${i}`}
@@ -41,7 +41,8 @@ OffersList.propTypes = {
     picture: PropTypes.string.isRequired,
     premium: PropTypes.bool.isRequired
   })).isRequired,
-  onHeaderClick: PropTypes.func.isRequired
+  onHeaderClick: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired
 };
 
 export default OffersList;

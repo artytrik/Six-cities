@@ -2,6 +2,7 @@ export const OFFERS_NUMBER = 10;
 
 export const offers = [
   {
+    id: 1,
     name: `Beautiful & luxurious apartment at great location`,
     type: `Apartment`,
     bedrooms: 3,
@@ -25,9 +26,71 @@ export const offers = [
       name: `Angelina`,
       superStar: true
     },
-    coordinates: [52.3909553943508, 4.85309666406198]
+    coordinates: [52.3909553943508, 4.85309666406198],
+    reviews: [
+      {
+        id: 1,
+        name: `Max`,
+        avatar: `img/avatar-max.jpg`,
+        rating: 4,
+        text: `A quiet cozy and picturesque that hides behind a a river by
+        the unique lightness of Amsterdam. The building is green and
+        from 18th century.`,
+        date: `2019-04-24`
+      },
+      {
+        id: 2,
+        name: `Alex`,
+        avatar: `img/avatar-max.jpg`,
+        rating: 2,
+        text: `A quiet cozy and picturesque that hides behind a a river by
+        the unique lightness of Amsterdam. The building is green and
+        from 18th century.`,
+        date: `2019-03-24`
+      },
+      {
+        id: 3,
+        name: `John`,
+        avatar: `img/avatar-max.jpg`,
+        rating: 5,
+        text: `A quiet cozy and picturesque that hides behind a a river by
+        the unique lightness of Amsterdam. The building is green and
+        from 18th century.`,
+        date: `2019-02-24`
+      }
+    ],
+    nearbyOffers: [
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.369553943508, 4.85309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3909553943508, 4.929309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3809553943508, 4.939309666406198]
+      },
+    ]
   },
   {
+    id: 2,
     name: `Wood and stone place`,
     type: `Private room`,
     bedrooms: 1,
@@ -51,9 +114,71 @@ export const offers = [
       name: `Angelina`,
       superStar: true
     },
-    coordinates: [52.369553943508, 4.85309666406198]
+    coordinates: [52.369553943508, 4.85309666406198],
+    reviews: [
+      {
+        id: 1,
+        name: `Max`,
+        avatar: `img/avatar-max.jpg`,
+        rating: 4,
+        text: `A quiet cozy and picturesque that hides behind a a river by
+        the unique lightness of Amsterdam. The building is green and
+        from 18th century.`,
+        date: `2019-04-24`
+      },
+      {
+        id: 2,
+        name: `Alex`,
+        avatar: `img/avatar-max.jpg`,
+        rating: 2,
+        text: `A quiet cozy and picturesque that hides behind a a river by
+        the unique lightness of Amsterdam. The building is green and
+        from 18th century.`,
+        date: `2019-03-24`
+      },
+      {
+        id: 3,
+        name: `John`,
+        avatar: `img/avatar-max.jpg`,
+        rating: 5,
+        text: `A quiet cozy and picturesque that hides behind a a river by
+        the unique lightness of Amsterdam. The building is green and
+        from 18th century.`,
+        date: `2019-02-24`
+      }
+    ],
+    nearbyOffers: [
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.369553943508, 4.85309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3909553943508, 4.929309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3809553943508, 4.939309666406198]
+      },
+    ]
   },
   {
+    id: 3,
     name: `Canal View Prinsengracht`,
     type: `Apartment`,
     bedrooms: 2,
@@ -77,9 +202,71 @@ export const offers = [
       name: `Angelina`,
       superStar: true
     },
-    coordinates: [52.3909553943508, 4.929309666406198]
+    coordinates: [52.3909553943508, 4.929309666406198],
+    reviews: [
+      {
+        id: 1,
+        name: `Max`,
+        avatar: `img/avatar-max.jpg`,
+        rating: 4,
+        text: `A quiet cozy and picturesque that hides behind a a river by
+        the unique lightness of Amsterdam. The building is green and
+        from 18th century.`,
+        date: `2019-04-24`
+      },
+      {
+        id: 2,
+        name: `Alex`,
+        avatar: `img/avatar-max.jpg`,
+        rating: 2,
+        text: `A quiet cozy and picturesque that hides behind a a river by
+        the unique lightness of Amsterdam. The building is green and
+        from 18th century.`,
+        date: `2019-03-24`
+      },
+      {
+        id: 3,
+        name: `John`,
+        avatar: `img/avatar-max.jpg`,
+        rating: 5,
+        text: `A quiet cozy and picturesque that hides behind a a river by
+        the unique lightness of Amsterdam. The building is green and
+        from 18th century.`,
+        date: `2019-02-24`
+      }
+    ],
+    nearbyOffers: [
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.369553943508, 4.85309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3909553943508, 4.929309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3809553943508, 4.939309666406198]
+      },
+    ]
   },
   {
+    id: 4,
     name: `Nice, cozy, warm big bed apartment`,
     type: `Apartment`,
     bedrooms: 3,
@@ -103,6 +290,67 @@ export const offers = [
       name: `Angelina`,
       superStar: true
     },
-    coordinates: [52.3809553943508, 4.939309666406198]
+    coordinates: [52.3809553943508, 4.939309666406198],
+    reviews: [
+      {
+        id: 1,
+        name: `Max`,
+        avatar: `img/avatar-max.jpg`,
+        rating: 4,
+        text: `A quiet cozy and picturesque that hides behind a a river by
+        the unique lightness of Amsterdam. The building is green and
+        from 18th century.`,
+        date: `2019-04-24`
+      },
+      {
+        id: 2,
+        name: `Alex`,
+        avatar: `img/avatar-max.jpg`,
+        rating: 2,
+        text: `A quiet cozy and picturesque that hides behind a a river by
+        the unique lightness of Amsterdam. The building is green and
+        from 18th century.`,
+        date: `2019-03-24`
+      },
+      {
+        id: 3,
+        name: `John`,
+        avatar: `img/avatar-max.jpg`,
+        rating: 5,
+        text: `A quiet cozy and picturesque that hides behind a a river by
+        the unique lightness of Amsterdam. The building is green and
+        from 18th century.`,
+        date: `2019-02-24`
+      }
+    ],
+    nearbyOffers: [
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.369553943508, 4.85309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3909553943508, 4.929309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3809553943508, 4.939309666406198]
+      },
+    ]
   },
 ];
