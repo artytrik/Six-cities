@@ -60,9 +60,33 @@ export const offers = [
       }
     ],
     nearbyOffers: [
-      [52.369553943508, 4.85309666406198],
-      [52.3909553943508, 4.929309666406198],
-      [52.3809553943508, 4.939309666406198]
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.369553943508, 4.85309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3909553943508, 4.929309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3809553943508, 4.939309666406198]
+      },
     ]
   },
   {
@@ -124,9 +148,33 @@ export const offers = [
       }
     ],
     nearbyOffers: [
-      [52.3909553943508, 4.85309666406198],
-      [52.3909553943508, 4.929309666406198],
-      [52.3809553943508, 4.939309666406198]
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.369553943508, 4.85309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3909553943508, 4.929309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3809553943508, 4.939309666406198]
+      },
     ]
   },
   {
@@ -188,9 +236,33 @@ export const offers = [
       }
     ],
     nearbyOffers: [
-      [52.3909553943508, 4.85309666406198],
-      [52.369553943508, 4.85309666406198],
-      [52.3809553943508, 4.939309666406198]
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.369553943508, 4.85309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3909553943508, 4.929309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3809553943508, 4.939309666406198]
+      },
     ]
   },
   {
@@ -252,9 +324,33 @@ export const offers = [
       }
     ],
     nearbyOffers: [
-      [52.3909553943508, 4.85309666406198],
-      [52.369553943508, 4.85309666406198],
-      [52.3809553943508, 4.939309666406198]
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.369553943508, 4.85309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3909553943508, 4.929309666406198]
+      },
+      {
+        name: `Beatiful flat`,
+        type: `Apartment`,
+        price: 120,
+        picture: `img/apartment-01.jpg`,
+        premium: true,
+        rating: 4,
+        coordinates: [52.3809553943508, 4.939309666406198]
+      },
     ]
   },
 ];

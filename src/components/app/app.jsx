@@ -24,6 +24,7 @@ class App extends React.PureComponent {
     if (activeOffer) {
       return <OfferInformation
         offer={activeOffer}
+        onHeaderClick={this._handleHeaderClick}
       />;
     }
 
@@ -46,6 +47,7 @@ class App extends React.PureComponent {
           <Route exact path="/offer-information">
             <OfferInformation
               offer={offers[0]}
+              onHeaderClick={this._handleHeaderClick}
             />
           </Route>
         </Switch>

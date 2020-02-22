@@ -91,6 +91,7 @@ const Main = (props) => {
                 </ul>
               </form>
               <OffersList
+                className="cities__places-list tabs__content"
                 offers={offers}
                 onHeaderClick={onHeaderClick}
               />

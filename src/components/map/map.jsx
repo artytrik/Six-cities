@@ -53,9 +53,9 @@ class Map extends React.PureComponent {
 }
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
-  })).isRequired
+  coordinates: PropTypes.arrayOf(
+      PropTypes.arrayOf(
+          PropTypes.number.isRequired).isRequired).isRequired
 };
 
 export default Map;
