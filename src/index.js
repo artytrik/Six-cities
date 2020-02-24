@@ -4,7 +4,6 @@ import App from './components/app/app.jsx';
 import {createStore} from 'redux';
 import {reducer} from './reducer.js';
 import {Provider} from 'react-redux';
-import {OFFERS_NUMBER} from './mocks/offers.js';
 
 const store = createStore(
     reducer,
@@ -13,9 +12,7 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-      <App
-        offersNumber={OFFERS_NUMBER}
-      />
+      <App />
     </Provider>,
     document.querySelector(`#root`)
 );

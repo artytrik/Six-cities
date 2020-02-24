@@ -1,5 +1,3 @@
-export const OFFERS_NUMBER = 10;
-
 export const offers = [
   {
     id: 1,

@@ -19,7 +19,7 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    const {offersNumber, offers} = this.props;
+    const {offers, city} = this.props;
     const activeOffer = this.state;
 
     if (activeOffer) {
@@ -30,9 +30,9 @@ class App extends React.PureComponent {
     }
 
     return <Main
-      offersNumber={offersNumber}
       offers={offers}
       onHeaderClick={this._handleHeaderClick}
+      city={city}
     />;
   }
 
@@ -58,12 +58,12 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  offersNumber: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.currentOffers
+  offers: state.currentOffers,
+  city: state.city
 });
 
 export {App};

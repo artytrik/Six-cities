@@ -5,7 +5,7 @@ import Map from '../map/map.jsx';
 import CitiesList from '../cities-list/cities-list.jsx';
 
 const Main = (props) => {
-  const {offersNumber, offers, onHeaderClick} = props;
+  const {offers, onHeaderClick, city} = props;
   const coordinates = offers.map((offer) => offer.coordinates);
 
   return (
@@ -46,7 +46,7 @@ const Main = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersNumber} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -83,7 +83,6 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  offersNumber: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
   onHeaderClick: PropTypes.func.isRequired
 };
