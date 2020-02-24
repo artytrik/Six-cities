@@ -3,6 +3,7 @@ export const OFFERS_NUMBER = 10;
 export const offers = [
   {
     id: 1,
+    city: `Amsterdam`,
     name: `Beautiful & luxurious apartment at great location`,
     type: `Apartment`,
     bedrooms: 3,
@@ -91,6 +92,7 @@ export const offers = [
   },
   {
     id: 2,
+    city: `Amsterdam`,
     name: `Wood and stone place`,
     type: `Private room`,
     bedrooms: 1,
@@ -179,6 +181,7 @@ export const offers = [
   },
   {
     id: 3,
+    city: `Moscow`,
     name: `Canal View Prinsengracht`,
     type: `Apartment`,
     bedrooms: 2,
@@ -267,6 +270,7 @@ export const offers = [
   },
   {
     id: 4,
+    city: `Vladvivostok`,
     name: `Nice, cozy, warm big bed apartment`,
     type: `Apartment`,
     bedrooms: 3,

@@ -10,6 +10,9 @@ const ActionType = {
   GET_OFFERS: `GET_OFFERS`
 };
 
+const getOffersByCity = (city, offers) =>
+  offers.filter((offer) => offer.city === city);
+
 const ActionCreator = {
   changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
