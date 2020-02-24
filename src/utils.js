@@ -6,3 +6,7 @@ export const starRating = new Map([
   [4, `80%`],
   [5, `100%`]
 ]);
+
+export const extend = (a, b) => {
+  return Object.assign({}, a, b);
+};
