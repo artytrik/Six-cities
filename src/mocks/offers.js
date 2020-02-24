@@ -270,7 +270,7 @@ export const offers = [
   },
   {
     id: 4,
-    city: `Vladvivostok`,
+    city: `Vladivostok`,
     name: `Nice, cozy, warm big bed apartment`,
     type: `Apartment`,
     bedrooms: 3,
