@@ -1,33 +1,28 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer.js';
 
 class CitiesList extends React.PureComponent {
   constructor(props) {
     super(props);
-
-    this._getCities = this._getCities.bind(this);
-  }
-
-  _getCities() {
-    const {offers} = this.props;
-    const cities = new Set();
-    offers.forEach((offer) => {
-      cities.add(offer.city);
-    });
-
-    const maxCities = [...cities].slice(0, 6);
-
-    return maxCities;
   }
 
   render() {
+    const {onCityClick, city: activeCity, cities} = this.props;
+
     return <ul className="locations__list tabs__list">
-      {this._getCities().map((city) => {
+      {cities.map((city) => {
+        const className = `locations__item-link tabs__item ${(city === activeCity) && `tabs__item--active`}`;
         return (
           <li
             className="locations__item"
             key={city}
           >
-            <a className="locations__item-link tabs__item" href="#">
+            <a
+              className={className}
+              href="#"
+              onClick={onCityClick}
+            >
               <span>{city}</span>
             </a>
           </li>
@@ -37,4 +32,18 @@ class CitiesList extends React.PureComponent {
   }
 }
 
-export default CitiesList;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  cities: state.cities
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCityClick(evt) {
+    evt.preventDefault();
+    dispatch(ActionCreator.changeCity(evt.target.textContent));
+    dispatch(ActionCreator.getOffers());
+  },
+});
+
+export {CitiesList};
+export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);

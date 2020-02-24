@@ -1,8 +1,25 @@
 import {extend} from './utils.js';
+import {offers} from './mocks/offers.js';
+
+const getOffersByCity = (city, offers) =>
+  offers.filter((offer) => offer.city === city);
+
+const getCities = () => {
+  const cities = new Set();
+  offers.forEach((offer) => {
+    cities.add(offer.city);
+  });
+
+  const maxCities = [...cities].slice(0, 6);
+
+  return maxCities;
+};
 
 const initialState = {
   city: `Amsterdam`,
-  offers: []
+  cities: getCities(),
+  offers,
+  currentOffers: getOffersByCity(`Amsterdam`, offers)
 };
 
 const ActionType = {
@@ -10,17 +27,14 @@ const ActionType = {
   GET_OFFERS: `GET_OFFERS`
 };
 
-const getOffersByCity = (city, offers) =>
-  offers.filter((offer) => offer.city === city);
-
 const ActionCreator = {
   changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
     payload: city
   }),
-  getOffers: (offers) => ({
+  getOffers: () => ({
     type: ActionType.GET_OFFERS,
-    payload: offers
+    payload: null
   })
 };
 
@@ -32,7 +46,7 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.GET_OFFERS:
       return extend(state, {
-        offers: action.payload
+        currentOffers: getOffersByCity(state.city, state.offers)
       });
   }
 

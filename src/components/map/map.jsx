@@ -45,6 +45,10 @@ class Map extends React.PureComponent {
     }
   }
 
+  componentWillUnmount() {
+
+  }
+
   render() {
     return (
       <div ref={this._mapRef} id="map" style={{height: `100%`}}></div>

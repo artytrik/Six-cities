@@ -3,6 +3,7 @@ import Main from '../main/main.jsx';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import OfferInformation from '../offer-information/offer-information.jsx';
+import {connect} from 'react-redux';
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -61,4 +62,9 @@ App.propTypes = {
   offers: PropTypes.array.isRequired
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  offers: state.currentOffers
+});
+
+export {App};
+export default connect(mapStateToProps)(App);
