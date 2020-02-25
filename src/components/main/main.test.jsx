@@ -1,6 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Main from './main.jsx';
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
+
+const mockStore = configureStore([]);
 
 const offers = [
   {
@@ -41,14 +45,25 @@ const offers = [
   },
 ];
 
+const city = `Amsterdam`;
+const cities = [`Amsterdam`, `Moscow`, `Vladivostok`];
+
 it(`Main should render correctly`, () => {
+  const store = mockStore({});
+
   const tree = renderer
-    .create(<Main
-      offersNumber={3}
-      offers={offers}
-      onHeaderClick={jest.fn()}
-    />)
-    .toJSON();
+    .create(<Provider store={store}>
+      <Main
+        city={city}
+        offers={offers}
+        onHeaderClick={jest.fn()}
+        cities={cities}
+      />
+    </Provider>, {
+      createNodeMock: () => {
+        return document.createElement(`div`);
+      }
+    }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

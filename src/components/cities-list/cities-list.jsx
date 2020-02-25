@@ -39,11 +39,6 @@ CitiesList.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
-const mapStateToProps = (state) => ({
-  city: state.city,
-  cities: state.cities
-});
-
 const mapDispatchToProps = (dispatch) => ({
   onCityClick(evt) {
     evt.preventDefault();
@@ -53,4 +48,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {CitiesList};
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);
+export default connect(null, mapDispatchToProps)(CitiesList);
