@@ -84,7 +84,8 @@ const Main = (props) => {
 
 Main.propTypes = {
   offers: PropTypes.array.isRequired,
-  onHeaderClick: PropTypes.func.isRequired
+  onHeaderClick: PropTypes.func.isRequired,
+  city: PropTypes.string.isRequired
 };
 
 export default Main;

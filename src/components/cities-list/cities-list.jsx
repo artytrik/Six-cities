@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer.js';
+import PropTypes from 'prop-types';
 
 class CitiesList extends React.PureComponent {
   constructor(props) {
@@ -31,6 +32,12 @@ class CitiesList extends React.PureComponent {
     </ul>;
   }
 }
+
+CitiesList.propTypes = {
+  onCityClick: PropTypes.func.isRequired,
+  city: PropTypes.string.isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+};
 
 const mapStateToProps = (state) => ({
   city: state.city,

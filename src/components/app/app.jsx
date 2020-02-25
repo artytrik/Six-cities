@@ -58,7 +58,8 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  offers: PropTypes.array.isRequired
+  offers: PropTypes.array.isRequired,
+  city: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({

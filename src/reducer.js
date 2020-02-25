@@ -1,8 +1,8 @@
 import {extend} from './utils.js';
 import {offers} from './mocks/offers.js';
 
-const getOffersByCity = (city, offers) =>
-  offers.filter((offer) => offer.city === city);
+const getOffersByCity = (city, allOffers) =>
+  allOffers.filter((offer) => offer.city === city);
 
 const getCities = () => {
   const cities = new Set();

@@ -9,6 +9,7 @@ const ICON = leaflet.icon({
   iconUrl: `img/pin.svg`,
   iconSize: ICON_SIZE
 });
+
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -41,9 +42,7 @@ class Map extends React.PureComponent {
       this._layerGroup = leaflet.layerGroup().addTo(this._map);
 
       coordinates.map((coordinate) => {
-        leaflet
-        .marker(coordinate, {ICON})
-        .addTo(this._layerGroup);
+        leaflet.marker(coordinate, {icon: ICON}).addTo(this._layerGroup);
       });
     }
   }
@@ -54,7 +53,7 @@ class Map extends React.PureComponent {
     this._layerGroup.clearLayers();
     coordinates.map((coordinate) => {
       leaflet
-      .marker(coordinate, {ICON})
+      .marker(coordinate, {icon: ICON})
       .addTo(this._layerGroup);
     });
   }
