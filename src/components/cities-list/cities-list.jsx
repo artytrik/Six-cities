@@ -1,6 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer.js';
 import PropTypes from 'prop-types';
 
 class CitiesList extends React.PureComponent {
@@ -22,7 +20,7 @@ class CitiesList extends React.PureComponent {
             <a
               className={className}
               href="#"
-              onClick={onCityClick}
+              onClick={(evt) => onCityClick(evt, city)}
             >
               <span>{city}</span>
             </a>
@@ -39,13 +37,4 @@ CitiesList.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onCityClick(evt) {
-    evt.preventDefault();
-    dispatch(ActionCreator.changeCity(evt.target.textContent));
-    dispatch(ActionCreator.getOffers());
-  },
-});
-
-export {CitiesList};
-export default connect(null, mapDispatchToProps)(CitiesList);
+export default CitiesList;

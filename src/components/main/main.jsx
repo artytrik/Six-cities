@@ -5,7 +5,7 @@ import Map from '../map/map.jsx';
 import CitiesList from '../cities-list/cities-list.jsx';
 
 const Main = (props) => {
-  const {offers, onHeaderClick, city, cities} = props;
+  const {offers, onHeaderClick, city, cities, onCityClick} = props;
   const coordinates = offers.map((offer) => offer.coordinates);
 
   return (
@@ -41,6 +41,7 @@ const Main = (props) => {
               offers={offers}
               city={city}
               cities={cities}
+              onCityClick={onCityClick}
             />
           </section>
         </div>
@@ -88,7 +89,8 @@ Main.propTypes = {
   offers: PropTypes.array.isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   city: PropTypes.string.isRequired,
-  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  onCityClick: PropTypes.func.isRequired
 };
 
 export default Main;

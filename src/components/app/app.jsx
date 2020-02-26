@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import OfferInformation from '../offer-information/offer-information.jsx';
 import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer.js';
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -19,7 +20,7 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    const {offers, city, cities} = this.props;
+    const {offers, city, cities, onCityClick} = this.props;
     const activeOffer = this.state;
 
     if (activeOffer) {
@@ -34,6 +35,7 @@ class App extends React.PureComponent {
       onHeaderClick={this._handleHeaderClick}
       city={city}
       cities={cities}
+      onCityClick={onCityClick}
     />;
   }
 
@@ -61,7 +63,8 @@ class App extends React.PureComponent {
 App.propTypes = {
   offers: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
-  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  onCityClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -70,5 +73,13 @@ const mapStateToProps = (state) => ({
   cities: state.cities
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onCityClick(evt, city) {
+    evt.preventDefault();
+    dispatch(ActionCreator.changeCity(city));
+    dispatch(ActionCreator.getOffers(city));
+  },
+});
+
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

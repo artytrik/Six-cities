@@ -125,6 +125,7 @@ it(`App should render correctly`, () => {
         city={city}
         cities={cities}
         offers={offers}
+        onCityClick={() => {}}
       />
     </Provider>, {
       createNodeMock: () => {

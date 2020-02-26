@@ -16,10 +16,10 @@ const getCities = () => {
 };
 
 const initialState = {
-  city: `Amsterdam`,
+  city: offers[0].city,
   cities: getCities(),
   offers,
-  currentOffers: getOffersByCity(`Amsterdam`, offers)
+  currentOffers: getOffersByCity(offers[0].city, offers)
 };
 
 const ActionType = {
@@ -32,9 +32,9 @@ const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: city
   }),
-  getOffers: () => ({
+  getOffers: (city) => ({
     type: ActionType.GET_OFFERS,
-    payload: null
+    payload: city
   })
 };
 
@@ -46,7 +46,7 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.GET_OFFERS:
       return extend(state, {
-        currentOffers: getOffersByCity(state.city, state.offers)
+        currentOffers: getOffersByCity(action.payload, state.offers)
       });
   }
 

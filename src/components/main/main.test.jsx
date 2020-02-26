@@ -56,8 +56,9 @@ it(`Main should render correctly`, () => {
       <Main
         city={city}
         offers={offers}
-        onHeaderClick={jest.fn()}
+        onHeaderClick={() => {}}
         cities={cities}
+        onCityClick={() => {}}
       />
     </Provider>, {
       createNodeMock: () => {
