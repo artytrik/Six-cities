@@ -1,6 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app.jsx';
+import {App} from './app.jsx';
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
+
+const mockStore = configureStore([]);
 
 const offers = [
   {
@@ -109,13 +113,25 @@ const offers = [
   },
 ];
 
+const city = `Amsterdam`;
+const cities = [`Amsterdam`, `Moscow`, `Vladivostok`];
+
 it(`App should render correctly`, () => {
+  const store = mockStore({});
+
   const tree = renderer
-    .create(<App
-      offersNumber={3}
-      offers={offers}
-    />)
-    .toJSON();
+    .create(<Provider store={store}>
+      <App
+        city={city}
+        cities={cities}
+        offers={offers}
+        onCityClick={() => {}}
+      />
+    </Provider>, {
+      createNodeMock: () => {
+        return document.createElement(`div`);
+      }
+    }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

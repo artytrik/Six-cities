@@ -2,6 +2,14 @@ import React from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
 
+const ZOOM = 12;
+const ICON_SIZE = [30, 30];
+
+const ICON = leaflet.icon({
+  iconUrl: `img/pin.svg`,
+  iconSize: ICON_SIZE
+});
+
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -17,32 +25,41 @@ class Map extends React.PureComponent {
 
       const city = [52.38333, 4.9];
 
-      const icon = leaflet.icon({
-        iconUrl: `img/pin.svg`,
-        iconSize: [30, 30]
-      });
-
-      const zoom = 12;
-      const map = leaflet.map(mapRef, {
+      this._map = leaflet.map(mapRef, {
         center: city,
-        zoom,
+        ZOOM,
         zoomControl: false,
         marker: true
       });
-      map.setView(city, zoom);
+      this._map.setView(city, ZOOM);
 
       leaflet
         .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
           attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
         })
-        .addTo(map);
+        .addTo(this._map);
+
+      this._layerGroup = leaflet.layerGroup().addTo(this._map);
 
       coordinates.map((coordinate) => {
-        leaflet
-        .marker(coordinate, {icon})
-        .addTo(map);
+        leaflet.marker(coordinate, {icon: ICON}).addTo(this._layerGroup);
       });
     }
+  }
+
+  componentDidUpdate() {
+    const {coordinates} = this.props;
+
+    this._layerGroup.clearLayers();
+    coordinates.map((coordinate) => {
+      leaflet
+      .marker(coordinate, {icon: ICON})
+      .addTo(this._layerGroup);
+    });
+  }
+
+  componentWillUnmount() {
+    this._map.remove();
   }
 
   render() {

@@ -1,4 +1,6 @@
-export const offers = [
+import {reducer, ActionType, ActionCreator} from './reducer.js';
+
+const offers = [
   {
     id: 1,
     city: `Amsterdam`,
@@ -356,3 +358,63 @@ export const offers = [
     ]
   },
 ];
+
+
+it(`Reducer without additional parameters should return initial state`, () => {
+  expect(reducer(void 0, {})).toEqual({
+    city: offers[0].city,
+    cities: [`Amsterdam`, `Moscow`, `Vladivostok`],
+    offers,
+    currentOffers: [offers[0], offers[1]]
+  });
+});
+
+it(`Reducer should change city by a given city`, () => {
+  expect(reducer({
+    city: offers[0].city,
+    cities: [`Amsterdam`, `Moscow`, `Vladivostok`],
+    offers,
+    currentOffers: [offers[0], offers[1]]
+  }, {
+    type: ActionType.CHANGE_CITY,
+    payload: `Moscow`,
+  })).toEqual({
+    city: `Moscow`,
+    cities: [`Amsterdam`, `Moscow`, `Vladivostok`],
+    offers,
+    currentOffers: [offers[0], offers[1]]
+  });
+});
+
+it(`Reducer should get offers by a given offers`, () => {
+  expect(reducer({
+    city: offers[2].city,
+    cities: [`Amsterdam`, `Moscow`, `Vladivostok`],
+    offers,
+    currentOffers: [offers[0], offers[1]]
+  }, {
+    type: ActionType.GET_OFFERS,
+    payload: offers[2].city,
+  })).toEqual({
+    city: offers[2].city,
+    cities: [`Amsterdam`, `Moscow`, `Vladivostok`],
+    offers,
+    currentOffers: [offers[2]]
+  });
+});
+
+describe(`Action creators work correctly`, () => {
+  it(`Action creator for changing city returns correct action`, () => {
+    expect(ActionCreator.changeCity(`Moscow`)).toEqual({
+      type: ActionType.CHANGE_CITY,
+      payload: `Moscow`
+    });
+  });
+
+  it(`Action creator for getting offers returns correct action`, () => {
+    expect(ActionCreator.getOffers(`Moscow`)).toEqual({
+      type: ActionType.GET_OFFERS,
+      payload: `Moscow`
+    });
+  });
+});
