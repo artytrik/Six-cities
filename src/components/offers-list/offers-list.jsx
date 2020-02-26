@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card.jsx';
+import {SortType} from '../../utils.js';
 
 class OffersList extends React.PureComponent {
   constructor(props) {
@@ -9,6 +10,20 @@ class OffersList extends React.PureComponent {
     this.state = {};
 
     this._handleMouseHover = this._handleMouseHover.bind(this);
+    this._getSortedOffers = this._getSortedOffers.bind(this);
+  }
+
+  _getSortedOffers(offers, currentSortType) {
+    switch (currentSortType) {
+      case SortType.PRICE_LOW_TO_HIGH:
+        return offers.slice().sort((a, b) => a.price - b.price);
+      case SortType.PRICE_HIGH_TO_LOW:
+        return offers.slice().sort((a, b) => b.price - a.price);
+      case SortType.TOP_RATED:
+        return offers.slice().sort((a, b) => b.rating - a.rating);
+    }
+
+    return offers;
   }
 
   _handleMouseHover(offer) {
@@ -16,11 +31,12 @@ class OffersList extends React.PureComponent {
   }
 
   render() {
-    const {offers, onHeaderClick, className} = this.props;
+    const {offers, onHeaderClick, className, currentSortType} = this.props;
+    const sortedOffers = this._getSortedOffers(offers, currentSortType);
 
     return (
       <div className={`${className} places__list`}>
-        {offers.map((offer, i) => (
+        {sortedOffers.map((offer, i) => (
           <OfferCard
             key={`offer-${i}`}
             offer={offer}

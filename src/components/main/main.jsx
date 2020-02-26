@@ -6,7 +6,7 @@ import CitiesList from '../cities-list/cities-list.jsx';
 import SortingOptions from '../sorting-options/sorting-options.jsx';
 
 const Main = (props) => {
-  const {offers, onHeaderClick, city, cities, onCityClick} = props;
+  const {offers, onHeaderClick, city, cities, onCityClick, onSortTypeClick, currentSortType} = props;
   const coordinates = offers.map((offer) => offer.coordinates);
 
   return (
@@ -51,11 +51,15 @@ const Main = (props) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in {city}</b>
-              <SortingOptions />
+              <SortingOptions
+                currentSortType={currentSortType}
+                onSortTypeClick={onSortTypeClick}
+              />
               <OffersList
                 className="cities__places-list tabs__content"
                 offers={offers}
                 onHeaderClick={onHeaderClick}
+                currentSortType={currentSortType}
               />
             </section>
             <div className="cities__right-section">

@@ -20,7 +20,7 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    const {offers, city, cities, onCityClick} = this.props;
+    const {offers, city, cities, onCityClick, onSortTypeClick, currentSortType} = this.props;
     const activeOffer = this.state;
 
     if (activeOffer) {
@@ -36,6 +36,8 @@ class App extends React.PureComponent {
       city={city}
       cities={cities}
       onCityClick={onCityClick}
+      currentSortType={currentSortType}
+      onSortTypeClick={onSortTypeClick}
     />;
   }
 
@@ -70,7 +72,8 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   offers: state.currentOffers,
   city: state.city,
-  cities: state.cities
+  cities: state.cities,
+  currentSortType: state.currentSortType
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -79,6 +82,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeCity(city));
     dispatch(ActionCreator.getOffers(city));
   },
+  onSortTypeClick(sortType) {
+    dispatch(ActionCreator.changeSortType(sortType));
+  }
 });
 
 export {App};

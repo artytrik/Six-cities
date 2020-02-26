@@ -1,23 +1,15 @@
 import React from 'react';
-
-const SortType = {
-  POPULAR: `Popular`,
-  PRICE_LOW_TO_HIGH: `Price: low to high`,
-  PRICE_HIGH_TO_LOW: `Price: high to low`,
-  TOP_RATED: `Top rated first`
-};
+import {SortType} from '../../utils.js';
 
 class SortingOptions extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentSortType: SortType.POPULAR,
       isOpened: false
     };
 
     this._handleSortClick = this._handleSortClick.bind(this);
-    this._handleSortTypeClick = this._handleSortTypeClick.bind(this);
   }
 
   _handleSortClick() {
@@ -26,14 +18,9 @@ class SortingOptions extends React.PureComponent {
     });
   }
 
-  _handleSortTypeClick(sortType) {
-    this.setState({
-      currentSortType: sortType
-    });
-  }
-
   render() {
-    const {currentSortType, isOpened} = this.state;
+    const {currentSortType, onSortTypeClick} = this.props;
+    const {isOpened} = this.state;
     return (
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
@@ -59,7 +46,7 @@ class SortingOptions extends React.PureComponent {
                 className={`places__option
                   ${(item === currentSortType) && `places__option--active`}`}
                 tabIndex="0"
-                onClick={() => this._handleSortTypeClick(item)}
+                onClick={() => onSortTypeClick(item)}
               >
                 {item}
               </li>
