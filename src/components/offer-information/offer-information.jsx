@@ -6,7 +6,7 @@ import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 
 const OfferInformation = (props) => {
-  const {offer, onHeaderClick} = props;
+  const {offer, onHeaderClick, onCardHover, currentSortType} = props;
   const {name, type, price, premium, gallery, rating, bedrooms, adults,
     description, inside, user, reviews, nearbyOffers} = offer;
   const nearbyCoordinates = nearbyOffers.map((nearbyOffer) => nearbyOffer.coordinates);
@@ -260,6 +260,8 @@ const OfferInformation = (props) => {
               className="near-places__list"
               offers={nearbyOffers}
               onHeaderClick={onHeaderClick}
+              onCardHover={onCardHover}
+              currentSortType={currentSortType}
             />
           </section>
         </div>
@@ -292,7 +294,9 @@ OfferInformation.propTypes = {
     reviews: PropTypes.array,
     nearbyOffers: PropTypes.array
   }).isRequired,
-  onHeaderClick: PropTypes.func.isRequired
+  onHeaderClick: PropTypes.func.isRequired,
+  onCardHover: PropTypes.func.isRequired,
+  currentSortType: PropTypes.string.isRequired
 };
 
 export default OfferInformation;

@@ -54,6 +54,8 @@ it(`OfferInformation should render correctly`, () => {
     .create(<OfferInformation
       offer={offer}
       onHeaderClick={() => {}}
+      currentSortType={`Popular`}
+      onCardHover={() => {}}
     />)
     .toJSON();
 

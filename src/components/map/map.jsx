@@ -78,7 +78,7 @@ Map.propTypes = {
   coordinates: PropTypes.arrayOf(
       PropTypes.arrayOf(
           PropTypes.number.isRequired).isRequired).isRequired,
-  currentCard: PropTypes.object.isRequired
+  currentCard: PropTypes.object
 };
 
 export default Map;

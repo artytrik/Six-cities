@@ -36,6 +36,8 @@ class App extends React.PureComponent {
       return <OfferInformation
         offer={activeOffer}
         onHeaderClick={this._handleHeaderClick}
+        currentSortType={currentSortType}
+        onCardHover={onCardHover}
       />;
     }
 
@@ -53,7 +55,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, currentSortType, onCardHover} = this.props;
 
     return (
       <BrowserRouter>
@@ -65,6 +67,8 @@ class App extends React.PureComponent {
             <OfferInformation
               offer={offers[0]}
               onHeaderClick={this._handleHeaderClick}
+              currentSortType={currentSortType}
+              onCardHover={onCardHover}
             />
           </Route>
         </Switch>
@@ -81,7 +85,7 @@ App.propTypes = {
   onSortTypeClick: PropTypes.func.isRequired,
   currentSortType: PropTypes.string.isRequired,
   onCardHover: PropTypes.func.isRequired,
-  currentCard: PropTypes.object.isRequired
+  currentCard: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({

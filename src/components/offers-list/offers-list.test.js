@@ -43,6 +43,8 @@ it(`OffersList should render correctly`, () => {
       offers={offers}
       onHeaderClick={jest.fn()}
       className="places"
+      currentSortType={`Popular`}
+      onCardHover={() => {}}
     />)
     .toJSON();
 

@@ -97,7 +97,7 @@ Main.propTypes = {
   onSortTypeClick: PropTypes.func.isRequired,
   currentSortType: PropTypes.string.isRequired,
   onCardHover: PropTypes.func.isRequired,
-  currentCard: PropTypes.object.isRequired
+  currentCard: PropTypes.object
 };
 
 export default Main;

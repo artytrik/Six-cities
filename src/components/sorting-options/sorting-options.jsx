@@ -36,16 +36,14 @@ class SortingOptions extends React.PureComponent {
           </svg>
         </span>
         <ul
-          className={`places__options places__options--custom
-            ${isOpened && `places__options--opened`}`}
+          className={`places__options places__options--custom${isOpened ? ` places__options--opened` : ``}`}
           onClick={this._handleSortClick}
         >
           {Object.values(SortType).map((item, i) => {
             return (
               <li
                 key={`item-${i}`}
-                className={`places__option
-                  ${(item === currentSortType) && `places__option--active`}`}
+                className={`places__option${(item === currentSortType) ? ` places__option--active` : ``}`}
                 tabIndex="0"
                 onClick={() => onSortTypeClick(item)}
               >
