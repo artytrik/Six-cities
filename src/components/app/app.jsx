@@ -20,7 +20,16 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    const {offers, city, cities, onCityClick, onSortTypeClick, currentSortType} = this.props;
+    const {
+      offers,
+      city,
+      cities,
+      onCityClick,
+      onSortTypeClick,
+      currentSortType,
+      onCardHover,
+      currentCard
+    } = this.props;
     const activeOffer = this.state;
 
     if (activeOffer) {
@@ -38,6 +47,8 @@ class App extends React.PureComponent {
       onCityClick={onCityClick}
       currentSortType={currentSortType}
       onSortTypeClick={onSortTypeClick}
+      onCardHover={onCardHover}
+      currentCard={currentCard}
     />;
   }
 
@@ -73,7 +84,8 @@ const mapStateToProps = (state) => ({
   offers: state.currentOffers,
   city: state.city,
   cities: state.cities,
-  currentSortType: state.currentSortType
+  currentSortType: state.currentSortType,
+  currentCard: state.currentCard
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -84,6 +96,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSortTypeClick(sortType) {
     dispatch(ActionCreator.changeSortType(sortType));
+  },
+  onCardHover(offer) {
+    dispatch(ActionCreator.setCurrentCard(offer));
   }
 });
 

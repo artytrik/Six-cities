@@ -10,6 +10,7 @@ const OfferCard = (props) => {
   return (
     <article className="cities__place-card place-card"
       onMouseEnter={() => (onMouseHover(offer))}
+      onMouseLeave={() => (onMouseHover(null))}
     >
       {premium &&
         <div className="place-card__mark">

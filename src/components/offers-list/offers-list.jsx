@@ -7,9 +7,6 @@ class OffersList extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {};
-
-    this._handleMouseHover = this._handleMouseHover.bind(this);
     this._getSortedOffers = this._getSortedOffers.bind(this);
   }
 
@@ -26,12 +23,14 @@ class OffersList extends React.PureComponent {
     return offers;
   }
 
-  _handleMouseHover(offer) {
-    this.setState(offer);
-  }
-
   render() {
-    const {offers, onHeaderClick, className, currentSortType} = this.props;
+    const {
+      offers,
+      onHeaderClick,
+      className,
+      currentSortType,
+      onCardHover
+    } = this.props;
     const sortedOffers = this._getSortedOffers(offers, currentSortType);
 
     return (
@@ -40,7 +39,7 @@ class OffersList extends React.PureComponent {
           <OfferCard
             key={`offer-${i}`}
             offer={offer}
-            onMouseHover={this._handleMouseHover}
+            onMouseHover={onCardHover}
             onHeaderClick={onHeaderClick}
           />
         ))}

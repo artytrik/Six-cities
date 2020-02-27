@@ -6,7 +6,17 @@ import CitiesList from '../cities-list/cities-list.jsx';
 import SortingOptions from '../sorting-options/sorting-options.jsx';
 
 const Main = (props) => {
-  const {offers, onHeaderClick, city, cities, onCityClick, onSortTypeClick, currentSortType} = props;
+  const {
+    offers,
+    onHeaderClick,
+    city,
+    cities,
+    onCityClick,
+    onSortTypeClick,
+    currentSortType,
+    onCardHover,
+    currentCard
+  } = props;
   const coordinates = offers.map((offer) => offer.coordinates);
 
   return (
@@ -60,12 +70,14 @@ const Main = (props) => {
                 offers={offers}
                 onHeaderClick={onHeaderClick}
                 currentSortType={currentSortType}
+                onCardHover={onCardHover}
               />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
                   coordinates={coordinates}
+                  currentCard={currentCard}
                 />
               </section>
             </div>

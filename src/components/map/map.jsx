@@ -10,6 +10,11 @@ const ICON = leaflet.icon({
   iconSize: ICON_SIZE
 });
 
+const ACTIVE_ICON = leaflet.icon({
+  iconUrl: `img/pin-active.svg`,
+  iconSize: ICON_SIZE
+});
+
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -21,7 +26,7 @@ class Map extends React.PureComponent {
     const mapRef = this._mapRef.current;
 
     if (mapRef) {
-      const {coordinates} = this.props;
+      const {coordinates, currentCard} = this.props;
 
       const city = [52.38333, 4.9];
 
@@ -48,12 +53,12 @@ class Map extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    const {coordinates} = this.props;
+    const {coordinates, currentCard} = this.props;
 
     this._layerGroup.clearLayers();
     coordinates.map((coordinate) => {
       leaflet
-      .marker(coordinate, {icon: ICON})
+      .marker(coordinate, {icon: currentCard && coordinate === currentCard.coordinates ? ACTIVE_ICON : ICON})
       .addTo(this._layerGroup);
     });
   }
