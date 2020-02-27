@@ -26,7 +26,7 @@ class Map extends React.PureComponent {
     const mapRef = this._mapRef.current;
 
     if (mapRef) {
-      const {coordinates, currentCard} = this.props;
+      const {coordinates} = this.props;
 
       const city = [52.38333, 4.9];
 
@@ -77,7 +77,8 @@ class Map extends React.PureComponent {
 Map.propTypes = {
   coordinates: PropTypes.arrayOf(
       PropTypes.arrayOf(
-          PropTypes.number.isRequired).isRequired).isRequired
+          PropTypes.number.isRequired).isRequired).isRequired,
+  currentCard: PropTypes.object.isRequired
 };
 
 export default Map;

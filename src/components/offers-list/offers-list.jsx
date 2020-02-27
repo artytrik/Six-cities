@@ -57,7 +57,9 @@ OffersList.propTypes = {
     premium: PropTypes.bool.isRequired
   })).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired
+  className: PropTypes.string.isRequired,
+  currentSortType: PropTypes.string.isRequired,
+  onCardHover: PropTypes.func.isRequired
 };
 
 export default OffersList;

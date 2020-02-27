@@ -93,7 +93,11 @@ Main.propTypes = {
   onHeaderClick: PropTypes.func.isRequired,
   city: PropTypes.string.isRequired,
   cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  onCityClick: PropTypes.func.isRequired
+  onCityClick: PropTypes.func.isRequired,
+  onSortTypeClick: PropTypes.func.isRequired,
+  currentSortType: PropTypes.string.isRequired,
+  onCardHover: PropTypes.func.isRequired,
+  currentCard: PropTypes.object.isRequired
 };
 
 export default Main;

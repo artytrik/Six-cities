@@ -1,5 +1,6 @@
 import React from 'react';
 import {SortType} from '../../utils.js';
+import PropTypes from 'prop-types';
 
 class SortingOptions extends React.PureComponent {
   constructor(props) {
@@ -57,5 +58,10 @@ class SortingOptions extends React.PureComponent {
     );
   }
 }
+
+SortingOptions.propTypes = {
+  currentSortType: PropTypes.string.isRequired,
+  onSortTypeClick: PropTypes.func.isRequired
+};
 
 export default SortingOptions;
