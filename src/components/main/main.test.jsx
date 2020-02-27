@@ -59,6 +59,10 @@ it(`Main should render correctly`, () => {
         onHeaderClick={() => {}}
         cities={cities}
         onCityClick={() => {}}
+        onSortTypeClick={() => {}}
+        currentSortType={`Popular`}
+        onCardHover={() => {}}
+        currentCard={null}
       />
     </Provider>, {
       createNodeMock: () => {

@@ -20,13 +20,24 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    const {offers, city, cities, onCityClick} = this.props;
+    const {
+      offers,
+      city,
+      cities,
+      onCityClick,
+      onSortTypeClick,
+      currentSortType,
+      onCardHover,
+      currentCard
+    } = this.props;
     const activeOffer = this.state;
 
     if (activeOffer) {
       return <OfferInformation
         offer={activeOffer}
         onHeaderClick={this._handleHeaderClick}
+        currentSortType={currentSortType}
+        onCardHover={onCardHover}
       />;
     }
 
@@ -36,11 +47,15 @@ class App extends React.PureComponent {
       city={city}
       cities={cities}
       onCityClick={onCityClick}
+      currentSortType={currentSortType}
+      onSortTypeClick={onSortTypeClick}
+      onCardHover={onCardHover}
+      currentCard={currentCard}
     />;
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, currentSortType, onCardHover} = this.props;
 
     return (
       <BrowserRouter>
@@ -52,6 +67,8 @@ class App extends React.PureComponent {
             <OfferInformation
               offer={offers[0]}
               onHeaderClick={this._handleHeaderClick}
+              currentSortType={currentSortType}
+              onCardHover={onCardHover}
             />
           </Route>
         </Switch>
@@ -64,13 +81,19 @@ App.propTypes = {
   offers: PropTypes.array.isRequired,
   city: PropTypes.string.isRequired,
   cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  onCityClick: PropTypes.func.isRequired
+  onCityClick: PropTypes.func.isRequired,
+  onSortTypeClick: PropTypes.func.isRequired,
+  currentSortType: PropTypes.string.isRequired,
+  onCardHover: PropTypes.func.isRequired,
+  currentCard: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
   offers: state.currentOffers,
   city: state.city,
-  cities: state.cities
+  cities: state.cities,
+  currentSortType: state.currentSortType,
+  currentCard: state.currentCard
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -79,6 +102,12 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeCity(city));
     dispatch(ActionCreator.getOffers(city));
   },
+  onSortTypeClick(sortType) {
+    dispatch(ActionCreator.changeSortType(sortType));
+  },
+  onCardHover(offer) {
+    dispatch(ActionCreator.setCurrentCard(offer));
+  }
 });
 
 export {App};

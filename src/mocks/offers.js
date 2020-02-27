@@ -106,7 +106,7 @@ export const offers = [
       `img/studio-01.jpg`,
       `img/apartment-01.jpg`
     ],
-    rating: 4.8,
+    rating: 3.8,
     description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
     inside: [`Wi-FI`, `Washing machine`, `Towels`, `Heating`],
     user: {

@@ -126,6 +126,10 @@ it(`App should render correctly`, () => {
         cities={cities}
         offers={offers}
         onCityClick={() => {}}
+        onSortTypeClick={() => {}}
+        currentSortType={`Popular`}
+        onCardHover={() => {}}
+        currentCard={null}
       />
     </Provider>, {
       createNodeMock: () => {
