@@ -7,18 +7,6 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer.js';
 
 class App extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = null;
-
-    this._handleHeaderClick = this._handleHeaderClick.bind(this);
-  }
-
-  _handleHeaderClick(clickedOffer) {
-    this.setState(clickedOffer);
-  }
-
   _renderApp() {
     const {
       offers,
@@ -28,14 +16,15 @@ class App extends React.PureComponent {
       onSortTypeClick,
       currentSortType,
       onCardHover,
-      currentCard
+      currentCard,
+      activeOffer,
+      onHeaderClick
     } = this.props;
-    const activeOffer = this.state;
 
     if (activeOffer) {
       return <OfferInformation
         offer={activeOffer}
-        onHeaderClick={this._handleHeaderClick}
+        onHeaderClick={onHeaderClick}
         currentSortType={currentSortType}
         onCardHover={onCardHover}
       />;
@@ -43,7 +32,7 @@ class App extends React.PureComponent {
 
     return <Main
       offers={offers}
-      onHeaderClick={this._handleHeaderClick}
+      onHeaderClick={onHeaderClick}
       city={city}
       cities={cities}
       onCityClick={onCityClick}
@@ -55,7 +44,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {offers, currentSortType, onCardHover} = this.props;
+    const {offers, currentSortType, onCardHover, onHeaderClick} = this.props;
 
     return (
       <BrowserRouter>
@@ -66,7 +55,7 @@ class App extends React.PureComponent {
           <Route exact path="/offer-information">
             <OfferInformation
               offer={offers[0]}
-              onHeaderClick={this._handleHeaderClick}
+              onHeaderClick={onHeaderClick}
               currentSortType={currentSortType}
               onCardHover={onCardHover}
             />
@@ -85,7 +74,9 @@ App.propTypes = {
   onSortTypeClick: PropTypes.func.isRequired,
   currentSortType: PropTypes.string.isRequired,
   onCardHover: PropTypes.func.isRequired,
-  currentCard: PropTypes.object
+  currentCard: PropTypes.object,
+  onHeaderClick: PropTypes.func.isRequired,
+  activeOffer: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
@@ -93,7 +84,8 @@ const mapStateToProps = (state) => ({
   city: state.city,
   cities: state.cities,
   currentSortType: state.currentSortType,
-  currentCard: state.currentCard
+  currentCard: state.currentCard,
+  activeOffer: state.activeOffer
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -107,6 +99,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onCardHover(offer) {
     dispatch(ActionCreator.setCurrentCard(offer));
+  },
+  onHeaderClick(offer) {
+    dispatch(ActionCreator.changeActiveOffer(offer));
   }
 });
 
