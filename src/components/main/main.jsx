@@ -103,4 +103,4 @@ Main.propTypes = {
   currentCard: PropTypes.object
 };
 
-export default Main;
+export default React.memo(Main);

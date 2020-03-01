@@ -31,4 +31,4 @@ CitiesList.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
-export default CitiesList;
+export default React.memo(CitiesList);
