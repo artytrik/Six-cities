@@ -5,6 +5,7 @@ import Map from '../map/map.jsx';
 import CitiesList from '../cities-list/cities-list.jsx';
 import SortingOptions from '../sorting-options/sorting-options.jsx';
 import withToggle from '../../hocs/with-toggle/with-toggle.jsx';
+import MainEmpty from '../main-empty/main-empty.jsx';
 
 const SortingOptionsWrapped = withToggle(SortingOptions);
 
@@ -47,7 +48,7 @@ const Main = (props) => {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${offers ? `` : ` page__main--index-empty`}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -60,29 +61,35 @@ const Main = (props) => {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {city}</b>
-              <SortingOptionsWrapped
-                currentSortType={currentSortType}
-                onSortTypeClick={onSortTypeClick}
-              />
-              <OffersList
-                className="cities__places-list tabs__content"
-                offers={offers}
-                onHeaderClick={onHeaderClick}
-                currentSortType={currentSortType}
-                onCardHover={onCardHover}
-              />
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  coordinates={coordinates}
-                  currentCard={currentCard}
+          <div className={`cities__places-container container ${offers ? `` : ` cities__places-container--empty`}`}>
+            {offers ?
+              <section className={`${offers ? `cities__places places` : `cities__no-places`}`}>
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offers.length} places to stay in {city}</b>
+                <SortingOptionsWrapped
+                  currentSortType={currentSortType}
+                  onSortTypeClick={onSortTypeClick}
+                />
+                <OffersList
+                  className="cities__places-list tabs__content"
+                  offers={offers}
+                  onHeaderClick={onHeaderClick}
+                  currentSortType={currentSortType}
+                  onCardHover={onCardHover}
                 />
               </section>
+              :
+              <MainEmpty />
+            }
+            <div className="cities__right-section">
+              {offers &&
+                <section className="cities__map map">
+                  <Map
+                    coordinates={coordinates}
+                    currentCard={currentCard}
+                  />
+                </section>
+              }
             </div>
           </div>
         </div>
