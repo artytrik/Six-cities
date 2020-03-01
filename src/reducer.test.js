@@ -9,7 +9,8 @@ it(`Reducer without additional parameters should return initial state`, () => {
     offers,
     currentOffers: [offers[0], offers[1]],
     currentSortType: SortType.POPULAR,
-    currentCard: null
+    currentCard: null,
+    activeOffer: null
   });
 });
 
@@ -20,7 +21,8 @@ it(`Reducer should change city by a given city`, () => {
     offers,
     currentOffers: [offers[0], offers[1]],
     currentSortType: SortType.POPULAR,
-    currentCard: null
+    currentCard: null,
+    activeOffer: null
   }, {
     type: ActionType.CHANGE_CITY,
     payload: `Moscow`,
@@ -30,7 +32,8 @@ it(`Reducer should change city by a given city`, () => {
     offers,
     currentOffers: [offers[0], offers[1]],
     currentSortType: SortType.POPULAR,
-    currentCard: null
+    currentCard: null,
+    activeOffer: null
   });
 });
 
@@ -41,7 +44,8 @@ it(`Reducer should get offers by a given offers`, () => {
     offers,
     currentOffers: [offers[0], offers[1]],
     currentSortType: SortType.POPULAR,
-    currentCard: null
+    currentCard: null,
+    activeOffer: null
   }, {
     type: ActionType.GET_OFFERS,
     payload: offers[2].city,
@@ -51,7 +55,8 @@ it(`Reducer should get offers by a given offers`, () => {
     offers,
     currentOffers: [offers[2]],
     currentSortType: SortType.POPULAR,
-    currentCard: null
+    currentCard: null,
+    activeOffer: null
   });
 });
 
@@ -62,7 +67,8 @@ it(`Reducer should change sort type by a given sort type`, () => {
     offers,
     currentOffers: [offers[2]],
     currentSortType: SortType.POPULAR,
-    currentCard: null
+    currentCard: null,
+    activeOffer: null
   }, {
     type: ActionType.CHANGE_SORT_TYPE,
     payload: SortType.PRICE_HIGH_TO_LOW,
@@ -72,7 +78,8 @@ it(`Reducer should change sort type by a given sort type`, () => {
     offers,
     currentOffers: [offers[2]],
     currentSortType: SortType.PRICE_HIGH_TO_LOW,
-    currentCard: null
+    currentCard: null,
+    activeOffer: null
   });
 });
 
@@ -83,7 +90,8 @@ it(`Reducer should set current card by a given offer`, () => {
     offers,
     currentOffers: [offers[2]],
     currentSortType: SortType.POPULAR,
-    currentCard: null
+    currentCard: null,
+    activeOffer: null
   }, {
     type: ActionType.SET_CURRENT_CARD,
     payload: offers[1],
@@ -93,7 +101,31 @@ it(`Reducer should set current card by a given offer`, () => {
     offers,
     currentOffers: [offers[2]],
     currentSortType: SortType.POPULAR,
-    currentCard: offers[1]
+    currentCard: offers[1],
+    activeOffer: null
+  });
+});
+
+it(`Reducer should change active offer by a given offer`, () => {
+  expect(reducer({
+    city: offers[2].city,
+    cities: [`Amsterdam`, `Moscow`, `Vladivostok`],
+    offers,
+    currentOffers: [offers[2]],
+    currentSortType: SortType.POPULAR,
+    currentCard: null,
+    activeOffer: null
+  }, {
+    type: ActionType.CHANGE_ACTIVE_OFFER,
+    payload: offers[1],
+  })).toEqual({
+    city: offers[2].city,
+    cities: [`Amsterdam`, `Moscow`, `Vladivostok`],
+    offers,
+    currentOffers: [offers[2]],
+    currentSortType: SortType.POPULAR,
+    currentCard: null,
+    activeOffer: offers[1]
   });
 });
 
@@ -122,6 +154,13 @@ describe(`Action creators work correctly`, () => {
   it(`Action creator for setting current card returns correct action`, () => {
     expect(ActionCreator.setCurrentCard(offers[0])).toEqual({
       type: ActionType.SET_CURRENT_CARD,
+      payload: offers[0]
+    });
+  });
+
+  it(`Action creator for changing active offer returns correct action`, () => {
+    expect(ActionCreator.changeActiveOffer(offers[0])).toEqual({
+      type: ActionType.CHANGE_ACTIVE_OFFER,
       payload: offers[0]
     });
   });

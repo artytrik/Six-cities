@@ -7,6 +7,8 @@ it(`SortingOptions should render correctly`, () => {
     .create(<SortingOptions
       currentSortType={`Popular`}
       onSortTypeClick={() => {}}
+      onToggleClick={() => {}}
+      isActive={false}
     />)
     .toJSON();
 

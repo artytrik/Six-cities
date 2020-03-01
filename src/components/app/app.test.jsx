@@ -130,6 +130,8 @@ it(`App should render correctly`, () => {
         currentSortType={`Popular`}
         onCardHover={() => {}}
         currentCard={null}
+        activeOffer={null}
+        onHeaderClick={() => {}}
       />
     </Provider>, {
       createNodeMock: () => {

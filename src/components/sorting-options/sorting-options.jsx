@@ -3,32 +3,15 @@ import {SortType} from '../../utils.js';
 import PropTypes from 'prop-types';
 
 class SortingOptions extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isOpened: false
-    };
-
-    this._handleSortClick = this._handleSortClick.bind(this);
-  }
-
-  _handleSortClick() {
-    this.setState({
-      isOpened: !this.state.isOpened
-    });
-  }
-
   render() {
-    const {currentSortType, onSortTypeClick} = this.props;
-    const {isOpened} = this.state;
+    const {currentSortType, onToggleClick, onSortTypeClick, isActive} = this.props;
     return (
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span
           className="places__sorting-type"
           tabIndex="0"
-          onClick={this._handleSortClick}
+          onClick={onToggleClick}
         >
           {currentSortType}
           <svg className="places__sorting-arrow" width="7" height="4">
@@ -36,8 +19,8 @@ class SortingOptions extends React.PureComponent {
           </svg>
         </span>
         <ul
-          className={`places__options places__options--custom${isOpened ? ` places__options--opened` : ``}`}
-          onClick={this._handleSortClick}
+          className={`places__options places__options--custom${isActive ? ` places__options--opened` : ``}`}
+          onClick={onToggleClick}
         >
           {Object.values(SortType).map((item, i) => {
             return (
@@ -59,7 +42,9 @@ class SortingOptions extends React.PureComponent {
 
 SortingOptions.propTypes = {
   currentSortType: PropTypes.string.isRequired,
-  onSortTypeClick: PropTypes.func.isRequired
+  onSortTypeClick: PropTypes.func.isRequired,
+  onToggleClick: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired
 };
 
 export default SortingOptions;

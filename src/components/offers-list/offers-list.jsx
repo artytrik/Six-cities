@@ -3,26 +3,19 @@ import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card.jsx';
 import {SortType} from '../../utils.js';
 
+const getSortedOffers = (offers, currentSortType) => {
+  switch (currentSortType) {
+    case SortType.PRICE_LOW_TO_HIGH:
+      return offers.slice().sort((a, b) => a.price - b.price);
+    case SortType.PRICE_HIGH_TO_LOW:
+      return offers.slice().sort((a, b) => b.price - a.price);
+    case SortType.TOP_RATED:
+      return offers.slice().sort((a, b) => b.rating - a.rating);
+  }
+
+  return offers;
+};
 class OffersList extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this._getSortedOffers = this._getSortedOffers.bind(this);
-  }
-
-  _getSortedOffers(offers, currentSortType) {
-    switch (currentSortType) {
-      case SortType.PRICE_LOW_TO_HIGH:
-        return offers.slice().sort((a, b) => a.price - b.price);
-      case SortType.PRICE_HIGH_TO_LOW:
-        return offers.slice().sort((a, b) => b.price - a.price);
-      case SortType.TOP_RATED:
-        return offers.slice().sort((a, b) => b.rating - a.rating);
-    }
-
-    return offers;
-  }
-
   render() {
     const {
       offers,
@@ -31,7 +24,7 @@ class OffersList extends React.PureComponent {
       currentSortType,
       onCardHover
     } = this.props;
-    const sortedOffers = this._getSortedOffers(offers, currentSortType);
+    const sortedOffers = getSortedOffers(offers, currentSortType);
 
     return (
       <div className={`${className} places__list`}>

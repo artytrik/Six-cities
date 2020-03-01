@@ -22,14 +22,16 @@ const initialState = {
   offers,
   currentOffers: getOffersByCity(offers[0].city, offers),
   currentSortType: SortType.POPULAR,
-  currentCard: null
+  currentCard: null,
+  activeOffer: null
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   GET_OFFERS: `GET_OFFERS`,
   CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
-  SET_CURRENT_CARD: `SET_CURRENT_CARD`
+  SET_CURRENT_CARD: `SET_CURRENT_CARD`,
+  CHANGE_ACTIVE_OFFER: `CHANGE_ACTIVE_OFFER`
 };
 
 const ActionCreator = {
@@ -47,6 +49,10 @@ const ActionCreator = {
   }),
   setCurrentCard: (offer) => ({
     type: ActionType.SET_CURRENT_CARD,
+    payload: offer
+  }),
+  changeActiveOffer: (offer) => ({
+    type: ActionType.CHANGE_ACTIVE_OFFER,
     payload: offer
   })
 };
@@ -68,6 +74,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_CURRENT_CARD:
       return extend(state, {
         currentCard: action.payload
+      });
+    case ActionType.CHANGE_ACTIVE_OFFER:
+      return extend(state, {
+        activeOffer: action.payload
       });
   }
 

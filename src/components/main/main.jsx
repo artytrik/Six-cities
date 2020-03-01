@@ -4,6 +4,9 @@ import OffersList from '../offers-list/offers-list.jsx';
 import Map from '../map/map.jsx';
 import CitiesList from '../cities-list/cities-list.jsx';
 import SortingOptions from '../sorting-options/sorting-options.jsx';
+import withToggle from '../../hocs/with-toggle/with-toggle.jsx';
+
+const SortingOptionsWrapped = withToggle(SortingOptions);
 
 const Main = (props) => {
   const {
@@ -61,7 +64,7 @@ const Main = (props) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in {city}</b>
-              <SortingOptions
+              <SortingOptionsWrapped
                 currentSortType={currentSortType}
                 onSortTypeClick={onSortTypeClick}
               />
@@ -100,4 +103,4 @@ Main.propTypes = {
   currentCard: PropTypes.object
 };
 
-export default Main;
+export default React.memo(Main);
