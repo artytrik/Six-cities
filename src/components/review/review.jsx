@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 
 const Review = (props) => {
   const {review} = props;
-  const {name, avatar, rating, text, date} = review;
+  const {user, rating, text, date} = review;
+  const {avatar, name, superStar} = user;
 
   return (
     <li className="reviews__item">
@@ -30,8 +31,8 @@ const Review = (props) => {
         <p className="reviews__text">
           {text}
         </p>
-        <time className="reviews__time" dateTime={date}>
-          {date}
+        <time className="reviews__time" dateTime={date.toISOString()}>
+          {date.toISOString()}
         </time>
       </div>
     </li>

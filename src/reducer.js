@@ -1,6 +1,7 @@
 import {extend} from './utils.js';
 import {SortType} from './utils.js';
 import ModelOffer from './model-offer.js';
+import ModelReview from './model-review.js';
 
 const initialState = {
   city: ``,
@@ -9,7 +10,8 @@ const initialState = {
   currentOffers: ``,
   currentSortType: SortType.POPULAR,
   currentCard: null,
-  activeOffer: null
+  activeOffer: null,
+  reviews: []
 };
 
 const ActionType = {
@@ -18,7 +20,8 @@ const ActionType = {
   CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
   SET_CURRENT_CARD: `SET_CURRENT_CARD`,
   CHANGE_ACTIVE_OFFER: `CHANGE_ACTIVE_OFFER`,
-  LOAD_OFFERS: `LOAD_OFFERS`
+  LOAD_OFFERS: `LOAD_OFFERS`,
+  LOAD_REVIEWS: `LOAD_REVIEWS`,
 };
 
 const ActionCreator = {
@@ -45,6 +48,10 @@ const ActionCreator = {
   loadOffers: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers
+  }),
+  loadReviews: (reviews) => ({
+    type: ActionType.LOAD_REVIEWS,
+    payload: reviews
   })
 };
 
@@ -55,6 +62,14 @@ const Operation = {
         const offers = ModelOffer.parseOffers(response.data);
         dispatch(ActionCreator.loadOffers(offers));
         dispatch(ActionCreator.changeCity(offers[0].city));
+      });
+  },
+  loadReviews: (activeOffer) => (dispatch, getState, api) => {
+    return api.get(`/comments/${activeOffer.id}`)
+      .then((response) => {
+        const reviews = ModelReview.parseReviews(response.data);
+        console.log(reviews);
+        dispatch(ActionCreator.loadReviews(reviews));
       });
   }
 };
@@ -84,6 +99,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_OFFERS:
       return extend(state, {
         offers: action.payload
+      });
+    case ActionType.LOAD_REVIEWS:
+      return extend(state, {
+        reviews: action.payload
       });
   }
 

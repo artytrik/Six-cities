@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import OfferInformation from '../offer-information/offer-information.jsx';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer.js';
+import {ActionCreator, Operation} from '../../reducer.js';
 import {getOffersByCity, getCities} from '../../utils.js';
 
 class App extends React.PureComponent {
@@ -19,7 +19,8 @@ class App extends React.PureComponent {
       onCardHover,
       currentCard,
       activeOffer,
-      onHeaderClick
+      onHeaderClick,
+      reviews
     } = this.props;
 
     if (activeOffer) {
@@ -28,6 +29,7 @@ class App extends React.PureComponent {
         onHeaderClick={onHeaderClick}
         currentSortType={currentSortType}
         onCardHover={onCardHover}
+        reviews={reviews}
       />;
     }
 
@@ -86,7 +88,8 @@ const mapStateToProps = (state) => ({
   cities: getCities(state.offers),
   currentSortType: state.currentSortType,
   currentCard: state.currentCard,
-  activeOffer: state.activeOffer
+  activeOffer: state.activeOffer,
+  reviews: state.reviews
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -103,6 +106,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onHeaderClick(offer) {
     dispatch(ActionCreator.changeActiveOffer(offer));
+    dispatch(Operation.loadReviews(offer));
   }
 });
 
