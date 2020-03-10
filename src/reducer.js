@@ -11,7 +11,8 @@ const initialState = {
   currentSortType: SortType.POPULAR,
   currentCard: null,
   activeOffer: null,
-  reviews: []
+  reviews: [],
+  nearbyOffers: []
 };
 
 const ActionType = {
@@ -22,6 +23,7 @@ const ActionType = {
   CHANGE_ACTIVE_OFFER: `CHANGE_ACTIVE_OFFER`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
+  LOAD_NEARBY_OFFERS: `LOAD_NEARBY_OFFERS`
 };
 
 const ActionCreator = {
@@ -52,6 +54,10 @@ const ActionCreator = {
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: reviews
+  }),
+  loadNearbyOffers: (offers) => ({
+    type: ActionType.LOAD_NEARBY_OFFERS,
+    payload: offers
   })
 };
 
@@ -68,8 +74,14 @@ const Operation = {
     return api.get(`/comments/${activeOffer.id}`)
       .then((response) => {
         const reviews = ModelReview.parseReviews(response.data);
-        console.log(reviews);
         dispatch(ActionCreator.loadReviews(reviews));
+      });
+  },
+  loadNearbyOffers: (activeOffer) => (dispatch, getState, api) => {
+    return api.get(`/hotels/${activeOffer.id}/nearby`)
+      .then((response) => {
+        const nearbyOffers = ModelOffer.parseOffers(response.data);
+        dispatch(ActionCreator.loadNearbyOffers(nearbyOffers));
       });
   }
 };
@@ -103,6 +115,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_REVIEWS:
       return extend(state, {
         reviews: action.payload
+      });
+    case ActionType.LOAD_NEARBY_OFFERS:
+      return extend(state, {
+        nearbyOffers: action.payload
       });
   }
 

@@ -20,7 +20,8 @@ class App extends React.PureComponent {
       currentCard,
       activeOffer,
       onHeaderClick,
-      reviews
+      reviews,
+      nearbyOffers
     } = this.props;
 
     if (activeOffer) {
@@ -30,6 +31,7 @@ class App extends React.PureComponent {
         currentSortType={currentSortType}
         onCardHover={onCardHover}
         reviews={reviews}
+        nearbyOffers={nearbyOffers}
       />;
     }
 
@@ -89,7 +91,8 @@ const mapStateToProps = (state) => ({
   currentSortType: state.currentSortType,
   currentCard: state.currentCard,
   activeOffer: state.activeOffer,
-  reviews: state.reviews
+  reviews: state.reviews,
+  nearbyOffers: state.nearbyOffers
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -107,6 +110,7 @@ const mapDispatchToProps = (dispatch) => ({
   onHeaderClick(offer) {
     dispatch(ActionCreator.changeActiveOffer(offer));
     dispatch(Operation.loadReviews(offer));
+    dispatch(Operation.loadNearbyOffers(offer));
   }
 });
 
