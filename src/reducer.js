@@ -1,26 +1,12 @@
 import {extend} from './utils.js';
-import {offers} from './mocks/offers.js';
 import {SortType} from './utils.js';
-
-const getOffersByCity = (city, allOffers) =>
-  allOffers.filter((offer) => offer.city === city);
-
-const getCities = () => {
-  const cities = new Set();
-  offers.forEach((offer) => {
-    cities.add(offer.city);
-  });
-
-  const maxCities = [...cities].slice(0, 6);
-
-  return maxCities;
-};
+import ModelOffer from './model-offer.js';
 
 const initialState = {
-  city: offers[0].city,
-  cities: getCities(),
-  offers,
-  currentOffers: getOffersByCity(offers[0].city, offers),
+  city: ``,
+  cities: ``,
+  offers: [],
+  currentOffers: ``,
   currentSortType: SortType.POPULAR,
   currentCard: null,
   activeOffer: null
@@ -31,7 +17,8 @@ const ActionType = {
   GET_OFFERS: `GET_OFFERS`,
   CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
   SET_CURRENT_CARD: `SET_CURRENT_CARD`,
-  CHANGE_ACTIVE_OFFER: `CHANGE_ACTIVE_OFFER`
+  CHANGE_ACTIVE_OFFER: `CHANGE_ACTIVE_OFFER`,
+  LOAD_OFFERS: `LOAD_OFFERS`
 };
 
 const ActionCreator = {
@@ -39,9 +26,9 @@ const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: city
   }),
-  getOffers: (city) => ({
+  getOffers: () => ({
     type: ActionType.GET_OFFERS,
-    payload: city
+    payload: null
   }),
   changeSortType: (sortType) => ({
     type: ActionType.CHANGE_SORT_TYPE,
@@ -54,7 +41,22 @@ const ActionCreator = {
   changeActiveOffer: (offer) => ({
     type: ActionType.CHANGE_ACTIVE_OFFER,
     payload: offer
+  }),
+  loadOffers: (offers) => ({
+    type: ActionType.LOAD_OFFERS,
+    payload: offers
   })
+};
+
+const Operation = {
+  loadOffers: () => (dispatch, getState, api) => {
+    return api.get(`/hotels`)
+      .then((response) => {
+        const offers = ModelOffer.parseOffers(response.data);
+        dispatch(ActionCreator.loadOffers(offers));
+        dispatch(ActionCreator.changeCity(offers[0].city));
+      });
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -65,7 +67,7 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.GET_OFFERS:
       return extend(state, {
-        currentOffers: getOffersByCity(action.payload, state.offers)
+        offers: state.offers
       });
     case ActionType.CHANGE_SORT_TYPE:
       return extend(state, {
@@ -79,9 +81,13 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         activeOffer: action.payload
       });
+    case ActionType.LOAD_OFFERS:
+      return extend(state, {
+        offers: action.payload
+      });
   }
 
   return state;
 };
 
-export {reducer, ActionType, ActionCreator};
+export {reducer, ActionType, ActionCreator, Operation};

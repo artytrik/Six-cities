@@ -5,6 +5,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import OfferInformation from '../offer-information/offer-information.jsx';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer.js';
+import {getOffersByCity, getCities} from '../../utils.js';
 
 class App extends React.PureComponent {
   _renderApp() {
@@ -80,9 +81,9 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.currentOffers,
+  offers: getOffersByCity(state.city, state.offers),
   city: state.city,
-  cities: state.cities,
+  cities: getCities(state.offers),
   currentSortType: state.currentSortType,
   currentCard: state.currentCard,
   activeOffer: state.activeOffer

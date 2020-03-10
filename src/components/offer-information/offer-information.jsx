@@ -9,7 +9,7 @@ const OfferInformation = (props) => {
   const {offer, onHeaderClick, onCardHover, currentSortType} = props;
   const {name, type, price, premium, gallery, rating, bedrooms, adults,
     description, inside, user, reviews, nearbyOffers} = offer;
-  const nearbyCoordinates = nearbyOffers.map((nearbyOffer) => nearbyOffer.coordinates);
+  //const nearbyCoordinates = nearbyOffers.map((nearbyOffer) => nearbyOffer.coordinates);
   const roundRating = Math.round(rating);
   const {avatar, name: userName, superStar} = user;
 
@@ -130,9 +130,9 @@ const OfferInformation = (props) => {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <ReviewsList
+                {/*<ReviewsList
                   reviews={reviews}
-                />
+                />*/}
                 <form className="reviews__form form" action="#" method="post">
                   <label className="reviews__label form__label" htmlFor="review">
                     Your review
@@ -246,9 +246,9 @@ const OfferInformation = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map
+            {/*<Map
               coordinates={nearbyCoordinates}
-            />
+            />*/}
           </section>
         </section>
         <div className="container">
@@ -256,13 +256,13 @@ const OfferInformation = (props) => {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <OffersList
+            {/*<OffersList
               className="near-places__list"
               offers={nearbyOffers}
               onHeaderClick={onHeaderClick}
               onCardHover={onCardHover}
               currentSortType={currentSortType}
-            />
+            />*/}
           </section>
         </div>
       </main>

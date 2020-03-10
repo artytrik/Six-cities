@@ -10,11 +10,11 @@ class ModelOffer {
       name: data.host[`name`],
       superStar: data.host[`is_pro`]
     };
-    this.id = data[`offer_id`];
+    this.id = data[`id`];
     this.gallery = data[`images`];
     this.favorite = data[`is_favorite`];
     this.premium = data[`is_premium`];
-    this.location = [data.location[`latitude`], data.location[`longtitude`]];
+    this.coordinates = [data.location[`latitude`], data.location[`longitude`]];
     this.adults = data[`max_adults`];
     this.picture = data[`preview_image`];
     this.price = data[`price`];
@@ -28,7 +28,7 @@ class ModelOffer {
   }
 
   static parseOffers(data) {
-    return data.map(ModelOffer.parsePoint);
+    return data.map(ModelOffer.parseOffer);
   }
 
   toRAW() {
@@ -50,8 +50,8 @@ class ModelOffer {
       'is_favorite': this.favorite,
       'is_premium': this.premium,
       'location': {
-        'latitude': this.location[0],
-        'longtitude': this.location[1]
+        'latitude': this.coordinates[0],
+        'longitude': this.coordinates[1]
       },
       'max_adults': this.adults,
       'preview_image': this.picture,
