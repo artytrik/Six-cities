@@ -2,12 +2,12 @@ import {extend} from './utils.js';
 import {SortType} from './utils.js';
 import ModelOffer from './model-offer.js';
 import ModelReview from './model-review.js';
+import {getCities} from './utils.js';
 
 const initialState = {
   city: ``,
-  cities: ``,
+  cities: [],
   offers: [],
-  currentOffers: ``,
   currentSortType: SortType.POPULAR,
   currentCard: null,
   activeOffer: null,
@@ -17,23 +17,19 @@ const initialState = {
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
-  GET_OFFERS: `GET_OFFERS`,
   CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
   SET_CURRENT_CARD: `SET_CURRENT_CARD`,
   CHANGE_ACTIVE_OFFER: `CHANGE_ACTIVE_OFFER`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
-  LOAD_NEARBY_OFFERS: `LOAD_NEARBY_OFFERS`
+  LOAD_NEARBY_OFFERS: `LOAD_NEARBY_OFFERS`,
+  GET_CITIES: `GET_CITIES`
 };
 
 const ActionCreator = {
   changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
     payload: city
-  }),
-  getOffers: () => ({
-    type: ActionType.GET_OFFERS,
-    payload: null
   }),
   changeSortType: (sortType) => ({
     type: ActionType.CHANGE_SORT_TYPE,
@@ -58,6 +54,10 @@ const ActionCreator = {
   loadNearbyOffers: (offers) => ({
     type: ActionType.LOAD_NEARBY_OFFERS,
     payload: offers
+  }),
+  getCities: (offers) => ({
+    type: ActionType.GET_CITIES,
+    payload: offers
   })
 };
 
@@ -67,7 +67,8 @@ const Operation = {
       .then((response) => {
         const offers = ModelOffer.parseOffers(response.data);
         dispatch(ActionCreator.loadOffers(offers));
-        dispatch(ActionCreator.changeCity(offers[0].city));
+        dispatch(ActionCreator.getCities(offers));
+        dispatch(ActionCreator.changeCity(offers.length > 0 ? offers[0].city : ``));
       });
   },
   loadReviews: (activeOffer) => (dispatch, getState, api) => {
@@ -92,10 +93,6 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         city: action.payload
       });
-    case ActionType.GET_OFFERS:
-      return extend(state, {
-        offers: state.offers
-      });
     case ActionType.CHANGE_SORT_TYPE:
       return extend(state, {
         currentSortType: action.payload
@@ -119,6 +116,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_NEARBY_OFFERS:
       return extend(state, {
         nearbyOffers: action.payload
+      });
+    case ActionType.GET_CITIES:
+      return extend(state, {
+        cities: getCities(action.payload)
       });
   }
 

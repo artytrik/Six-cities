@@ -4,13 +4,15 @@ import Review from './review.jsx';
 
 const review = {
   id: 1,
-  name: `Max`,
-  avatar: `img/avatar-max.jpg`,
   rating: 4,
   text: `A quiet cozy and picturesque that hides behind a a river by
   the unique lightness of Amsterdam. The building is green and
   from 18th century.`,
-  date: `2019-04-24`
+  date: new Date(2020, 3, 17),
+  user: {
+    name: `Max`,
+    avatar: `img/avatar-max.jpg`,
+  }
 };
 
 it(`Review should render correctly`, () => {

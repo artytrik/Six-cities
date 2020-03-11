@@ -5,7 +5,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import OfferInformation from '../offer-information/offer-information.jsx';
 import {connect} from 'react-redux';
 import {ActionCreator, Operation} from '../../reducer.js';
-import {getOffersByCity, getCities} from '../../utils.js';
+import {getOffersByCity} from '../../utils.js';
 
 class App extends React.PureComponent {
   _renderApp() {
@@ -49,21 +49,11 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {offers, currentSortType, onCardHover, onHeaderClick} = this.props;
-
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
             {this._renderApp()}
-          </Route>
-          <Route exact path="/offer-information">
-            <OfferInformation
-              offer={offers[0]}
-              onHeaderClick={onHeaderClick}
-              currentSortType={currentSortType}
-              onCardHover={onCardHover}
-            />
           </Route>
         </Switch>
       </BrowserRouter>
@@ -81,13 +71,15 @@ App.propTypes = {
   onCardHover: PropTypes.func.isRequired,
   currentCard: PropTypes.object,
   onHeaderClick: PropTypes.func.isRequired,
-  activeOffer: PropTypes.object
+  activeOffer: PropTypes.object,
+  reviews: PropTypes.array,
+  nearbyOffers: PropTypes.array
 };
 
 const mapStateToProps = (state) => ({
   offers: getOffersByCity(state.city, state.offers),
   city: state.city,
-  cities: getCities(state.offers),
+  cities: state.cities,
   currentSortType: state.currentSortType,
   currentCard: state.currentCard,
   activeOffer: state.activeOffer,
@@ -99,7 +91,6 @@ const mapDispatchToProps = (dispatch) => ({
   onCityClick(evt, city) {
     evt.preventDefault();
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.getOffers(city));
   },
   onSortTypeClick(sortType) {
     dispatch(ActionCreator.changeSortType(sortType));
