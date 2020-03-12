@@ -6,9 +6,9 @@ import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 
 const OfferInformation = (props) => {
-  const {offer, onHeaderClick, onCardHover, currentSortType} = props;
+  const {offer, onHeaderClick, onCardHover, currentSortType, reviews, nearbyOffers} = props;
   const {name, type, price, premium, gallery, rating, bedrooms, adults,
-    description, inside, user, reviews, nearbyOffers} = offer;
+    description, inside, user} = offer;
   const nearbyCoordinates = nearbyOffers.map((nearbyOffer) => nearbyOffer.coordinates);
   const roundRating = Math.round(rating);
   const {avatar, name: userName, superStar} = user;
@@ -113,8 +113,7 @@ const OfferInformation = (props) => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={superStar ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper`
-                    : `property__avatar-wrapper user__avatar-wrapper`}>
+                  <div className={`property__avatar-wrapper user__avatar-wrapper ${superStar ? `property__avatar-wrapper--pro` : ``}`}>
                     <img
                       className="property__avatar user__avatar"
                       src={avatar}
@@ -290,13 +289,13 @@ OfferInformation.propTypes = {
       avatar: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       superStar: PropTypes.bool.isRequired
-    }).isRequired,
-    reviews: PropTypes.array,
-    nearbyOffers: PropTypes.array
+    }).isRequired
   }).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   onCardHover: PropTypes.func.isRequired,
-  currentSortType: PropTypes.string.isRequired
+  currentSortType: PropTypes.string.isRequired,
+  reviews: PropTypes.array,
+  nearbyOffers: PropTypes.array
 };
 
 export default OfferInformation;

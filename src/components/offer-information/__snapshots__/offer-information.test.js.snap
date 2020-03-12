@@ -271,7 +271,7 @@ Array [
               className="property__host-user user"
             >
               <div
-                className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper"
+                className="property__avatar-wrapper user__avatar-wrapper property__avatar-wrapper--pro"
               >
                 <img
                   alt="Host avatar"
@@ -362,9 +362,9 @@ Array [
                   </p>
                   <time
                     className="reviews__time"
-                    dateTime="2019-04-24"
+                    dateTime="2020-04-16T21:00:00.000Z"
                   >
-                    2019-04-24
+                    2020-04-16T21:00:00.000Z
                   </time>
                 </div>
               </li>

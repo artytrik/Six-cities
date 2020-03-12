@@ -17,3 +17,14 @@ export const SortType = {
   PRICE_HIGH_TO_LOW: `Price: high to low`,
   TOP_RATED: `Top rated first`
 };
+
+export const getCities = (offers) => {
+  const cities = new Set();
+  offers.forEach((offer) => {
+    cities.add(offer.city);
+  });
+
+  const maxCities = [...cities].slice(0, 6);
+
+  return maxCities;
+};

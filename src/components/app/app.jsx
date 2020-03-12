@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import OfferInformation from '../offer-information/offer-information.jsx';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer.js';
+import {ActionCreator} from '../../reducer/app/app.js';
+import {Operation} from '../../reducer/operation.js';
+import {getSortType, getActiveCity, getCurrentCard, getActiveOffer} from '../../reducer/app/selectors.js';
+import {getNearbyOffers, getReviews, getCities} from '../../reducer/data/selectors.js';
+import {getOffersByCity} from '../../reducer/selectors.js';
 
 class App extends React.PureComponent {
   _renderApp() {
@@ -18,7 +22,9 @@ class App extends React.PureComponent {
       onCardHover,
       currentCard,
       activeOffer,
-      onHeaderClick
+      onHeaderClick,
+      reviews,
+      nearbyOffers
     } = this.props;
 
     if (activeOffer) {
@@ -27,6 +33,8 @@ class App extends React.PureComponent {
         onHeaderClick={onHeaderClick}
         currentSortType={currentSortType}
         onCardHover={onCardHover}
+        reviews={reviews}
+        nearbyOffers={nearbyOffers}
       />;
     }
 
@@ -44,21 +52,11 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {offers, currentSortType, onCardHover, onHeaderClick} = this.props;
-
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
             {this._renderApp()}
-          </Route>
-          <Route exact path="/offer-information">
-            <OfferInformation
-              offer={offers[0]}
-              onHeaderClick={onHeaderClick}
-              currentSortType={currentSortType}
-              onCardHover={onCardHover}
-            />
           </Route>
         </Switch>
       </BrowserRouter>
@@ -76,23 +74,26 @@ App.propTypes = {
   onCardHover: PropTypes.func.isRequired,
   currentCard: PropTypes.object,
   onHeaderClick: PropTypes.func.isRequired,
-  activeOffer: PropTypes.object
+  activeOffer: PropTypes.object,
+  reviews: PropTypes.array,
+  nearbyOffers: PropTypes.array
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.currentOffers,
-  city: state.city,
-  cities: state.cities,
-  currentSortType: state.currentSortType,
-  currentCard: state.currentCard,
-  activeOffer: state.activeOffer
+  offers: getOffersByCity(state),
+  city: getActiveCity(state),
+  cities: getCities(state),
+  currentSortType: getSortType(state),
+  currentCard: getCurrentCard(state),
+  activeOffer: getActiveOffer(state),
+  reviews: getReviews(state),
+  nearbyOffers: getNearbyOffers(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCityClick(evt, city) {
     evt.preventDefault();
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.getOffers(city));
   },
   onSortTypeClick(sortType) {
     dispatch(ActionCreator.changeSortType(sortType));
@@ -102,6 +103,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onHeaderClick(offer) {
     dispatch(ActionCreator.changeActiveOffer(offer));
+    dispatch(Operation.loadReviews(offer));
+    dispatch(Operation.loadNearbyOffers(offer));
   }
 });
 
