@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import OfferInformation from '../offer-information/offer-information.jsx';
 import {connect} from 'react-redux';
-import {ActionCreator, Operation} from '../../reducer.js';
-import {getOffersByCity} from '../../utils.js';
+import {ActionCreator} from '../../reducer/app/app.js';
+import {Operation} from '../../reducer/operation.js';
+import {getSortType, getActiveCity, getCurrentCard, getActiveOffer} from '../../reducer/app/selectors.js';
+import {getNearbyOffers, getReviews, getCities} from '../../reducer/data/selectors.js';
+import {getOffersByCity} from '../../reducer/selectors.js';
 
 class App extends React.PureComponent {
   _renderApp() {
@@ -77,14 +80,14 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: getOffersByCity(state.city, state.offers),
-  city: state.city,
-  cities: state.cities,
-  currentSortType: state.currentSortType,
-  currentCard: state.currentCard,
-  activeOffer: state.activeOffer,
-  reviews: state.reviews,
-  nearbyOffers: state.nearbyOffers
+  offers: getOffersByCity(state),
+  city: getActiveCity(state),
+  cities: getCities(state),
+  currentSortType: getSortType(state),
+  currentCard: getCurrentCard(state),
+  activeOffer: getActiveOffer(state),
+  reviews: getReviews(state),
+  nearbyOffers: getNearbyOffers(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

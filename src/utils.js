@@ -18,9 +18,6 @@ export const SortType = {
   TOP_RATED: `Top rated first`
 };
 
-export const getOffersByCity = (city, allOffers) =>
-  allOffers.filter((offer) => offer.city === city);
-
 export const getCities = (offers) => {
   const cities = new Set();
   offers.forEach((offer) => {
