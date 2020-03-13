@@ -9,6 +9,7 @@ import {Operation} from '../../reducer/operation.js';
 import {getSortType, getActiveCity, getCurrentCard, getActiveOffer} from '../../reducer/app/selectors.js';
 import {getNearbyOffers, getReviews, getCities} from '../../reducer/data/selectors.js';
 import {getOffersByCity} from '../../reducer/selectors.js';
+import SignIn from '../sign-in/sign-in.jsx';
 
 class App extends React.PureComponent {
   _renderApp() {
@@ -57,6 +58,11 @@ class App extends React.PureComponent {
         <Switch>
           <Route exact path="/">
             {this._renderApp()}
+          </Route>
+          <Route exact path="/dev-login">
+            <SignIn
+              onSubmit={() => {}}
+            />
           </Route>
         </Switch>
       </BrowserRouter>
