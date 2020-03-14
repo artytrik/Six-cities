@@ -6,6 +6,7 @@ import CitiesList from '../cities-list/cities-list.jsx';
 import SortingOptions from '../sorting-options/sorting-options.jsx';
 import withToggle from '../../hocs/with-toggle/with-toggle.jsx';
 import MainEmpty from '../main-empty/main-empty.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const SortingOptionsWrapped = withToggle(SortingOptions);
 
@@ -19,7 +20,9 @@ const Main = (props) => {
     onSortTypeClick,
     currentSortType,
     onCardHover,
-    currentCard
+    currentCard,
+    userData,
+    authorizationStatus
   } = props;
   const coordinates = offers.map((offer) => offer.coordinates);
 
@@ -39,7 +42,9 @@ const Main = (props) => {
                   <a className="header__nav-link header__nav-link--profile" href="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">
+                      {authorizationStatus === AuthorizationStatus.AUTH ? userData.email : `Sign in`}
+                    </span>
                   </a>
                 </li>
               </ul>
@@ -107,7 +112,15 @@ Main.propTypes = {
   onSortTypeClick: PropTypes.func.isRequired,
   currentSortType: PropTypes.string.isRequired,
   onCardHover: PropTypes.func.isRequired,
-  currentCard: PropTypes.object
+  currentCard: PropTypes.object,
+  userData: PropTypes.shape({
+    avatar: PropTypes.string,
+    email: PropTypes.string,
+    id: PropTypes.number,
+    name: PropTypes.string,
+    superStar: PropTypes.bool
+  }),
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 export default React.memo(Main);

@@ -3,6 +3,7 @@ import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../api.js";
 import {ActionType as DataActionType} from './data/data.js';
 import {ActionType as AppActionType} from './app/app.js';
+import {ActionType as UserActionType, AuthorizationStatus} from './user/user.js';
 
 const api = createAPI(() => {});
 
@@ -68,6 +69,29 @@ describe(`Operation work correctly`, () => {
         expect(dispatch).toHaveBeenCalledWith({
           type: DataActionType.LOAD_NEARBY_OFFERS,
           payload: [],
+        });
+      });
+  });
+
+  it(`Should make a correct API call to /login`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const checkAuth = Operation.checkAuth();
+
+    apiMock
+      .onGet(`/login`)
+      .reply(200, AuthorizationStatus.AUTH);
+
+    return checkAuth(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: UserActionType.REQUIRED_AUTHORIZATION,
+          payload: AuthorizationStatus.AUTH,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: UserActionType.GET_USER,
+          payload: {},
         });
       });
   });
