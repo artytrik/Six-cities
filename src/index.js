@@ -4,8 +4,8 @@ import App from './components/app/app.jsx';
 import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import reducer from './reducer/reducer.js';
-import {Operation as DataOperation} from './reducer/operation.js';
-import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from './reducer/user/user.js';
+import {Operation} from './reducer/operation.js';
+import {ActionCreator, AuthorizationStatus} from './reducer/user/user.js';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import {createAPI} from './api.js';
@@ -23,8 +23,8 @@ const store = createStore(
     )
 );
 
-store.dispatch(DataOperation.loadOffers());
-store.dispatch(UserOperation.checkAuth());
+store.dispatch(Operation.loadOffers());
+store.dispatch(Operation.checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>

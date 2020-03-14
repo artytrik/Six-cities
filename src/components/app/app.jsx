@@ -11,6 +11,7 @@ import {getNearbyOffers, getReviews, getCities} from '../../reducer/data/selecto
 import {getOffersByCity} from '../../reducer/selectors.js';
 import SignIn from '../sign-in/sign-in.jsx';
 import {getUser, getAuthoriationStatus} from '../../reducer/user/selectors.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 class App extends React.PureComponent {
   _renderApp() {
@@ -28,7 +29,8 @@ class App extends React.PureComponent {
       reviews,
       nearbyOffers,
       userData,
-      authorizationStatus
+      authorizationStatus,
+      login
     } = this.props;
 
     if (activeOffer) {
@@ -42,19 +44,27 @@ class App extends React.PureComponent {
       />;
     }
 
-    return <Main
-      offers={offers}
-      onHeaderClick={onHeaderClick}
-      city={city}
-      cities={cities}
-      onCityClick={onCityClick}
-      currentSortType={currentSortType}
-      onSortTypeClick={onSortTypeClick}
-      onCardHover={onCardHover}
-      currentCard={currentCard}
-      userData={userData}
-      authorizationStatus={authorizationStatus}
-    />;
+    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+      return <SignIn
+        onSubmit={login}
+      />;
+    } else if (authorizationStatus === AuthorizationStatus.AUTH) {
+      return <Main
+        offers={offers}
+        onHeaderClick={onHeaderClick}
+        city={city}
+        cities={cities}
+        onCityClick={onCityClick}
+        currentSortType={currentSortType}
+        onSortTypeClick={onSortTypeClick}
+        onCardHover={onCardHover}
+        currentCard={currentCard}
+        userData={userData}
+        authorizationStatus={authorizationStatus}
+      />;
+    }
+
+    return null;
   }
 
   render() {
@@ -89,7 +99,8 @@ App.propTypes = {
   reviews: PropTypes.array,
   nearbyOffers: PropTypes.array,
   userData: PropTypes.object,
-  authorizationStatus: PropTypes.string.isRequired
+  authorizationStatus: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -106,6 +117,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(Operation.login(authData));
+  },
   onCityClick(evt, city) {
     evt.preventDefault();
     dispatch(ActionCreator.changeCity(city));

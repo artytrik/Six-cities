@@ -1,7 +1,9 @@
 import ModelOffer from '../model-offer.js';
 import ModelReview from '../model-review.js';
+import ModelUser from '../model-user.js';
 import {ActionCreator as DataActionCreator} from './data/data.js';
 import {ActionCreator as AppActionCreator} from './app/app.js';
+import {ActionCreator as UserActionCreator, AuthorizationStatus} from './user/user.js';
 
 export const Operation = {
   loadOffers: () => (dispatch, getState, api) => {
@@ -25,6 +27,28 @@ export const Operation = {
       .then((response) => {
         const nearbyOffers = ModelOffer.parseOffers(response.data);
         dispatch(DataActionCreator.loadNearbyOffers(nearbyOffers));
+      });
+  },
+  checkAuth: () => (dispatch, getState, api) => {
+    return api.get(`/login`)
+      .then((response) => {
+        const user = ModelUser.parseUser(response.data);
+        dispatch(UserActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(UserActionCreator.getUser(user));
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
+  login: (authData) => (dispatch, getState, api) => {
+    return api.post(`/login`, {
+      email: authData.login,
+      password: authData.password
+    })
+      .then((response) => {
+        const user = ModelUser.parseUser(response.data);
+        dispatch(UserActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(UserActionCreator.getUser(user));
       });
   }
 };

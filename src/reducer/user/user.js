@@ -1,5 +1,4 @@
 import {extend} from '../../utils.js';
-import ModelUser from '../../model-user.js';
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -42,28 +41,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-const Operation = {
-  checkAuth: () => (dispatch, getState, api) => {
-    return api.get(`/login`)
-      .then(() => {
-        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-      })
-      .catch((err) => {
-        throw err;
-      });
-  },
-
-  login: (authData) => (dispatch, getState, api) => {
-    return api.post(`/login`, {
-      email: authData.login,
-      password: authData.password
-    })
-      .then((response) => {
-        const user = ModelUser.parseUser(response.data);
-        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-        dispatch(ActionCreator.getUser(user));
-      });
-  }
-};
-
-export {ActionCreator, ActionType, AuthorizationStatus, Operation, reducer};
+export {ActionCreator, ActionType, AuthorizationStatus, reducer};
