@@ -1,4 +1,5 @@
 import {extend} from '../../utils.js';
+import ModelUser from '../../model-user.js';
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -6,20 +7,24 @@ const AuthorizationStatus = {
 };
 
 const initialState = {
-  authorizationStatus: AuthorizationStatus.NO_AUTH
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  userData: {}
 };
 
 const ActionType = {
-  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`
+  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  GET_USER: `GET_USER`
 };
 
 const ActionCreator = {
-  requireAuthorization: (status) => {
-    return {
-      type: ActionType.REQUIRED_AUTHORIZATION,
-      payload: status
-    };
-  }
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status
+  }),
+  getUser: (userData) => ({
+    type: ActionType.GET_USER,
+    payload: userData
+  })
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,6 +32,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.REQUIRED_AUTHORIZATION:
       return extend(state, {
         authorizationStatus: action.payload
+      });
+    case ActionType.GET_USER:
+      return extend(state, {
+        userData: action.payload
       });
   }
 
@@ -49,8 +58,10 @@ const Operation = {
       email: authData.login,
       password: authData.password
     })
-      .then(() => {
+      .then((response) => {
+        const user = ModelUser.parseUser(response.data);
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.getUser(user));
       });
   }
 };

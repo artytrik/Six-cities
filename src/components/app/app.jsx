@@ -10,6 +10,7 @@ import {getSortType, getActiveCity, getCurrentCard, getActiveOffer} from '../../
 import {getNearbyOffers, getReviews, getCities} from '../../reducer/data/selectors.js';
 import {getOffersByCity} from '../../reducer/selectors.js';
 import SignIn from '../sign-in/sign-in.jsx';
+import {getUser, getAuthoriationStatus} from '../../reducer/user/selectors.js';
 
 class App extends React.PureComponent {
   _renderApp() {
@@ -25,7 +26,9 @@ class App extends React.PureComponent {
       activeOffer,
       onHeaderClick,
       reviews,
-      nearbyOffers
+      nearbyOffers,
+      userData,
+      authorizationStatus
     } = this.props;
 
     if (activeOffer) {
@@ -49,6 +52,8 @@ class App extends React.PureComponent {
       onSortTypeClick={onSortTypeClick}
       onCardHover={onCardHover}
       currentCard={currentCard}
+      userData={userData}
+      authorizationStatus={authorizationStatus}
     />;
   }
 
@@ -82,7 +87,9 @@ App.propTypes = {
   onHeaderClick: PropTypes.func.isRequired,
   activeOffer: PropTypes.object,
   reviews: PropTypes.array,
-  nearbyOffers: PropTypes.array
+  nearbyOffers: PropTypes.array,
+  userData: PropTypes.object,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -93,7 +100,9 @@ const mapStateToProps = (state) => ({
   currentCard: getCurrentCard(state),
   activeOffer: getActiveOffer(state),
   reviews: getReviews(state),
-  nearbyOffers: getNearbyOffers(state)
+  nearbyOffers: getNearbyOffers(state),
+  userData: getUser(state),
+  authorizationStatus: getAuthoriationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
