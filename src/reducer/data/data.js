@@ -1,5 +1,5 @@
 import {extend} from '../../utils.js';
-import {getCities} from '../../utils.js';
+import {getUniqueCities} from '../../utils.js';
 
 const initialState = {
   offers: [],
@@ -50,7 +50,7 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.GET_CITIES:
       return extend(state, {
-        cities: getCities(action.payload)
+        cities: getUniqueCities(action.payload)
       });
   }
 

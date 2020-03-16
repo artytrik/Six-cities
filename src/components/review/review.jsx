@@ -1,5 +1,5 @@
 import React from 'react';
-import {starRating} from '../../utils.js';
+import {getStarRating} from '../../utils.js';
 import PropTypes from 'prop-types';
 
 const Review = (props) => {
@@ -24,7 +24,7 @@ const Review = (props) => {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: starRating.get(rating)}} />
+            <span style={{width: getStarRating(rating)}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

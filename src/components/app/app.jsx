@@ -13,6 +13,31 @@ import SignIn from '../sign-in/sign-in.jsx';
 import {getUser, getAuthoriationStatus} from '../../reducer/user/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 
+const fakeOffer = {
+  name: `Beautiful & luxurious apartment at great location`,
+  type: `Apartment`,
+  bedrooms: 3,
+  adults: 4,
+  price: 120,
+  picture: `img/apartment-01.jpg`,
+  premium: true,
+  gallery: [
+    `img/room.jpg`,
+    `img/apartment-01.jpg`,
+    `img/apartment-02.jpg`,
+    `img/apartment-03.jpg`,
+    `img/studio-01.jpg`,
+    `img/apartment-01.jpg`
+  ],
+  rating: 4.8,
+  description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+  inside: [`Wi-FI`, `Washing machine`, `Towels`, `Heating`],
+  user: {
+    avatar: `img/avatar-angelina.jpg`,
+    name: `Angelina`,
+    superStar: true
+  }
+};
 class App extends React.PureComponent {
   _renderApp() {
     const {
@@ -68,6 +93,8 @@ class App extends React.PureComponent {
   }
 
   render() {
+    const {currentSortType, onCardHover, reviews, nearbyOffers, onHeaderClick} = this.props;
+
     return (
       <BrowserRouter>
         <Switch>
@@ -78,6 +105,16 @@ class App extends React.PureComponent {
             <SignIn
               onSubmit={() => {}}
             />
+          </Route>
+          <Route path="/dev-offer">
+            <OfferInformation
+              offer={fakeOffer}
+              onHeaderClick={(onHeaderClick)}
+              currentSortType={currentSortType}
+              onCardHover={onCardHover}
+              reviews={reviews}
+              nearbyOffers={nearbyOffers}
+            />;
           </Route>
         </Switch>
       </BrowserRouter>
