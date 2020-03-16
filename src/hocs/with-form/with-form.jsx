@@ -7,7 +7,7 @@ const withForm = (Component) => {
 
       this.state = {
         comment: ``,
-        rating: null
+        rating: 1
       };
 
       this._handleRatingChange = this._handleRatingChange.bind(this);

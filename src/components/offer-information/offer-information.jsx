@@ -10,9 +10,9 @@ import withForm from '../../hocs/with-form/with-form.jsx';
 const ReviewFormWrapped = withForm(ReviewForm);
 
 const OfferInformation = (props) => {
-  const {offer, onHeaderClick, onCardHover, currentSortType, reviews, nearbyOffers} = props;
+  const {offer, onHeaderClick, onCardHover, currentSortType, reviews, nearbyOffers, onReviewSubmit} = props;
   const {name, type, price, premium, gallery, rating, bedrooms, adults,
-    description, inside, user} = offer;
+    description, inside, user, id} = offer;
   const nearbyCoordinates = nearbyOffers.map((nearbyOffer) => nearbyOffer.coordinates);
   const {avatar, name: userName, superStar} = user;
 
@@ -135,7 +135,10 @@ const OfferInformation = (props) => {
                 <ReviewsList
                   reviews={reviews}
                 />
-                <ReviewFormWrapped/>
+                <ReviewFormWrapped
+                  id={id}
+                  onReviewSubmit={onReviewSubmit}
+                />
               </section>
             </div>
           </div>
@@ -184,13 +187,15 @@ OfferInformation.propTypes = {
       avatar: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       superStar: PropTypes.bool.isRequired
-    }).isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired
   }).isRequired,
   onHeaderClick: PropTypes.func.isRequired,
   onCardHover: PropTypes.func.isRequired,
   currentSortType: PropTypes.string.isRequired,
   reviews: PropTypes.array,
-  nearbyOffers: PropTypes.array
+  nearbyOffers: PropTypes.array,
+  onReviewSubmit: PropTypes.func.isRequired
 };
 
 export default OfferInformation;

@@ -36,8 +36,10 @@ const fakeOffer = {
     avatar: `img/avatar-angelina.jpg`,
     name: `Angelina`,
     superStar: true
-  }
+  },
+  id: 1
 };
+
 class App extends React.PureComponent {
   _renderApp() {
     const {
@@ -55,7 +57,8 @@ class App extends React.PureComponent {
       nearbyOffers,
       userData,
       authorizationStatus,
-      login
+      login,
+      onReviewSubmit
     } = this.props;
 
     if (activeOffer) {
@@ -66,6 +69,7 @@ class App extends React.PureComponent {
         onCardHover={onCardHover}
         reviews={reviews}
         nearbyOffers={nearbyOffers}
+        onReviewSubmit={onReviewSubmit}
       />;
     }
 
@@ -93,7 +97,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {currentSortType, onCardHover, reviews, nearbyOffers, onHeaderClick} = this.props;
+    const {currentSortType, onCardHover, reviews, nearbyOffers, onHeaderClick, onReviewSubmit} = this.props;
 
     return (
       <BrowserRouter>
@@ -109,11 +113,12 @@ class App extends React.PureComponent {
           <Route path="/dev-offer">
             <OfferInformation
               offer={fakeOffer}
-              onHeaderClick={(onHeaderClick)}
+              onHeaderClick={onHeaderClick}
               currentSortType={currentSortType}
               onCardHover={onCardHover}
               reviews={reviews}
               nearbyOffers={nearbyOffers}
+              onReviewSubmit={onReviewSubmit}
             />;
           </Route>
         </Switch>
@@ -137,7 +142,8 @@ App.propTypes = {
   nearbyOffers: PropTypes.array,
   userData: PropTypes.object,
   authorizationStatus: PropTypes.string.isRequired,
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  onReviewSubmit: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -156,6 +162,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(Operation.login(authData));
+  },
+  onReviewSubmit(reviewData, id) {
+    dispatch(Operation.postReview(reviewData, id));
   },
   onCityClick(evt, city) {
     evt.preventDefault();

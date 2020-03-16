@@ -10,20 +10,24 @@ class ReviewForm extends React.PureComponent {
   }
 
   handleReviewSubmit(evt) {
-    const {onReviewSubmit, comment, rating} = this.props;
+    const {onReviewSubmit, comment, rating, id} = this.props;
 
     evt.preventDefault();
 
     onReviewSubmit({
       comment,
       rating
-    });
+    }, id);
   }
 
   render() {
     const {rating, comment, onCommentChange, onRatingChange} = this.props;
 
-    return <form className="reviews__form form" action="#" method="post">
+    return <form className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={this.handleReviewSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -69,8 +73,6 @@ class ReviewForm extends React.PureComponent {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
-          onSubmit={this.handleReviewSubmit}
         >
           Submit
         </button>
@@ -84,7 +86,8 @@ ReviewForm.propTypes = {
   comment: PropTypes.string.isRequired,
   onCommentChange: PropTypes.func.isRequired,
   onRatingChange: PropTypes.func.isRequired,
-  onReviewSubmit: PropTypes.func.isRequired
+  onReviewSubmit: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired
 };
 
 export default ReviewForm;

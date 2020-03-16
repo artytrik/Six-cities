@@ -50,5 +50,15 @@ export const Operation = {
         dispatch(UserActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         dispatch(UserActionCreator.getUser(user));
       });
+  },
+  postReview: (reviewData, id) => (dispatch, getState, api) => {
+    return api.post(`/comments/${id}`, reviewData)
+      .then((response) => {
+        const reviews = ModelReview.parseReviews(response.data);
+        dispatch(DataActionCreator.loadReviews(reviews));
+      })
+      .catch((err) => {
+        throw err;
+      });
   }
 };
