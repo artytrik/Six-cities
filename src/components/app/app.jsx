@@ -5,6 +5,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import OfferInformation from '../offer-information/offer-information.jsx';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/app/app.js';
+import {ActionCreator as ReviewActionCreator} from '../../reducer/review/review.js';
 import {Operation} from '../../reducer/operation.js';
 import {getSortType, getActiveCity, getCurrentCard, getActiveOffer} from '../../reducer/app/selectors.js';
 import {getNearbyOffers, getReviews, getCities} from '../../reducer/data/selectors.js';
@@ -12,6 +13,7 @@ import {getOffersByCity} from '../../reducer/selectors.js';
 import SignIn from '../sign-in/sign-in.jsx';
 import {getUser, getAuthoriationStatus} from '../../reducer/user/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {getLoadingStatus} from '../../reducer/review/selectors.js';
 
 const fakeOffer = {
   name: `Beautiful & luxurious apartment at great location`,
@@ -58,7 +60,9 @@ class App extends React.PureComponent {
       userData,
       authorizationStatus,
       login,
-      onReviewSubmit
+      onReviewSubmit,
+      loadingStatus,
+      onLoadingStatusClear
     } = this.props;
 
     if (activeOffer) {
@@ -70,6 +74,9 @@ class App extends React.PureComponent {
         reviews={reviews}
         nearbyOffers={nearbyOffers}
         onReviewSubmit={onReviewSubmit}
+        authorizationStatus={authorizationStatus}
+        loadingStatus={loadingStatus}
+        onLoadingStatusClear={onLoadingStatusClear}
       />;
     }
 
@@ -97,7 +104,17 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {currentSortType, onCardHover, reviews, nearbyOffers, onHeaderClick, onReviewSubmit} = this.props;
+    const {
+      currentSortType,
+      onCardHover,
+      reviews,
+      nearbyOffers,
+      onHeaderClick,
+      onReviewSubmit,
+      authorizationStatus,
+      loadingStatus,
+      onLoadingStatusClear
+    } = this.props;
 
     return (
       <BrowserRouter>
@@ -119,6 +136,9 @@ class App extends React.PureComponent {
               reviews={reviews}
               nearbyOffers={nearbyOffers}
               onReviewSubmit={onReviewSubmit}
+              authorizationStatus={authorizationStatus}
+              loadingStatus={loadingStatus}
+              onLoadingStatusClear={onLoadingStatusClear}
             />;
           </Route>
         </Switch>
@@ -143,7 +163,9 @@ App.propTypes = {
   userData: PropTypes.object,
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
-  onReviewSubmit: PropTypes.func.isRequired
+  onReviewSubmit: PropTypes.func.isRequired,
+  loadingStatus: PropTypes.string.isRequired,
+  onLoadingStatusClear: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -156,7 +178,8 @@ const mapStateToProps = (state) => ({
   reviews: getReviews(state),
   nearbyOffers: getNearbyOffers(state),
   userData: getUser(state),
-  authorizationStatus: getAuthoriationStatus(state)
+  authorizationStatus: getAuthoriationStatus(state),
+  loadingStatus: getLoadingStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -165,6 +188,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onReviewSubmit(reviewData, id) {
     dispatch(Operation.postReview(reviewData, id));
+  },
+  onLoadingStatusClear() {
+    dispatch(ReviewActionCreator.changeLoadingStatus(``));
   },
   onCityClick(evt, city) {
     evt.preventDefault();

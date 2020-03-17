@@ -1,13 +1,13 @@
 import {extend} from '../../utils.js';
 
 const LoadingStatus = {
-  DEFAULT: `DEFAULT`,
+  DISABLED: `DISABLED`,
   SUCCESS: `SUCCESS`,
   FAILED: `FAILED`
 };
 
 const initialState = {
-  loadingStatus: LoadingStatus.DEFAULT
+  loadingStatus: ``
 };
 
 const ActionType = {
@@ -25,11 +25,11 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_LOADING_STATUS:
       return extend(state, {
-        status: action.payload
+        loadingStatus: action.payload
       });
   }
 
   return state;
 };
 
-export {reducer, ActionType, ActionCreator};
+export {reducer, ActionType, ActionCreator, LoadingStatus};

@@ -4,6 +4,7 @@ import ModelUser from '../model-user.js';
 import {ActionCreator as DataActionCreator} from './data/data.js';
 import {ActionCreator as AppActionCreator} from './app/app.js';
 import {ActionCreator as UserActionCreator, AuthorizationStatus} from './user/user.js';
+import {ActionCreator as ReviewActionCreator, LoadingStatus} from './review/review.js';
 
 export const Operation = {
   loadOffers: () => (dispatch, getState, api) => {
@@ -52,12 +53,15 @@ export const Operation = {
       });
   },
   postReview: (reviewData, id) => (dispatch, getState, api) => {
+    dispatch(ReviewActionCreator.changeLoadingStatus(LoadingStatus.DISABLED));
     return api.post(`/comments/${id}`, reviewData)
       .then((response) => {
+        dispatch(ReviewActionCreator.changeLoadingStatus(LoadingStatus.SUCCESS));
         const reviews = ModelReview.parseReviews(response.data);
         dispatch(DataActionCreator.loadReviews(reviews));
       })
       .catch((err) => {
+        dispatch(ReviewActionCreator.changeLoadingStatus(LoadingStatus.FAILED));
         throw err;
       });
   }

@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {RatingValues, TextRating} from '../../utils.js';
+import {LoadingStatus} from '../../reducer/review/review.js';
 
 class ReviewForm extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.handleReviewSubmit = this.handleReviewSubmit.bind(this);
+  }
+
+  componentDidUpdate() {
+    const {onClearForm, loadingStatus, onLoadingStatusClear} = this.props;
+    if (loadingStatus === LoadingStatus.SUCCESS) {
+      onClearForm();
+      onLoadingStatusClear();
+    }
   }
 
   handleReviewSubmit(evt) {
@@ -21,9 +30,8 @@ class ReviewForm extends React.PureComponent {
   }
 
   render() {
-    const {rating, comment, onCommentChange, onRatingChange} = this.props;
-
-    return <form className="reviews__form form"
+    const {rating, comment, onCommentChange, onRatingChange, loadingStatus} = this.props;
+    return <form className={`reviews__form form ${loadingStatus === LoadingStatus.FAILED ? `reviews__form--error` : ``}`}
       action="#"
       method="post"
       onSubmit={this.handleReviewSubmit}
@@ -73,6 +81,7 @@ class ReviewForm extends React.PureComponent {
         <button
           className="reviews__submit form__submit button"
           type="submit"
+          disabled={!rating || loadingStatus === LoadingStatus.DISABLED || (comment.length < 50 || comment.length > 300)}
         >
           Submit
         </button>
@@ -82,12 +91,15 @@ class ReviewForm extends React.PureComponent {
 }
 
 ReviewForm.propTypes = {
-  rating: PropTypes.number.isRequired,
+  rating: PropTypes.oneOf(RatingValues),
   comment: PropTypes.string.isRequired,
   onCommentChange: PropTypes.func.isRequired,
   onRatingChange: PropTypes.func.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired
+  id: PropTypes.number.isRequired,
+  loadingStatus: PropTypes.string.isRequired,
+  onClearForm: PropTypes.func.isRequired,
+  onLoadingStatusClear: PropTypes.func.isRequired
 };
 
 export default ReviewForm;

@@ -6,11 +6,23 @@ import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
 import withForm from '../../hocs/with-form/with-form.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const ReviewFormWrapped = withForm(ReviewForm);
 
 const OfferInformation = (props) => {
-  const {offer, onHeaderClick, onCardHover, currentSortType, reviews, nearbyOffers, onReviewSubmit} = props;
+  const {
+    offer,
+    onHeaderClick,
+    onCardHover,
+    currentSortType,
+    reviews,
+    nearbyOffers,
+    onReviewSubmit,
+    authorizationStatus,
+    loadingStatus,
+    onLoadingStatusClear
+  } = props;
   const {name, type, price, premium, gallery, rating, bedrooms, adults,
     description, inside, user, id} = offer;
   const nearbyCoordinates = nearbyOffers.map((nearbyOffer) => nearbyOffer.coordinates);
@@ -132,13 +144,19 @@ const OfferInformation = (props) => {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <ReviewsList
-                  reviews={reviews}
-                />
-                <ReviewFormWrapped
-                  id={id}
-                  onReviewSubmit={onReviewSubmit}
-                />
+                {reviews.length > 0 &&
+                  <ReviewsList
+                    reviews={reviews}
+                  />
+                }
+                {authorizationStatus === AuthorizationStatus.AUTH &&
+                  <ReviewFormWrapped
+                    id={id}
+                    onReviewSubmit={onReviewSubmit}
+                    loadingStatus={loadingStatus}
+                    onLoadingStatusClear={onLoadingStatusClear}
+                  />
+                }
               </section>
             </div>
           </div>
@@ -195,7 +213,10 @@ OfferInformation.propTypes = {
   currentSortType: PropTypes.string.isRequired,
   reviews: PropTypes.array,
   nearbyOffers: PropTypes.array,
-  onReviewSubmit: PropTypes.func.isRequired
+  onReviewSubmit: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  loadingStatus: PropTypes.string.isRequired,
+  onLoadingStatusClear: PropTypes.func.isRequired
 };
 
 export default OfferInformation;
