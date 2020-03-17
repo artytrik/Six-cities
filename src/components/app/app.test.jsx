@@ -143,6 +143,9 @@ it(`App should render correctly`, () => {
         userData={user}
         authorizationStatus={`AUTH`}
         login={() => {}}
+        loadingStatus={``}
+        onLoadingStatusClear={() => {}}
+        onReviewSubmit={() => {}}
       />
     </Provider>, {
       createNodeMock: () => {

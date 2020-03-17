@@ -31,7 +31,7 @@ class ReviewForm extends React.PureComponent {
 
   render() {
     const {rating, comment, onCommentChange, onRatingChange, loadingStatus} = this.props;
-    return <form className={`reviews__form form ${loadingStatus === LoadingStatus.FAILED ? `reviews__form--error` : ``}`}
+    return <form className={`reviews__form form${loadingStatus === LoadingStatus.FAILED ? ` nreviews__form--error` : ``}`}
       action="#"
       method="post"
       onSubmit={this.handleReviewSubmit}
