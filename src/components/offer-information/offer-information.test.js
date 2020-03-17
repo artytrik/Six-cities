@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import OfferInformation from './offer-information.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const offer = {
   name: `Beautiful & luxurious apartment at great location`,
@@ -25,7 +26,8 @@ const offer = {
     avatar: `img/avatar-angelina.jpg`,
     name: `Angelina`,
     superStar: true
-  }
+  },
+  id: 1
 };
 
 const reviews = [
@@ -63,6 +65,10 @@ it(`OfferInformation should render correctly`, () => {
       onHeaderClick={() => {}}
       currentSortType={`Popular`}
       onCardHover={() => {}}
+      onReviewSubmit={() => {}}
+      authorizationStatus={AuthorizationStatus.AUTH}
+      loadingStatus={``}
+      onLoadingStatusClear={() => {}}
     />)
     .toJSON();
 

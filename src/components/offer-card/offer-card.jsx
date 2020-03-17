@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {starRating} from '../../utils.js';
+import {getStarRating} from '../../utils.js';
 
 const OfferCard = (props) => {
   const {offer, onMouseHover, onHeaderClick} = props;
   const {name, type, price, picture, premium, rating} = offer;
-  const roundRating = Math.round(rating);
 
   return (
     <article className="cities__place-card place-card"
@@ -43,7 +42,7 @@ const OfferCard = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: starRating.get(roundRating)}} />
+            <span style={{width: getStarRating(rating)}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
