@@ -113,8 +113,6 @@ class App extends React.PureComponent {
               onSortTypeClick={onSortTypeClick}
               onCardHover={onCardHover}
               currentCard={currentCard}
-              userData={userData}
-              authorizationStatus={authorizationStatus}
             />
           </Route>
           <Route exact path={AppRoute.LOGIN}>

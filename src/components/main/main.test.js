@@ -6,14 +6,6 @@ import configureStore from 'redux-mock-store';
 
 const mockStore = configureStore([]);
 
-const user = {
-  avatar: `img/1.png`,
-  email: `Oliver.conner@gmail.com`,
-  id: 1,
-  superStar: false,
-  name: `Oliver.conner`
-};
-
 const offers = [
   {
     name: `Beautiful & luxurious apartment at great location`,
@@ -71,8 +63,6 @@ it(`Main should render correctly`, () => {
         currentSortType={`Popular`}
         onCardHover={() => {}}
         currentCard={null}
-        userData={user}
-        authorizationStatus={`AUTH`}
       />
     </Provider>, {
       createNodeMock: () => {
