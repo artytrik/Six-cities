@@ -14,33 +14,7 @@ import SignIn from '../sign-in/sign-in.jsx';
 import {getUser, getAuthoriationStatus} from '../../reducer/user/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {getLoadingStatus} from '../../reducer/review/selectors.js';
-
-const fakeOffer = {
-  name: `Beautiful & luxurious apartment at great location`,
-  type: `Apartment`,
-  bedrooms: 3,
-  adults: 4,
-  price: 120,
-  picture: `img/apartment-01.jpg`,
-  premium: true,
-  gallery: [
-    `img/room.jpg`,
-    `img/apartment-01.jpg`,
-    `img/apartment-02.jpg`,
-    `img/apartment-03.jpg`,
-    `img/studio-01.jpg`,
-    `img/apartment-01.jpg`
-  ],
-  rating: 4.8,
-  description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-  inside: [`Wi-FI`, `Washing machine`, `Towels`, `Heating`],
-  user: {
-    avatar: `img/avatar-angelina.jpg`,
-    name: `Angelina`,
-    superStar: true
-  },
-  id: 1
-};
+import {AppRoute} from '../../utils.js';
 
 class App extends React.PureComponent {
   _renderApp() {
@@ -105,13 +79,22 @@ class App extends React.PureComponent {
 
   render() {
     const {
+      offers,
+      city,
+      cities,
+      onCityClick,
+      onSortTypeClick,
       currentSortType,
       onCardHover,
+      currentCard,
+      activeOffer,
+      onHeaderClick,
       reviews,
       nearbyOffers,
-      onHeaderClick,
-      onReviewSubmit,
+      userData,
       authorizationStatus,
+      login,
+      onReviewSubmit,
       loadingStatus,
       onLoadingStatusClear
     } = this.props;
@@ -119,26 +102,24 @@ class App extends React.PureComponent {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
-            {this._renderApp()}
-          </Route>
-          <Route exact path="/dev-login">
-            <SignIn
-              onSubmit={() => {}}
+          <Route exact path={AppRoute.ROOT}>
+            <Main
+              offers={offers}
+              onHeaderClick={onHeaderClick}
+              city={city}
+              cities={cities}
+              onCityClick={onCityClick}
+              currentSortType={currentSortType}
+              onSortTypeClick={onSortTypeClick}
+              onCardHover={onCardHover}
+              currentCard={currentCard}
+              userData={userData}
+              authorizationStatus={authorizationStatus}
             />
           </Route>
-          <Route path="/dev-offer">
-            <OfferInformation
-              offer={fakeOffer}
-              onHeaderClick={onHeaderClick}
-              currentSortType={currentSortType}
-              onCardHover={onCardHover}
-              reviews={reviews}
-              nearbyOffers={nearbyOffers}
-              onReviewSubmit={onReviewSubmit}
-              authorizationStatus={authorizationStatus}
-              loadingStatus={loadingStatus}
-              onLoadingStatusClear={onLoadingStatusClear}
+          <Route exact path={AppRoute.LOGIN}>
+            <SignIn
+              onSubmit={login}
             />;
           </Route>
         </Switch>
