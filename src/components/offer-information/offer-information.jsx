@@ -8,12 +8,15 @@ import ReviewForm from '../review-form/review-form.jsx';
 import withForm from '../../hocs/with-form/with-form.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import Header from '../header/header.jsx';
+import {connect} from 'react-redux';
+import {getActiveOffer} from '../../reducer/selectors.js';
+import {ActionCreator} from '../../reducer/app/app.js';
+import {Operation} from '../../reducer/operation.js';
 
 const ReviewFormWrapped = withForm(ReviewForm);
 
 const OfferInformation = (props) => {
   const {
-    offer,
     onHeaderClick,
     onCardHover,
     currentSortType,
@@ -22,8 +25,19 @@ const OfferInformation = (props) => {
     onReviewSubmit,
     authorizationStatus,
     loadingStatus,
-    onLoadingStatusClear
+    onLoadingStatusClear,
+    offer,
+    match,
+    setActiveOffer
   } = props;
+
+  const offerId = parseInt(match.params.id, 10);
+
+  if (!offer || offer && offer.id !== offerId) {
+    setActiveOffer(offerId);
+    return (<React.Fragment></React.Fragment>);
+  }
+
   const {name, type, price, premium, gallery, rating, bedrooms, adults,
     description, inside, user, id} = offer;
   const nearbyCoordinates = nearbyOffers.map((nearbyOffer) => nearbyOffer.coordinates);
@@ -177,7 +191,7 @@ OfferInformation.propTypes = {
       superStar: PropTypes.bool.isRequired
     }).isRequired,
     id: PropTypes.number.isRequired
-  }).isRequired,
+  }),
   onHeaderClick: PropTypes.func.isRequired,
   onCardHover: PropTypes.func.isRequired,
   currentSortType: PropTypes.string.isRequired,
@@ -186,7 +200,22 @@ OfferInformation.propTypes = {
   onReviewSubmit: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   loadingStatus: PropTypes.string.isRequired,
-  onLoadingStatusClear: PropTypes.func.isRequired
+  onLoadingStatusClear: PropTypes.func.isRequired,
+  match: PropTypes.object,
+  setActiveOffer: PropTypes.func.isRequired
 };
 
-export default OfferInformation;
+const mapStateToProps = (state) => ({
+  offer: getActiveOffer(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setActiveOffer(offer) {
+    dispatch(ActionCreator.changeActiveOffer(Number(offer)));
+    dispatch(Operation.loadReviews(offer));
+    dispatch(Operation.loadNearbyOffers(offer));
+  }
+});
+
+export {OfferInformation};
+export default connect(mapStateToProps, mapDispatchToProps)(OfferInformation);

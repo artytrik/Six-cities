@@ -7,76 +7,15 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/app/app.js';
 import {ActionCreator as ReviewActionCreator} from '../../reducer/review/review.js';
 import {Operation} from '../../reducer/operation.js';
-import {getSortType, getActiveCity, getCurrentCard, getActiveOffer} from '../../reducer/app/selectors.js';
+import {getSortType, getActiveCity, getCurrentCard} from '../../reducer/app/selectors.js';
 import {getNearbyOffers, getReviews, getCities} from '../../reducer/data/selectors.js';
-import {getOffersByCity} from '../../reducer/selectors.js';
+import {getOffersByCity, getActiveOffer} from '../../reducer/selectors.js';
 import SignIn from '../sign-in/sign-in.jsx';
-import {getUser, getAuthoriationStatus} from '../../reducer/user/selectors.js';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {getLoadingStatus} from '../../reducer/review/selectors.js';
 import {AppRoute} from '../../utils.js';
+import {getAuthoriationStatus} from '../../reducer/user/selectors.js';
 
 class App extends React.PureComponent {
-  _renderApp() {
-    const {
-      offers,
-      city,
-      cities,
-      onCityClick,
-      onSortTypeClick,
-      currentSortType,
-      onCardHover,
-      currentCard,
-      activeOffer,
-      onHeaderClick,
-      reviews,
-      nearbyOffers,
-      userData,
-      authorizationStatus,
-      login,
-      onReviewSubmit,
-      loadingStatus,
-      onLoadingStatusClear
-    } = this.props;
-
-    if (activeOffer) {
-      return <OfferInformation
-        offer={activeOffer}
-        onHeaderClick={onHeaderClick}
-        currentSortType={currentSortType}
-        onCardHover={onCardHover}
-        reviews={reviews}
-        nearbyOffers={nearbyOffers}
-        onReviewSubmit={onReviewSubmit}
-        authorizationStatus={authorizationStatus}
-        loadingStatus={loadingStatus}
-        onLoadingStatusClear={onLoadingStatusClear}
-      />;
-    }
-
-    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-      return <SignIn
-        onSubmit={login}
-      />;
-    } else if (authorizationStatus === AuthorizationStatus.AUTH) {
-      return <Main
-        offers={offers}
-        onHeaderClick={onHeaderClick}
-        city={city}
-        cities={cities}
-        onCityClick={onCityClick}
-        currentSortType={currentSortType}
-        onSortTypeClick={onSortTypeClick}
-        onCardHover={onCardHover}
-        currentCard={currentCard}
-        userData={userData}
-        authorizationStatus={authorizationStatus}
-      />;
-    }
-
-    return null;
-  }
-
   render() {
     const {
       offers,
@@ -91,7 +30,6 @@ class App extends React.PureComponent {
       onHeaderClick,
       reviews,
       nearbyOffers,
-      userData,
       authorizationStatus,
       login,
       onReviewSubmit,
@@ -113,12 +51,31 @@ class App extends React.PureComponent {
               onSortTypeClick={onSortTypeClick}
               onCardHover={onCardHover}
               currentCard={currentCard}
+              authorizationStatus={authorizationStatus}
             />
           </Route>
           <Route exact path={AppRoute.LOGIN}>
             <SignIn
               onSubmit={login}
             />;
+          </Route>
+          <Route
+            exact
+            path={`${AppRoute.OFFER}/:id`}
+            render={({match}) => {
+              return <OfferInformation
+                onHeaderClick={onHeaderClick}
+                currentSortType={currentSortType}
+                onCardHover={onCardHover}
+                reviews={reviews}
+                nearbyOffers={nearbyOffers}
+                onReviewSubmit={onReviewSubmit}
+                authorizationStatus={authorizationStatus}
+                loadingStatus={loadingStatus}
+                onLoadingStatusClear={onLoadingStatusClear}
+                match={match}
+              />;
+            }}>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -139,7 +96,6 @@ App.propTypes = {
   activeOffer: PropTypes.object,
   reviews: PropTypes.array,
   nearbyOffers: PropTypes.array,
-  userData: PropTypes.object,
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
@@ -153,12 +109,10 @@ const mapStateToProps = (state) => ({
   cities: getCities(state),
   currentSortType: getSortType(state),
   currentCard: getCurrentCard(state),
-  activeOffer: getActiveOffer(state),
   reviews: getReviews(state),
   nearbyOffers: getNearbyOffers(state),
-  userData: getUser(state),
-  authorizationStatus: getAuthoriationStatus(state),
-  loadingStatus: getLoadingStatus(state)
+  loadingStatus: getLoadingStatus(state),
+  authorizationStatus: getAuthoriationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -182,7 +136,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.setCurrentCard(offer));
   },
   onHeaderClick(offer) {
-    dispatch(ActionCreator.changeActiveOffer(offer));
+    dispatch(ActionCreator.changeActiveOffer(Number(offer)));
     dispatch(Operation.loadReviews(offer));
     dispatch(Operation.loadNearbyOffers(offer));
   }

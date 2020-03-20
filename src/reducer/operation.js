@@ -17,14 +17,14 @@ export const Operation = {
       });
   },
   loadReviews: (activeOffer) => (dispatch, getState, api) => {
-    return api.get(`/comments/${activeOffer.id}`)
+    return api.get(`/comments/${activeOffer}`)
       .then((response) => {
         const reviews = ModelReview.parseReviews(response.data);
         dispatch(DataActionCreator.loadReviews(reviews));
       });
   },
   loadNearbyOffers: (activeOffer) => (dispatch, getState, api) => {
-    return api.get(`/hotels/${activeOffer.id}/nearby`)
+    return api.get(`/hotels/${activeOffer}/nearby`)
       .then((response) => {
         const nearbyOffers = ModelOffer.parseOffers(response.data);
         dispatch(DataActionCreator.loadNearbyOffers(nearbyOffers));
