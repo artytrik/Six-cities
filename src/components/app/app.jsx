@@ -9,11 +9,12 @@ import {ActionCreator as ReviewActionCreator} from '../../reducer/review/review.
 import {Operation} from '../../reducer/operation.js';
 import {getSortType, getActiveCity, getCurrentCard} from '../../reducer/app/selectors.js';
 import {getNearbyOffers, getReviews, getCities} from '../../reducer/data/selectors.js';
-import {getOffersByCity, getActiveOffer} from '../../reducer/selectors.js';
+import {getOffersByCity} from '../../reducer/selectors.js';
 import SignIn from '../sign-in/sign-in.jsx';
 import {getLoadingStatus} from '../../reducer/review/selectors.js';
 import {AppRoute} from '../../utils.js';
-import {getAuthoriationStatus} from '../../reducer/user/selectors.js';
+import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
+import PrivateRoute from '../private-route/private-route.jsx';
 
 class App extends React.PureComponent {
   render() {
@@ -26,7 +27,6 @@ class App extends React.PureComponent {
       currentSortType,
       onCardHover,
       currentCard,
-      activeOffer,
       onHeaderClick,
       reviews,
       nearbyOffers,
@@ -77,6 +77,14 @@ class App extends React.PureComponent {
               />;
             }}>
           </Route>
+          <PrivateRoute
+            authorizationStatus={authorizationStatus}
+            exact
+            path={AppRoute.FAVORITES}
+            render={() => {
+              return <div>Favorites</div>;
+            }}
+          />
         </Switch>
       </BrowserRouter>
     );
@@ -93,7 +101,6 @@ App.propTypes = {
   onCardHover: PropTypes.func.isRequired,
   currentCard: PropTypes.object,
   onHeaderClick: PropTypes.func.isRequired,
-  activeOffer: PropTypes.object,
   reviews: PropTypes.array,
   nearbyOffers: PropTypes.array,
   authorizationStatus: PropTypes.string.isRequired,
@@ -112,7 +119,7 @@ const mapStateToProps = (state) => ({
   reviews: getReviews(state),
   nearbyOffers: getNearbyOffers(state),
   loadingStatus: getLoadingStatus(state),
-  authorizationStatus: getAuthoriationStatus(state)
+  authorizationStatus: getAuthorizationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

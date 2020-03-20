@@ -45,5 +45,6 @@ export const getUniqueCities = (offers) => {
 export const AppRoute = {
   LOGIN: `/login`,
   ROOT: `/`,
-  OFFER: `/offer`
+  OFFER: `/offer`,
+  FAVORITES: `/favorites`
 };
