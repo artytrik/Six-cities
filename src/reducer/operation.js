@@ -5,6 +5,7 @@ import {ActionCreator as DataActionCreator} from './data/data.js';
 import {ActionCreator as AppActionCreator} from './app/app.js';
 import {ActionCreator as UserActionCreator, AuthorizationStatus} from './user/user.js';
 import {ActionCreator as ReviewActionCreator, LoadingStatus} from './review/review.js';
+import {ActionCreator as FavoritesActionCreator} from './favorite/favorite.js';
 
 export const Operation = {
   loadOffers: () => (dispatch, getState, api) => {
@@ -63,6 +64,35 @@ export const Operation = {
       .catch((err) => {
         dispatch(ReviewActionCreator.changeLoadingStatus(LoadingStatus.FAILED));
         throw err;
+      });
+  },
+  loadFavorites: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        const offers = ModelOffer.parseOffers(response.data);
+        dispatch(FavoritesActionCreator.loadFavorites(offers));
+      });
+  },
+  addFavorite: (id) => (dispatch, getState, api) => {
+    const status = 1;
+    return api.post(`favorite/${id}/${status}`, {
+      'hotel_id': id,
+      status
+    })
+      .then((response) => {
+        const offer = ModelOffer.parseOffer(response.data);
+        dispatch(FavoritesActionCreator.addFavorite(offer));
+      });
+  },
+  removeFavorite: (id) => (dispatch, getState, api) => {
+    const status = 0;
+    return api.post(`favorite/${id}/${status}`, {
+      'hotel_id': id,
+      status
+    })
+      .then((response) => {
+        const offer = ModelOffer.parseOffer(response.data);
+        dispatch(FavoritesActionCreator.removeFavorite(offer));
       });
   }
 };
