@@ -3,16 +3,9 @@ import renderer from 'react-test-renderer';
 import {App} from './app.jsx';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
+import NameSpace from '../../reducer/name-space.js';
 
 const mockStore = configureStore([]);
-
-const user = {
-  avatar: `img/1.png`,
-  email: `Oliver.conner@gmail.com`,
-  id: 1,
-  superStar: false,
-  name: `Oliver.conner`
-};
 
 const offers = [
   {
@@ -125,7 +118,12 @@ const city = `Amsterdam`;
 const cities = [`Amsterdam`, `Moscow`, `Vladivostok`];
 
 it(`App should render correctly`, () => {
-  const store = mockStore({});
+  const store = mockStore({
+    [NameSpace.USER]: {
+      userData: {},
+      authorizationStatus: `NO_AUTH`
+    }
+  });
 
   const tree = renderer
     .create(<Provider store={store}>
@@ -138,9 +136,7 @@ it(`App should render correctly`, () => {
         currentSortType={`Popular`}
         onCardHover={() => {}}
         currentCard={null}
-        activeOffer={null}
         onHeaderClick={() => {}}
-        userData={user}
         authorizationStatus={`AUTH`}
         login={() => {}}
         loadingStatus={``}

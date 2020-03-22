@@ -21,8 +21,6 @@ const Main = (props) => {
     currentSortType,
     onCardHover,
     currentCard,
-    userData,
-    authorizationStatus
   } = props;
   const coordinates = offers.map((offer) => offer.coordinates);
 
@@ -89,14 +87,6 @@ Main.propTypes = {
   currentSortType: PropTypes.string.isRequired,
   onCardHover: PropTypes.func.isRequired,
   currentCard: PropTypes.object,
-  userData: PropTypes.shape({
-    avatar: PropTypes.string,
-    email: PropTypes.string,
-    id: PropTypes.number,
-    name: PropTypes.string,
-    superStar: PropTypes.bool
-  }),
-  authorizationStatus: PropTypes.string.isRequired
 };
 
 export default React.memo(Main);

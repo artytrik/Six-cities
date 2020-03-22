@@ -18,6 +18,10 @@ const ActionCreator = {
   addFavorite: (offer) => ({
     type: ActionType.LOAD_FAVORITE,
     payload: offer
+  }),
+  removeFavorite: (offer) => ({
+    type: ActionType.REMOVE_FAVORITE,
+    payload: offer
   })
 };
 

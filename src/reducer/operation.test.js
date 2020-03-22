@@ -38,7 +38,7 @@ describe(`Operation work correctly`, () => {
   it(`Should make a correct API call to /comments/:id`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const reviewsLoader = Operation.loadReviews({id: 1});
+    const reviewsLoader = Operation.loadReviews(1);
 
     apiMock
       .onGet(`/comments/1`)
@@ -57,7 +57,7 @@ describe(`Operation work correctly`, () => {
   it(`Should make a correct API call to /hotels/:id/nearby`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const nearbyOffersLoader = Operation.loadNearbyOffers({id: 1});
+    const nearbyOffersLoader = Operation.loadNearbyOffers(1);
 
     apiMock
       .onGet(`/hotels/1/nearby`)
