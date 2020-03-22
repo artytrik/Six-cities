@@ -7,43 +7,17 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/app/app.js';
 import {ActionCreator as ReviewActionCreator} from '../../reducer/review/review.js';
 import {Operation} from '../../reducer/operation.js';
-import {getSortType, getActiveCity, getCurrentCard, getActiveOffer} from '../../reducer/app/selectors.js';
+import {getSortType, getActiveCity, getCurrentCard} from '../../reducer/app/selectors.js';
 import {getNearbyOffers, getReviews, getCities} from '../../reducer/data/selectors.js';
 import {getOffersByCity} from '../../reducer/selectors.js';
 import SignIn from '../sign-in/sign-in.jsx';
-import {getUser, getAuthoriationStatus} from '../../reducer/user/selectors.js';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {getLoadingStatus} from '../../reducer/review/selectors.js';
-
-const fakeOffer = {
-  name: `Beautiful & luxurious apartment at great location`,
-  type: `Apartment`,
-  bedrooms: 3,
-  adults: 4,
-  price: 120,
-  picture: `img/apartment-01.jpg`,
-  premium: true,
-  gallery: [
-    `img/room.jpg`,
-    `img/apartment-01.jpg`,
-    `img/apartment-02.jpg`,
-    `img/apartment-03.jpg`,
-    `img/studio-01.jpg`,
-    `img/apartment-01.jpg`
-  ],
-  rating: 4.8,
-  description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-  inside: [`Wi-FI`, `Washing machine`, `Towels`, `Heating`],
-  user: {
-    avatar: `img/avatar-angelina.jpg`,
-    name: `Angelina`,
-    superStar: true
-  },
-  id: 1
-};
+import {AppRoute} from '../../utils.js';
+import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
+import PrivateRoute from '../private-route/private-route.jsx';
 
 class App extends React.PureComponent {
-  _renderApp() {
+  render() {
     const {
       offers,
       city,
@@ -53,11 +27,9 @@ class App extends React.PureComponent {
       currentSortType,
       onCardHover,
       currentCard,
-      activeOffer,
       onHeaderClick,
       reviews,
       nearbyOffers,
-      userData,
       authorizationStatus,
       login,
       onReviewSubmit,
@@ -65,82 +37,54 @@ class App extends React.PureComponent {
       onLoadingStatusClear
     } = this.props;
 
-    if (activeOffer) {
-      return <OfferInformation
-        offer={activeOffer}
-        onHeaderClick={onHeaderClick}
-        currentSortType={currentSortType}
-        onCardHover={onCardHover}
-        reviews={reviews}
-        nearbyOffers={nearbyOffers}
-        onReviewSubmit={onReviewSubmit}
-        authorizationStatus={authorizationStatus}
-        loadingStatus={loadingStatus}
-        onLoadingStatusClear={onLoadingStatusClear}
-      />;
-    }
-
-    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-      return <SignIn
-        onSubmit={login}
-      />;
-    } else if (authorizationStatus === AuthorizationStatus.AUTH) {
-      return <Main
-        offers={offers}
-        onHeaderClick={onHeaderClick}
-        city={city}
-        cities={cities}
-        onCityClick={onCityClick}
-        currentSortType={currentSortType}
-        onSortTypeClick={onSortTypeClick}
-        onCardHover={onCardHover}
-        currentCard={currentCard}
-        userData={userData}
-        authorizationStatus={authorizationStatus}
-      />;
-    }
-
-    return null;
-  }
-
-  render() {
-    const {
-      currentSortType,
-      onCardHover,
-      reviews,
-      nearbyOffers,
-      onHeaderClick,
-      onReviewSubmit,
-      authorizationStatus,
-      loadingStatus,
-      onLoadingStatusClear
-    } = this.props;
-
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
-            {this._renderApp()}
-          </Route>
-          <Route exact path="/dev-login">
-            <SignIn
-              onSubmit={() => {}}
+          <Route exact path={AppRoute.ROOT}>
+            <Main
+              offers={offers}
+              onHeaderClick={onHeaderClick}
+              city={city}
+              cities={cities}
+              onCityClick={onCityClick}
+              currentSortType={currentSortType}
+              onSortTypeClick={onSortTypeClick}
+              onCardHover={onCardHover}
+              currentCard={currentCard}
+              authorizationStatus={authorizationStatus}
             />
           </Route>
-          <Route path="/dev-offer">
-            <OfferInformation
-              offer={fakeOffer}
-              onHeaderClick={onHeaderClick}
-              currentSortType={currentSortType}
-              onCardHover={onCardHover}
-              reviews={reviews}
-              nearbyOffers={nearbyOffers}
-              onReviewSubmit={onReviewSubmit}
-              authorizationStatus={authorizationStatus}
-              loadingStatus={loadingStatus}
-              onLoadingStatusClear={onLoadingStatusClear}
+          <Route exact path={AppRoute.LOGIN}>
+            <SignIn
+              onSubmit={login}
             />;
           </Route>
+          <Route
+            exact
+            path={`${AppRoute.OFFER}/:id`}
+            render={({match}) => {
+              return <OfferInformation
+                onHeaderClick={onHeaderClick}
+                currentSortType={currentSortType}
+                onCardHover={onCardHover}
+                reviews={reviews}
+                nearbyOffers={nearbyOffers}
+                onReviewSubmit={onReviewSubmit}
+                authorizationStatus={authorizationStatus}
+                loadingStatus={loadingStatus}
+                onLoadingStatusClear={onLoadingStatusClear}
+                match={match}
+              />;
+            }}>
+          </Route>
+          <PrivateRoute
+            authorizationStatus={authorizationStatus}
+            exact
+            path={AppRoute.FAVORITES}
+            render={() => {
+              return <div>Favorites</div>;
+            }}
+          />
         </Switch>
       </BrowserRouter>
     );
@@ -157,10 +101,8 @@ App.propTypes = {
   onCardHover: PropTypes.func.isRequired,
   currentCard: PropTypes.object,
   onHeaderClick: PropTypes.func.isRequired,
-  activeOffer: PropTypes.object,
   reviews: PropTypes.array,
   nearbyOffers: PropTypes.array,
-  userData: PropTypes.object,
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
@@ -174,12 +116,10 @@ const mapStateToProps = (state) => ({
   cities: getCities(state),
   currentSortType: getSortType(state),
   currentCard: getCurrentCard(state),
-  activeOffer: getActiveOffer(state),
   reviews: getReviews(state),
   nearbyOffers: getNearbyOffers(state),
-  userData: getUser(state),
-  authorizationStatus: getAuthoriationStatus(state),
-  loadingStatus: getLoadingStatus(state)
+  loadingStatus: getLoadingStatus(state),
+  authorizationStatus: getAuthorizationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -203,7 +143,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.setCurrentCard(offer));
   },
   onHeaderClick(offer) {
-    dispatch(ActionCreator.changeActiveOffer(offer));
+    dispatch(ActionCreator.changeActiveOffer(Number(offer)));
     dispatch(Operation.loadReviews(offer));
     dispatch(Operation.loadNearbyOffers(offer));
   }
