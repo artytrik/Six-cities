@@ -19,7 +19,6 @@ class OffersList extends React.PureComponent {
   render() {
     const {
       offers,
-      onHeaderClick,
       className,
       currentSortType,
       onCardHover
@@ -28,12 +27,11 @@ class OffersList extends React.PureComponent {
 
     return (
       <div className={`${className} places__list`}>
-        {sortedOffers.map((offer, i) => (
+        {sortedOffers.map((offer) => (
           <OfferCard
-            key={`offer-${i}`}
+            key={offer.id}
             offer={offer}
             onMouseHover={onCardHover}
-            onHeaderClick={onHeaderClick}
           />
         ))}
       </div>
@@ -49,7 +47,6 @@ OffersList.propTypes = {
     picture: PropTypes.string.isRequired,
     premium: PropTypes.bool.isRequired
   })).isRequired,
-  onHeaderClick: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
   currentSortType: PropTypes.string.isRequired,
   onCardHover: PropTypes.func.isRequired

@@ -73,7 +73,6 @@ it(`Main should render correctly`, () => {
             <Main
               city={city}
               offers={offers}
-              onHeaderClick={() => {}}
               cities={cities}
               onCityClick={() => {}}
               onSortTypeClick={() => {}}

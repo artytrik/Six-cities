@@ -82,6 +82,7 @@ export const Operation = {
       .then((response) => {
         const offer = ModelOffer.parseOffer(response.data);
         dispatch(FavoritesActionCreator.addFavorite(offer));
+        dispatch(DataActionCreator.replaceOffer(offer));
       });
   },
   removeFavorite: (id) => (dispatch, getState, api) => {
@@ -91,8 +92,10 @@ export const Operation = {
       status
     })
       .then((response) => {
+        console.log(response);
         const offer = ModelOffer.parseOffer(response.data);
         dispatch(FavoritesActionCreator.removeFavorite(offer));
+        dispatch(DataActionCreator.replaceOffer(offer));
       });
   }
 };

@@ -15,6 +15,7 @@ import {getLoadingStatus} from '../../reducer/review/selectors.js';
 import {AppRoute} from '../../utils.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import PrivateRoute from '../private-route/private-route.jsx';
+import Favorites from '../favorites/favorites.jsx';
 
 class App extends React.PureComponent {
   render() {
@@ -27,7 +28,6 @@ class App extends React.PureComponent {
       currentSortType,
       onCardHover,
       currentCard,
-      onHeaderClick,
       reviews,
       nearbyOffers,
       authorizationStatus,
@@ -43,7 +43,6 @@ class App extends React.PureComponent {
           <Route exact path={AppRoute.ROOT}>
             <Main
               offers={offers}
-              onHeaderClick={onHeaderClick}
               city={city}
               cities={cities}
               onCityClick={onCityClick}
@@ -54,17 +53,22 @@ class App extends React.PureComponent {
               authorizationStatus={authorizationStatus}
             />
           </Route>
-          <Route exact path={AppRoute.LOGIN}>
-            <SignIn
-              onSubmit={login}
-            />;
+          <Route
+            exact
+            path={AppRoute.LOGIN}
+            render={(props) => (
+              <SignIn
+                onSubmit={login}
+                goBack={props.history.goBack}
+              />
+            )}
+          >
           </Route>
           <Route
             exact
             path={`${AppRoute.OFFER}/:id`}
             render={({match}) => {
               return <OfferInformation
-                onHeaderClick={onHeaderClick}
                 currentSortType={currentSortType}
                 onCardHover={onCardHover}
                 reviews={reviews}
@@ -81,9 +85,9 @@ class App extends React.PureComponent {
             authorizationStatus={authorizationStatus}
             exact
             path={AppRoute.FAVORITES}
-            render={() => {
-              return <div>Favorites</div>;
-            }}
+            render={() =>
+              <Favorites />
+            }
           />
         </Switch>
       </BrowserRouter>
@@ -100,7 +104,6 @@ App.propTypes = {
   currentSortType: PropTypes.string.isRequired,
   onCardHover: PropTypes.func.isRequired,
   currentCard: PropTypes.object,
-  onHeaderClick: PropTypes.func.isRequired,
   reviews: PropTypes.array,
   nearbyOffers: PropTypes.array,
   authorizationStatus: PropTypes.string.isRequired,
@@ -141,11 +144,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onCardHover(offer) {
     dispatch(ActionCreator.setCurrentCard(offer));
-  },
-  onHeaderClick(offer) {
-    dispatch(ActionCreator.changeActiveOffer(Number(offer)));
-    dispatch(Operation.loadReviews(offer));
-    dispatch(Operation.loadNearbyOffers(offer));
   }
 });
 

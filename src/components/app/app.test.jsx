@@ -136,7 +136,6 @@ it(`App should render correctly`, () => {
         currentSortType={`Popular`}
         onCardHover={() => {}}
         currentCard={null}
-        onHeaderClick={() => {}}
         authorizationStatus={`AUTH`}
         login={() => {}}
         loadingStatus={``}

@@ -17,7 +17,6 @@ const ReviewFormWrapped = withForm(ReviewForm);
 
 const OfferInformation = (props) => {
   const {
-    onHeaderClick,
     onCardHover,
     currentSortType,
     reviews,
@@ -158,7 +157,6 @@ const OfferInformation = (props) => {
             <OffersList
               className="near-places__list"
               offers={nearbyOffers}
-              onHeaderClick={onHeaderClick}
               onCardHover={onCardHover}
               currentSortType={currentSortType}
             />
@@ -192,7 +190,6 @@ OfferInformation.propTypes = {
     }).isRequired,
     id: PropTypes.number.isRequired
   }),
-  onHeaderClick: PropTypes.func.isRequired,
   onCardHover: PropTypes.func.isRequired,
   currentSortType: PropTypes.string.isRequired,
   reviews: PropTypes.array,

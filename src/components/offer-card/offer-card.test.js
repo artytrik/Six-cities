@@ -16,7 +16,6 @@ it(`OfferCard should render correctly`, () => {
     .create(<OfferCard
       offer={offer}
       onMouseHover={jest.fn()}
-      onHeaderClick={jest.fn()}
     />)
     .toJSON();
 

@@ -41,7 +41,6 @@ it(`OffersList should render correctly`, () => {
   const tree = renderer
     .create(<OffersList
       offers={offers}
-      onHeaderClick={jest.fn()}
       className="places"
       currentSortType={`Popular`}
       onCardHover={() => {}}

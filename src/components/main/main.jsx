@@ -13,7 +13,6 @@ const SortingOptionsWrapped = withToggle(SortingOptions);
 const Main = (props) => {
   const {
     offers,
-    onHeaderClick,
     city,
     cities,
     onCityClick,
@@ -52,7 +51,6 @@ const Main = (props) => {
                 <OffersList
                   className="cities__places-list tabs__content"
                   offers={offers}
-                  onHeaderClick={onHeaderClick}
                   currentSortType={currentSortType}
                   onCardHover={onCardHover}
                 />
@@ -79,7 +77,6 @@ const Main = (props) => {
 
 Main.propTypes = {
   offers: PropTypes.array.isRequired,
-  onHeaderClick: PropTypes.func.isRequired,
   city: PropTypes.string.isRequired,
   cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   onCityClick: PropTypes.func.isRequired,

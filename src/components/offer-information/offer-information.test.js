@@ -119,7 +119,6 @@ it(`OfferInformation should render correctly`, () => {
             <OfferInformation
               reviews={reviews}
               nearbyOffers={nearbyOffers}
-              onHeaderClick={() => {}}
               currentSortType={`Popular`}
               onCardHover={() => {}}
               onReviewSubmit={() => {}}

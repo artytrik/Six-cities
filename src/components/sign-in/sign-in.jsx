@@ -13,7 +13,7 @@ class SignIn extends React.PureComponent {
   }
 
   handleSubmit(evt) {
-    const {onSubmit} = this.props;
+    const {onSubmit, goBack} = this.props;
 
     evt.preventDefault();
 
@@ -21,6 +21,8 @@ class SignIn extends React.PureComponent {
       login: this.loginRef.current.value,
       password: this.passwordRef.current.value
     });
+
+    goBack();
   }
 
   render() {
