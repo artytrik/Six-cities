@@ -70,6 +70,10 @@ const Favorites = (props) => {
   );
 };
 
+Favorites.propTypes = {
+  favorites: PropTypes.array.isRequired
+};
+
 const mapStateToProps = (state) => ({
   favorites: getFavorite(state)
 });

@@ -28,7 +28,7 @@ const OfferCard = (props) => {
           <span>Premium</span>
         </div>
       }
-      <div className={`${favoriteCard ? `favorites__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
+      <div className={`${favoriteCard ? `favorites__image-wrapper ` : `cities__image-wrapper `}place-card__image-wrapper`}>
         <a href="#">
           <img
             className="place-card__image"
@@ -39,7 +39,7 @@ const OfferCard = (props) => {
           />
         </a>
       </div>
-      <div className={`${favoriteCard ? `favorites__card-info` : ``} place-card__info`}>
+      <div className={`${favoriteCard ? `favorites__card-info ` : ``}place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
@@ -47,7 +47,7 @@ const OfferCard = (props) => {
           </div>
           {authorizationStatus === AuthorizationStatus.AUTH ?
             <button
-              className={`place-card__bookmark-button button ${favorite ? `place-card__bookmark-button--active` : ``}`}
+              className={`place-card__bookmark-button button${favorite ? ` place-card__bookmark-button--active` : ``}`}
               type="button"
               onClick={(evt) => onFavoriteClick(evt, id, favorite ? false : true)}
             >
@@ -90,9 +90,14 @@ OfferCard.propTypes = {
     price: PropTypes.number.isRequired,
     picture: PropTypes.string.isRequired,
     premium: PropTypes.bool.isRequired,
-    rating: PropTypes.number.isRequired
+    rating: PropTypes.number.isRequired,
+    favorite: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired
   }).isRequired,
   onMouseHover: PropTypes.func,
+  favoriteCard: PropTypes.bool,
+  onFavoriteClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({

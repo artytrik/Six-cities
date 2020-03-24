@@ -82,6 +82,7 @@ class SignIn extends React.PureComponent {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  goBack: PropTypes.func.isRequired
 };
 
 export default SignIn;

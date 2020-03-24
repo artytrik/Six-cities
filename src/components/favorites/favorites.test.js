@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import OfferCard from './offer-card.jsx';
+import Favorites from './favorites.jsx';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import NameSpace from '../../reducer/name-space.js';
@@ -8,19 +8,11 @@ import {BrowserRouter} from 'react-router-dom';
 
 const mockStore = configureStore([]);
 
-const offer = {
-  id: 1,
-  name: `Beautiful & luxurious apartment at great location`,
-  type: `Apartment`,
-  price: 120,
-  picture: `img/apartment-01.jpg`,
-  premium: true,
-  rating: 4,
-  favorite: false
-};
-
 it(`OfferCard should render correctly`, () => {
   const store = mockStore({
+    [NameSpace.FAVORITE]: {
+      favorites: []
+    },
     [NameSpace.USER]: {
       authorizationStatus: `NO_AUTH`
     }
@@ -30,11 +22,7 @@ it(`OfferCard should render correctly`, () => {
     .create(
         <BrowserRouter>
           <Provider store={store}>
-            <OfferCard
-              offer={offer}
-              onMouseHover={jest.fn()}
-              favoriteCard={false}
-            />
+            <Favorites />
           </Provider>
         </BrowserRouter>
     )

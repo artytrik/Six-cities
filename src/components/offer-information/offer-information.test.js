@@ -80,13 +80,15 @@ const reviews = [
 
 const nearbyOffers = [
   {
+    id: 1,
     name: `Beatiful flat`,
     type: `Apartment`,
     price: 120,
     picture: `img/apartment-01.jpg`,
     premium: true,
     rating: 4,
-    coordinates: [52.369553943508, 4.85309666406198]
+    coordinates: [52.369553943508, 4.85309666406198],
+    favorite: false
   }
 ];
 

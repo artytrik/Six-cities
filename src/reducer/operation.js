@@ -92,7 +92,6 @@ export const Operation = {
       status
     })
       .then((response) => {
-        console.log(response);
         const offer = ModelOffer.parseOffer(response.data);
         dispatch(FavoritesActionCreator.removeFavorite(offer));
         dispatch(DataActionCreator.replaceOffer(offer));

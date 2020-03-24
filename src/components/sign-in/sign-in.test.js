@@ -19,6 +19,7 @@ it(`SignIn is rendered correctly`, () => {
       <Provider store={store}>
         <SignIn
           onSubmit={() => {}}
+          goBack={() => {}}
         />
       </Provider>
     </BrowserRouter>
