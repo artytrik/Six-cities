@@ -12,7 +12,9 @@ const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   LOAD_NEARBY_OFFERS: `LOAD_NEARBY_OFFERS`,
-  GET_CITIES: `GET_CITIES`
+  GET_CITIES: `GET_CITIES`,
+  REPLACE_OFFER: `REPLACE_OFFER`,
+  REPLACE_NEARBY_OFFER: `REPLACE_NEARBY_OFFER`
 };
 
 const ActionCreator = {
@@ -31,6 +33,14 @@ const ActionCreator = {
   getCities: (offers) => ({
     type: ActionType.GET_CITIES,
     payload: offers
+  }),
+  replaceOffer: (offer) => ({
+    type: ActionType.REPLACE_OFFER,
+    payload: offer
+  }),
+  replaceNearbyOffer: (offer) => ({
+    type: ActionType.REPLACE_NEARBY_OFFER,
+    payload: offer
   })
 };
 
@@ -51,6 +61,16 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_CITIES:
       return extend(state, {
         cities: getUniqueCities(action.payload)
+      });
+    case ActionType.REPLACE_OFFER:
+      const offers = state.offers;
+      const index = offers.findIndex((it) => it.id === action.payload.id);
+      const length = offers.length;
+      const offersLeft = index === 0 ? [] : offers.slice(0, index);
+      const offersRight = index === length - 1 ? [] : offers.slice(index + 1, length);
+
+      return extend(state, {
+        offers: offersLeft.concat(action.payload).concat(offersRight)
       });
   }
 

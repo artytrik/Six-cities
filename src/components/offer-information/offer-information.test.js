@@ -12,12 +12,18 @@ const mockStore = configureStore([]);
 const offers = [
   {
     name: `Beautiful & luxurious apartment at great location`,
-    type: `Apartment`,
+    type: `apartment`,
+    city: `Amsterdam`,
+    cityCoordinates: {
+      location: [1, 1],
+      zoom: 12
+    },
     bedrooms: 3,
     adults: 4,
     price: 120,
     picture: `img/apartment-01.jpg`,
     premium: true,
+    favorite: false,
     gallery: [
       `img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -34,11 +40,17 @@ const offers = [
       name: `Angelina`,
       superStar: true
     },
-    id: 1
+    id: 1,
+    coordinates: [52.3909553943508, 4.85309666406198]
   },
   {
     name: `Beautiful & luxurious apartment at great location`,
-    type: `Apartment`,
+    type: `apartment`,
+    city: `Moscow`,
+    cityCoordinates: {
+      location: [2, 2],
+      zoom: 12
+    },
     bedrooms: 3,
     adults: 4,
     price: 120,
@@ -60,7 +72,8 @@ const offers = [
       name: `Angelina`,
       superStar: true
     },
-    id: 2
+    id: 2,
+    coordinates: [52.369553943508, 4.85309666406198]
   }
 ];
 
@@ -80,13 +93,15 @@ const reviews = [
 
 const nearbyOffers = [
   {
+    id: 1,
     name: `Beatiful flat`,
-    type: `Apartment`,
+    type: `apartment`,
     price: 120,
     picture: `img/apartment-01.jpg`,
     premium: true,
     rating: 4,
-    coordinates: [52.369553943508, 4.85309666406198]
+    coordinates: [52.369553943508, 4.85309666406198],
+    favorite: false
   }
 ];
 
@@ -119,7 +134,6 @@ it(`OfferInformation should render correctly`, () => {
             <OfferInformation
               reviews={reviews}
               nearbyOffers={nearbyOffers}
-              onHeaderClick={() => {}}
               currentSortType={`Popular`}
               onCardHover={() => {}}
               onReviewSubmit={() => {}}

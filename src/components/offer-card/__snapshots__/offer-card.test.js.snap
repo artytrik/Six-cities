@@ -49,9 +49,10 @@ exports[`OfferCard should render correctly 1`] = `
           / night
         </span>
       </div>
-      <button
+      <a
         className="place-card__bookmark-button button"
-        type="button"
+        href="/login"
+        onClick={[Function]}
       >
         <svg
           className="place-card__bookmark-icon"
@@ -67,7 +68,7 @@ exports[`OfferCard should render correctly 1`] = `
         >
           To bookmarks
         </span>
-      </button>
+      </a>
     </div>
     <div
       className="place-card__rating rating"
@@ -93,7 +94,7 @@ exports[`OfferCard should render correctly 1`] = `
       className="place-card__name"
     >
       <a
-        href="#"
+        href="/offer/1"
         onClick={[Function]}
       >
         Beautiful & luxurious apartment at great location

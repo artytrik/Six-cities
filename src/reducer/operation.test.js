@@ -4,6 +4,7 @@ import {createAPI} from "../api.js";
 import {ActionType as DataActionType} from './data/data.js';
 import {ActionType as AppActionType} from './app/app.js';
 import {ActionType as UserActionType, AuthorizationStatus} from './user/user.js';
+import {ActionType as FavoriteActionType} from './favorite/favorite.js';
 
 const api = createAPI(() => {});
 
@@ -92,6 +93,25 @@ describe(`Operation work correctly`, () => {
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: UserActionType.GET_USER,
           payload: {},
+        });
+      });
+  });
+
+  it(`Should make a correct API call to /favorite`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const favoritesLoader = Operation.loadFavorites();
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(200, []);
+
+    return favoritesLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: FavoriteActionType.LOAD_FAVORITES,
+          payload: [],
         });
       });
   });

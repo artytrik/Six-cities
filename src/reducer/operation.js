@@ -1,15 +1,16 @@
-import ModelOffer from '../model-offer.js';
-import ModelReview from '../model-review.js';
-import ModelUser from '../model-user.js';
+import ModelOffer from '../models/model-offer.js';
+import ModelReview from '../models/model-review.js';
+import ModelUser from '../models/model-user.js';
 import {ActionCreator as DataActionCreator} from './data/data.js';
 import {ActionCreator as AppActionCreator} from './app/app.js';
 import {ActionCreator as UserActionCreator, AuthorizationStatus} from './user/user.js';
 import {ActionCreator as ReviewActionCreator, LoadingStatus} from './review/review.js';
 import {ActionCreator as FavoritesActionCreator} from './favorite/favorite.js';
+import {ServerRoute} from '../utils.js';
 
 export const Operation = {
   loadOffers: () => (dispatch, getState, api) => {
-    return api.get(`/hotels`)
+    return api.get(ServerRoute.HOTELS)
       .then((response) => {
         const offers = ModelOffer.parseOffers(response.data);
         dispatch(DataActionCreator.loadOffers(offers));
@@ -17,22 +18,22 @@ export const Operation = {
         dispatch(AppActionCreator.changeCity(offers.length > 0 ? offers[0].city : ``));
       });
   },
-  loadReviews: (activeOffer) => (dispatch, getState, api) => {
-    return api.get(`/comments/${activeOffer}`)
+  loadReviews: (id) => (dispatch, getState, api) => {
+    return api.get(ServerRoute.getComments(id))
       .then((response) => {
         const reviews = ModelReview.parseReviews(response.data);
         dispatch(DataActionCreator.loadReviews(reviews));
       });
   },
-  loadNearbyOffers: (activeOffer) => (dispatch, getState, api) => {
-    return api.get(`/hotels/${activeOffer}/nearby`)
+  loadNearbyOffers: (id) => (dispatch, getState, api) => {
+    return api.get(ServerRoute.getNearbyOffers(id))
       .then((response) => {
         const nearbyOffers = ModelOffer.parseOffers(response.data);
         dispatch(DataActionCreator.loadNearbyOffers(nearbyOffers));
       });
   },
   checkAuth: () => (dispatch, getState, api) => {
-    return api.get(`/login`)
+    return api.get(ServerRoute.LOGIN)
       .then((response) => {
         const user = ModelUser.parseUser(response.data);
         dispatch(UserActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
@@ -43,7 +44,7 @@ export const Operation = {
       });
   },
   login: (authData) => (dispatch, getState, api) => {
-    return api.post(`/login`, {
+    return api.post(ServerRoute.LOGIN, {
       email: authData.login,
       password: authData.password
     })
@@ -55,7 +56,7 @@ export const Operation = {
   },
   postReview: (reviewData, id) => (dispatch, getState, api) => {
     dispatch(ReviewActionCreator.changeLoadingStatus(LoadingStatus.DISABLED));
-    return api.post(`/comments/${id}`, reviewData)
+    return api.post(ServerRoute.getComments(id), reviewData)
       .then((response) => {
         dispatch(ReviewActionCreator.changeLoadingStatus(LoadingStatus.SUCCESS));
         const reviews = ModelReview.parseReviews(response.data);
@@ -67,7 +68,7 @@ export const Operation = {
       });
   },
   loadFavorites: () => (dispatch, getState, api) => {
-    return api.get(`/favorite`)
+    return api.get(ServerRoute.FAVORITE)
       .then((response) => {
         const offers = ModelOffer.parseOffers(response.data);
         dispatch(FavoritesActionCreator.loadFavorites(offers));
@@ -75,24 +76,26 @@ export const Operation = {
   },
   addFavorite: (id) => (dispatch, getState, api) => {
     const status = 1;
-    return api.post(`favorite/${id}/${status}`, {
+    return api.post(ServerRoute.getFavorite(id, status), {
       'hotel_id': id,
       status
     })
       .then((response) => {
         const offer = ModelOffer.parseOffer(response.data);
         dispatch(FavoritesActionCreator.addFavorite(offer));
+        dispatch(DataActionCreator.replaceOffer(offer));
       });
   },
   removeFavorite: (id) => (dispatch, getState, api) => {
     const status = 0;
-    return api.post(`favorite/${id}/${status}`, {
+    return api.post(ServerRoute.getFavorite(id, status), {
       'hotel_id': id,
       status
     })
       .then((response) => {
         const offer = ModelOffer.parseOffer(response.data);
         dispatch(FavoritesActionCreator.removeFavorite(offer));
+        dispatch(DataActionCreator.replaceOffer(offer));
       });
   }
 };

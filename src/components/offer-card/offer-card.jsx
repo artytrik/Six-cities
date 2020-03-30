@@ -1,44 +1,68 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {getStarRating} from '../../utils.js';
+import {getStarRating, AppRoute, LivingType} from '../../utils.js';
+import {Operation} from '../../reducer/operation.js';
+import {connect} from 'react-redux';
+import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {Link} from 'react-router-dom';
 
 const OfferCard = (props) => {
-  const {offer, onMouseHover, onHeaderClick} = props;
-  const {name, type, price, picture, premium, rating} = offer;
+  const {
+    offer,
+    onMouseHover,
+    favoriteCard,
+    onFavoriteClick,
+    authorizationStatus,
+    nearbyFor
+  } = props;
+  const {name, type, price, picture, premium, rating, favorite, id} = offer;
 
   return (
-    <article className="cities__place-card place-card"
-      onMouseEnter={() => (onMouseHover(offer))}
-      onMouseLeave={() => (onMouseHover(null))}
+    <article className={`${favoriteCard ? `favorites__card` : `cities__place-card`} place-card`}
+      onMouseEnter={onMouseHover ? () => (onMouseHover(offer)) : null}
+      onMouseLeave={onMouseHover ? () => (onMouseHover(null)) : null}
     >
       {premium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${favoriteCard ? `favorites__image-wrapper ` : `cities__image-wrapper `}place-card__image-wrapper`}>
         <a href="#">
           <img
             className="place-card__image"
             src={picture}
-            width={260}
-            height={200}
+            width={favoriteCard ? 150 : 260}
+            height={favoriteCard ? 110 : 200}
             alt="Place image"
           />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${favoriteCard ? `favorites__card-info ` : ``}place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          {authorizationStatus === AuthorizationStatus.AUTH ?
+            <button
+              className={`place-card__bookmark-button button${favorite ? ` place-card__bookmark-button--active` : ``}`}
+              type="button"
+              onClick={(evt) => onFavoriteClick(evt, id, favorite ? false : true, nearbyFor)}
+            >
+              <svg className="place-card__bookmark-icon" width={18} height={19}>
+                <use xlinkHref="#icon-bookmark" />
+              </svg>
+              <span className="visually-hidden">To bookmarks</span>
+            </button> :
+            <Link to={AppRoute.LOGIN} className={`place-card__bookmark-button button`}>
+              <svg className="place-card__bookmark-icon" width={18} height={19}>
+                <use xlinkHref="#icon-bookmark" />
+              </svg>
+              <span className="visually-hidden">To bookmarks</span>
+            </Link>
+          }
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -47,9 +71,13 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#" onClick={() => onHeaderClick(offer)}>{name}</a>
+          <Link
+            to={`${AppRoute.OFFER}/${id}`}
+          >
+            {name}
+          </Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{LivingType[type]}</p>
       </div>
     </article>
   );
@@ -62,10 +90,32 @@ OfferCard.propTypes = {
     price: PropTypes.number.isRequired,
     picture: PropTypes.string.isRequired,
     premium: PropTypes.bool.isRequired,
-    rating: PropTypes.number.isRequired
+    rating: PropTypes.number.isRequired,
+    favorite: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired
   }).isRequired,
-  onMouseHover: PropTypes.func.isRequired,
-  onHeaderClick: PropTypes.func.isRequired
+  onMouseHover: PropTypes.func,
+  favoriteCard: PropTypes.bool,
+  onFavoriteClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  nearbyFor: PropTypes.number
 };
 
-export default OfferCard;
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFavoriteClick(evt, id, status, nearbyFor) {
+    evt.preventDefault();
+    dispatch(status ? Operation.addFavorite(id) : Operation.removeFavorite(id))
+    .then(() => {
+      if (nearbyFor !== undefined) {
+        dispatch(Operation.loadNearbyOffers(nearbyFor));
+      }
+    });
+  }
+});
+
+export {OfferCard};
+export default connect(mapStateToProps, mapDispatchToProps)(OfferCard);

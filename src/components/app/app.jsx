@@ -15,6 +15,9 @@ import {getLoadingStatus} from '../../reducer/review/selectors.js';
 import {AppRoute} from '../../utils.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import PrivateRoute from '../private-route/private-route.jsx';
+import Favorites from '../favorites/favorites.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+import history from '../../history.js';
 
 class App extends React.PureComponent {
   render() {
@@ -27,7 +30,6 @@ class App extends React.PureComponent {
       currentSortType,
       onCardHover,
       currentCard,
-      onHeaderClick,
       reviews,
       nearbyOffers,
       authorizationStatus,
@@ -43,7 +45,6 @@ class App extends React.PureComponent {
           <Route exact path={AppRoute.ROOT}>
             <Main
               offers={offers}
-              onHeaderClick={onHeaderClick}
               city={city}
               cities={cities}
               onCityClick={onCityClick}
@@ -54,17 +55,24 @@ class App extends React.PureComponent {
               authorizationStatus={authorizationStatus}
             />
           </Route>
-          <Route exact path={AppRoute.LOGIN}>
-            <SignIn
-              onSubmit={login}
-            />;
-          </Route>
+          <PrivateRoute
+            exact
+            to={AppRoute.ROOT}
+            path={AppRoute.LOGIN}
+            require={authorizationStatus === AuthorizationStatus.NO_AUTH}
+            render={() => (
+              <SignIn
+                onSubmit={login}
+                goBack={history.goBack}
+              />
+            )}
+          >
+          </PrivateRoute>
           <Route
             exact
             path={`${AppRoute.OFFER}/:id`}
             render={({match}) => {
               return <OfferInformation
-                onHeaderClick={onHeaderClick}
                 currentSortType={currentSortType}
                 onCardHover={onCardHover}
                 reviews={reviews}
@@ -74,16 +82,18 @@ class App extends React.PureComponent {
                 loadingStatus={loadingStatus}
                 onLoadingStatusClear={onLoadingStatusClear}
                 match={match}
+                currentCard={currentCard}
               />;
             }}>
           </Route>
           <PrivateRoute
-            authorizationStatus={authorizationStatus}
+            require={authorizationStatus === AuthorizationStatus.AUTH}
+            to={AppRoute.LOGIN}
             exact
             path={AppRoute.FAVORITES}
-            render={() => {
-              return <div>Favorites</div>;
-            }}
+            render={() =>
+              <Favorites />
+            }
           />
         </Switch>
       </BrowserRouter>
@@ -100,7 +110,6 @@ App.propTypes = {
   currentSortType: PropTypes.string.isRequired,
   onCardHover: PropTypes.func.isRequired,
   currentCard: PropTypes.object,
-  onHeaderClick: PropTypes.func.isRequired,
   reviews: PropTypes.array,
   nearbyOffers: PropTypes.array,
   authorizationStatus: PropTypes.string.isRequired,
@@ -141,11 +150,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onCardHover(offer) {
     dispatch(ActionCreator.setCurrentCard(offer));
-  },
-  onHeaderClick(offer) {
-    dispatch(ActionCreator.changeActiveOffer(Number(offer)));
-    dispatch(Operation.loadReviews(offer));
-    dispatch(Operation.loadNearbyOffers(offer));
   }
 });
 

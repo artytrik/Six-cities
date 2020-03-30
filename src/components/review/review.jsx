@@ -1,11 +1,12 @@
 import React from 'react';
-import {getStarRating} from '../../utils.js';
+import {getStarRating, months} from '../../utils.js';
 import PropTypes from 'prop-types';
 
 const Review = (props) => {
   const {review} = props;
   const {user, rating, text, date} = review;
   const {avatar, name} = user;
+  const dateInstance = new Date(date);
 
   return (
     <li className="reviews__item">
@@ -31,8 +32,8 @@ const Review = (props) => {
         <p className="reviews__text">
           {text}
         </p>
-        <time className="reviews__time" dateTime={date.toISOString()}>
-          {date.toISOString()}
+        <time className="reviews__time" dateTime={date}>
+          {months[dateInstance.getMonth()]} {dateInstance.getFullYear()}
         </time>
       </div>
     </li>
@@ -52,4 +53,4 @@ Review.propTypes = {
   })
 };
 
-export default Review;
+export default React.memo(Review);

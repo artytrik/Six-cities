@@ -13,4 +13,4 @@ const MainEmpty = () => {
   );
 };
 
-export default MainEmpty;
+export default React.memo(MainEmpty);

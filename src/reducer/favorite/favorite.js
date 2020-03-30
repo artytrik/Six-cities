@@ -6,7 +6,7 @@ const initialState = {
 
 const ActionType = {
   LOAD_FAVORITES: `LOAD_FAVORITES`,
-  ADD_FAVORITE: `SET_FAVORITE`,
+  ADD_FAVORITE: `ADD_FAVORITE`,
   REMOVE_FAVORITE: `REMOVE_FAVORITE`
 };
 
@@ -16,7 +16,7 @@ const ActionCreator = {
     payload: offers
   }),
   addFavorite: (offer) => ({
-    type: ActionType.LOAD_FAVORITE,
+    type: ActionType.ADD_FAVORITE,
     payload: offer
   }),
   removeFavorite: (offer) => ({
@@ -27,7 +27,7 @@ const ActionCreator = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.LOAD_FAVORITE:
+    case ActionType.LOAD_FAVORITES:
       return extend(state, {
         favorites: action.payload
       });
@@ -37,7 +37,7 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.REMOVE_FAVORITE:
       return extend(state, {
-        favorites: state.favorites.filter((offer) => offer.id !== action.payload)
+        favorites: state.favorites.filter((offer) => offer.id !== action.payload.id)
       });
   }
 

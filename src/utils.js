@@ -1,4 +1,6 @@
 const MAX_CITIES = 6;
+export const MAX_REVIEWS = 10;
+export const MAX_PHOTOS = 6;
 
 const StarRating = new Map([
   [1, `20%`],
@@ -48,3 +50,29 @@ export const AppRoute = {
   OFFER: `/offer`,
   FAVORITES: `/favorites`
 };
+
+export const ServerRoute = {
+  HOTELS: `/hotels`,
+  LOGIN: `/login`,
+  FAVORITE: `/favorite`,
+  getComments(id) {
+    return `/comments/${id}`;
+  },
+  getNearbyOffers(id) {
+    return `/hotels/${id}/nearby`;
+  },
+  getFavorite(id, status) {
+    return `/favorite/${id}/${status}`;
+  }
+};
+
+export const makeUpperCase = (string) => `${string[0].toUpperCase()}${string.slice(1)}`;
+
+export const LivingType = {
+  room: `Private room`,
+  house: `House`,
+  hotel: `Hotel`,
+  apartment: `Apartment`
+};
+
+export const months = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];

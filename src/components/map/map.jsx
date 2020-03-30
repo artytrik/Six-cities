@@ -2,7 +2,6 @@ import React from 'react';
 import leaflet from 'leaflet';
 import PropTypes from 'prop-types';
 
-const ZOOM = 12;
 const ICON_SIZE = [30, 30];
 
 const ICON = leaflet.icon({
@@ -20,23 +19,25 @@ class Map extends React.PureComponent {
     super(props);
 
     this._mapRef = React.createRef();
+    this._city = null;
+    this._zoom = null;
   }
 
   componentDidMount() {
     const mapRef = this._mapRef.current;
 
     if (mapRef) {
-      const {coordinates} = this.props;
+      const {offers, activeOffer} = this.props;
 
-      const city = [52.38333, 4.9];
+      const city = activeOffer ? activeOffer.cityCoordinates.location : offers[0].cityCoordinates.location;
+      const zoom = activeOffer ? activeOffer.cityCoordinates.zoom : offers[0].cityCoordinates.zoom;
 
       this._map = leaflet.map(mapRef, {
         center: city,
-        ZOOM,
+        zoom,
         zoomControl: false,
         marker: true
       });
-      this._map.setView(city, ZOOM);
 
       leaflet
         .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -46,21 +47,29 @@ class Map extends React.PureComponent {
 
       this._layerGroup = leaflet.layerGroup().addTo(this._map);
 
-      coordinates.map((coordinate) => {
-        leaflet.marker(coordinate, {icon: ICON}).addTo(this._layerGroup);
+      offers.map((offer) => {
+        leaflet.marker(offer.coordinates, {icon: ICON}).addTo(this._layerGroup);
       });
     }
   }
 
   componentDidUpdate() {
-    const {coordinates, currentCard} = this.props;
+    const {offers, activeOffer, currentCard} = this.props;
+
+    const city = activeOffer ? activeOffer.cityCoordinates.location : offers[0].cityCoordinates.location;
+    const zoom = activeOffer ? activeOffer.cityCoordinates.zoom : offers[0].cityCoordinates.zoom;
 
     this._layerGroup.clearLayers();
-    coordinates.map((coordinate) => {
+    offers.map((offer) => {
       leaflet
-      .marker(coordinate, {icon: currentCard && coordinate === currentCard.coordinates ? ACTIVE_ICON : ICON})
+      .marker(offer.coordinates, {icon: currentCard && offer.id === currentCard.id ? ACTIVE_ICON : ICON})
       .addTo(this._layerGroup);
     });
+    this._map.setView(city, zoom);
+
+    if (activeOffer) {
+      leaflet.marker(activeOffer.coordinates, {icon: ACTIVE_ICON}).addTo(this._layerGroup);
+    }
   }
 
   componentWillUnmount() {
@@ -75,10 +84,25 @@ class Map extends React.PureComponent {
 }
 
 Map.propTypes = {
-  coordinates: PropTypes.arrayOf(
-      PropTypes.arrayOf(
-          PropTypes.number.isRequired).isRequired).isRequired,
-  currentCard: PropTypes.object
+  offers: PropTypes.arrayOf(
+      PropTypes.shape({
+        cityCoordinates: PropTypes.exact({
+          location: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+          zoom: PropTypes.number.isRequired
+        }),
+        coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
+      })
+  ),
+  activeOffer: PropTypes.shape({
+    cityCoordinates: PropTypes.exact({
+      location: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      zoom: PropTypes.number.isRequired
+    }),
+    coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
+  }),
+  currentCard: PropTypes.shape({
+    id: PropTypes.number.isRequired
+  })
 };
 
 export default Map;

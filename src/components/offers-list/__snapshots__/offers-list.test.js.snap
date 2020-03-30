@@ -52,9 +52,10 @@ exports[`OffersList should render correctly 1`] = `
             / night
           </span>
         </div>
-        <button
+        <a
           className="place-card__bookmark-button button"
-          type="button"
+          href="/login"
+          onClick={[Function]}
         >
           <svg
             className="place-card__bookmark-icon"
@@ -70,7 +71,7 @@ exports[`OffersList should render correctly 1`] = `
           >
             To bookmarks
           </span>
-        </button>
+        </a>
       </div>
       <div
         className="place-card__rating rating"
@@ -96,7 +97,7 @@ exports[`OffersList should render correctly 1`] = `
         className="place-card__name"
       >
         <a
-          href="#"
+          href="/offer/1"
           onClick={[Function]}
         >
           Beautiful & luxurious apartment at great location
@@ -150,9 +151,10 @@ exports[`OffersList should render correctly 1`] = `
             / night
           </span>
         </div>
-        <button
+        <a
           className="place-card__bookmark-button button"
-          type="button"
+          href="/login"
+          onClick={[Function]}
         >
           <svg
             className="place-card__bookmark-icon"
@@ -168,7 +170,7 @@ exports[`OffersList should render correctly 1`] = `
           >
             To bookmarks
           </span>
-        </button>
+        </a>
       </div>
       <div
         className="place-card__rating rating"
@@ -194,7 +196,7 @@ exports[`OffersList should render correctly 1`] = `
         className="place-card__name"
       >
         <a
-          href="#"
+          href="/offer/2"
           onClick={[Function]}
         >
           Wood and stone place
@@ -248,9 +250,10 @@ exports[`OffersList should render correctly 1`] = `
             / night
           </span>
         </div>
-        <button
+        <a
           className="place-card__bookmark-button button"
-          type="button"
+          href="/login"
+          onClick={[Function]}
         >
           <svg
             className="place-card__bookmark-icon"
@@ -266,7 +269,7 @@ exports[`OffersList should render correctly 1`] = `
           >
             To bookmarks
           </span>
-        </button>
+        </a>
       </div>
       <div
         className="place-card__rating rating"
@@ -292,7 +295,7 @@ exports[`OffersList should render correctly 1`] = `
         className="place-card__name"
       >
         <a
-          href="#"
+          href="/offer/3"
           onClick={[Function]}
         >
           Canal View Prinsengracht
@@ -353,9 +356,10 @@ exports[`OffersList should render correctly 1`] = `
             / night
           </span>
         </div>
-        <button
+        <a
           className="place-card__bookmark-button button"
-          type="button"
+          href="/login"
+          onClick={[Function]}
         >
           <svg
             className="place-card__bookmark-icon"
@@ -371,7 +375,7 @@ exports[`OffersList should render correctly 1`] = `
           >
             To bookmarks
           </span>
-        </button>
+        </a>
       </div>
       <div
         className="place-card__rating rating"
@@ -397,7 +401,7 @@ exports[`OffersList should render correctly 1`] = `
         className="place-card__name"
       >
         <a
-          href="#"
+          href="/offer/4"
           onClick={[Function]}
         >
           Nice, cozy, warm big bed apartment
