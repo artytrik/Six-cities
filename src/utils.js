@@ -1,6 +1,13 @@
-const MAX_CITIES = 6;
-export const MAX_REVIEWS = 10;
-export const MAX_PHOTOS = 6;
+export const MaxValue = {
+  CITIES: 6,
+  REVIEWS: 10,
+  PHOTOS: 6
+};
+
+export const ReviewLength = {
+  MIN: 50,
+  MAX: 300
+};
 
 const StarRating = new Map([
   [1, `20%`],
@@ -39,7 +46,7 @@ export const getUniqueCities = (offers) => {
     cities.add(offer.city);
   });
 
-  const uniqueCities = [...cities].slice(0, MAX_CITIES);
+  const uniqueCities = [...cities].slice(0, MaxValue.CITIES);
 
   return uniqueCities;
 };

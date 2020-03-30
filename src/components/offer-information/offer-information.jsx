@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {getStarRating, LivingType, MAX_PHOTOS, AppRoute} from '../../utils.js';
+import {getStarRating, LivingType, MaxValue, AppRoute} from '../../utils.js';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
@@ -40,9 +40,9 @@ const OfferInformation = (props) => {
   }
 
   const {name, type, price, premium, gallery, rating, bedrooms, adults,
-    description, inside, user, id, favorite} = offer;
+    description, features, user, id, favorite} = offer;
   const {avatar, name: userName, superStar} = user;
-  const limitedGallery = gallery.slice(0, MAX_PHOTOS);
+  const limitedGallery = gallery.slice(0, MaxValue.PHOTOS);
 
   return (
     <div className="page">
@@ -117,7 +117,7 @@ const OfferInformation = (props) => {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {inside.map((item, i) => (
+                  {features.map((item, i) => (
                     <li key={`item-${i}`} className="property__inside-item">{item}</li>
                   ))}
                 </ul>
@@ -197,7 +197,7 @@ OfferInformation.propTypes = {
     bedrooms: PropTypes.number.isRequired,
     adults: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
-    inside: PropTypes.arrayOf(
+    features: PropTypes.arrayOf(
         PropTypes.string.isRequired
     ),
     user: PropTypes.shape({
