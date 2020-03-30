@@ -13,7 +13,8 @@ const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   LOAD_NEARBY_OFFERS: `LOAD_NEARBY_OFFERS`,
   GET_CITIES: `GET_CITIES`,
-  REPLACE_OFFER: `REPLACE_OFFER`
+  REPLACE_OFFER: `REPLACE_OFFER`,
+  REPLACE_NEARBY_OFFER: `REPLACE_NEARBY_OFFER`
 };
 
 const ActionCreator = {
@@ -35,6 +36,10 @@ const ActionCreator = {
   }),
   replaceOffer: (offer) => ({
     type: ActionType.REPLACE_OFFER,
+    payload: offer
+  }),
+  replaceNearbyOffer: (offer) => ({
+    type: ActionType.REPLACE_NEARBY_OFFER,
     payload: offer
   })
 };

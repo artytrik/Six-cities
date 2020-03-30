@@ -21,7 +21,8 @@ const OffersList = (props) => {
     offers,
     className,
     currentSortType,
-    onCardHover
+    onCardHover,
+    nearbyFor
   } = props;
   const sortedOffers = getSortedOffers(offers, currentSortType);
 
@@ -32,6 +33,7 @@ const OffersList = (props) => {
           key={offer.id}
           offer={offer}
           onMouseHover={onCardHover}
+          nearbyFor={nearbyFor}
         />
       ))}
     </div>
@@ -42,7 +44,8 @@ OffersList.propTypes = {
   offers: PropTypes.array.isRequired,
   className: PropTypes.string.isRequired,
   currentSortType: PropTypes.string.isRequired,
-  onCardHover: PropTypes.func
+  onCardHover: PropTypes.func,
+  nearbyFor: PropTypes.number
 };
 
 export default React.memo(OffersList);

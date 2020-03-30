@@ -174,6 +174,7 @@ const OfferInformation = (props) => {
               className="near-places__list"
               offers={nearbyOffers}
               currentSortType={currentSortType}
+              nearbyFor={id}
             />
           </section>
         </div>

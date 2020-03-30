@@ -23,6 +23,7 @@ const offers = [
     price: 120,
     picture: `img/apartment-01.jpg`,
     premium: true,
+    favorite: false,
     gallery: [
       `img/room.jpg`,
       `img/apartment-01.jpg`,

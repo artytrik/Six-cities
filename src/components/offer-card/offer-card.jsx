@@ -13,7 +13,8 @@ const OfferCard = (props) => {
     onMouseHover,
     favoriteCard,
     onFavoriteClick,
-    authorizationStatus
+    authorizationStatus,
+    nearbyFor
   } = props;
   const {name, type, price, picture, premium, rating, favorite, id} = offer;
 
@@ -48,7 +49,7 @@ const OfferCard = (props) => {
             <button
               className={`place-card__bookmark-button button${favorite ? ` place-card__bookmark-button--active` : ``}`}
               type="button"
-              onClick={(evt) => onFavoriteClick(evt, id, favorite ? false : true)}
+              onClick={(evt) => onFavoriteClick(evt, id, favorite ? false : true, nearbyFor)}
             >
               <svg className="place-card__bookmark-icon" width={18} height={19}>
                 <use xlinkHref="#icon-bookmark" />
@@ -96,7 +97,8 @@ OfferCard.propTypes = {
   onMouseHover: PropTypes.func,
   favoriteCard: PropTypes.bool,
   onFavoriteClick: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired
+  authorizationStatus: PropTypes.string.isRequired,
+  nearbyFor: PropTypes.number
 };
 
 const mapStateToProps = (state) => ({
@@ -104,13 +106,14 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onFavoriteClick(evt, id, status) {
+  onFavoriteClick(evt, id, status, nearbyFor) {
     evt.preventDefault();
-    if (status) {
-      dispatch(Operation.addFavorite(id));
-    } else {
-      dispatch(Operation.removeFavorite(id));
-    }
+    dispatch(status ? Operation.addFavorite(id) : Operation.removeFavorite(id))
+    .then(() => {
+      if (nearbyFor !== undefined) {
+        dispatch(Operation.loadNearbyOffers(nearbyFor));
+      }
+    });
   }
 });
 
