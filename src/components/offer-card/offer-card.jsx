@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {getStarRating} from '../../utils.js';
+import {getStarRating, AppRoute, LivingType} from '../../utils.js';
 import {Operation} from '../../reducer/operation.js';
 import {connect} from 'react-redux';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {AppRoute} from '../../utils.js';
 import {Link} from 'react-router-dom';
 
 const OfferCard = (props) => {
@@ -77,7 +76,7 @@ const OfferCard = (props) => {
             {name}
           </Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{LivingType[type]}</p>
       </div>
     </article>
   );

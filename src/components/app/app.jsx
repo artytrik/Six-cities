@@ -16,6 +16,8 @@ import {AppRoute} from '../../utils.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import PrivateRoute from '../private-route/private-route.jsx';
 import Favorites from '../favorites/favorites.jsx';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+import history from '../../history.js';
 
 class App extends React.PureComponent {
   render() {
@@ -53,17 +55,19 @@ class App extends React.PureComponent {
               authorizationStatus={authorizationStatus}
             />
           </Route>
-          <Route
+          <PrivateRoute
             exact
+            to={AppRoute.ROOT}
             path={AppRoute.LOGIN}
-            render={(props) => (
+            require={authorizationStatus === AuthorizationStatus.NO_AUTH}
+            render={() => (
               <SignIn
                 onSubmit={login}
-                goBack={props.history.goBack}
+                goBack={history.goBack}
               />
             )}
           >
-          </Route>
+          </PrivateRoute>
           <Route
             exact
             path={`${AppRoute.OFFER}/:id`}
@@ -78,11 +82,13 @@ class App extends React.PureComponent {
                 loadingStatus={loadingStatus}
                 onLoadingStatusClear={onLoadingStatusClear}
                 match={match}
+                currentCard={currentCard}
               />;
             }}>
           </Route>
           <PrivateRoute
-            authorizationStatus={authorizationStatus}
+            require={authorizationStatus === AuthorizationStatus.AUTH}
+            to={AppRoute.LOGIN}
             exact
             path={AppRoute.FAVORITES}
             render={() =>

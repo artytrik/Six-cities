@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {getStarRating} from '../../utils.js';
+import {getStarRating, LivingType, MAX_PHOTOS, AppRoute} from '../../utils.js';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import Map from '../map/map.jsx';
 import OffersList from '../offers-list/offers-list.jsx';
@@ -12,12 +12,12 @@ import {connect} from 'react-redux';
 import {getActiveOffer} from '../../reducer/selectors.js';
 import {ActionCreator} from '../../reducer/app/app.js';
 import {Operation} from '../../reducer/operation.js';
+import {Link} from 'react-router-dom';
 
 const ReviewFormWrapped = withForm(ReviewForm);
 
 const OfferInformation = (props) => {
   const {
-    onCardHover,
     currentSortType,
     reviews,
     nearbyOffers,
@@ -27,7 +27,9 @@ const OfferInformation = (props) => {
     onLoadingStatusClear,
     offer,
     match,
-    setActiveOffer
+    setActiveOffer,
+    currentCard,
+    onFavoriteClick
   } = props;
 
   const offerId = parseInt(match.params.id, 10);
@@ -38,9 +40,9 @@ const OfferInformation = (props) => {
   }
 
   const {name, type, price, premium, gallery, rating, bedrooms, adults,
-    description, inside, user, id} = offer;
-  const nearbyCoordinates = nearbyOffers.map((nearbyOffer) => nearbyOffer.coordinates);
+    description, inside, user, id, favorite} = offer;
   const {avatar, name: userName, superStar} = user;
+  const limitedGallery = gallery.slice(0, MAX_PHOTOS);
 
   return (
     <div className="page">
@@ -49,7 +51,7 @@ const OfferInformation = (props) => {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {gallery.map((picture, i) => (
+              {limitedGallery.map((picture, i) => (
                 <div key={`picture-${i}`} className="property__image-wrapper">
                   <img
                     className="property__image"
@@ -71,12 +73,24 @@ const OfferInformation = (props) => {
                 <h1 className="property__name">
                   {name}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                {authorizationStatus === AuthorizationStatus.AUTH ?
+                  <button
+                    className={`property__bookmark-button button${favorite ? ` property__bookmark-button--active` : ``}`}
+                    type="button"
+                    onClick={(evt) => onFavoriteClick(evt, id, favorite ? false : true)}
+                  >
+                    <svg className="property__bookmark-icon" width={31} height={33}>
+                      <use xlinkHref="#icon-bookmark" />
+                    </svg>
+                    <span className="visually-hidden">To bookmarks</span>
+                  </button> :
+                  <Link to={AppRoute.LOGIN} className={`property__bookmark-button button`}>
+                    <svg className="property__bookmark-icon" width={31} height={33}>
+                      <use xlinkHref="#icon-bookmark" />
+                    </svg>
+                    <span className="visually-hidden">To bookmarks</span>
+                  </Link>
+                }
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -87,7 +101,7 @@ const OfferInformation = (props) => {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {type}
+                  {LivingType[type]}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                   {bedrooms} Bedrooms
@@ -145,7 +159,9 @@ const OfferInformation = (props) => {
           </div>
           <section className="property__map map">
             <Map
-              coordinates={nearbyCoordinates}
+              offers={nearbyOffers}
+              activeOffer={offer}
+              currentCard={currentCard}
             />
           </section>
         </section>
@@ -157,7 +173,6 @@ const OfferInformation = (props) => {
             <OffersList
               className="near-places__list"
               offers={nearbyOffers}
-              onCardHover={onCardHover}
               currentSortType={currentSortType}
             />
           </section>
@@ -173,6 +188,7 @@ OfferInformation.propTypes = {
     type: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     premium: PropTypes.bool.isRequired,
+    favorite: PropTypes.bool.isRequired,
     gallery: PropTypes.arrayOf(
         PropTypes.string.isRequired
     ).isRequired,
@@ -190,7 +206,6 @@ OfferInformation.propTypes = {
     }).isRequired,
     id: PropTypes.number.isRequired
   }),
-  onCardHover: PropTypes.func.isRequired,
   currentSortType: PropTypes.string.isRequired,
   reviews: PropTypes.array,
   nearbyOffers: PropTypes.array,
@@ -199,7 +214,9 @@ OfferInformation.propTypes = {
   loadingStatus: PropTypes.string.isRequired,
   onLoadingStatusClear: PropTypes.func.isRequired,
   match: PropTypes.object,
-  setActiveOffer: PropTypes.func.isRequired
+  setActiveOffer: PropTypes.func.isRequired,
+  currentCard: PropTypes.object,
+  onFavoriteClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -211,6 +228,14 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeActiveOffer(Number(offer)));
     dispatch(Operation.loadReviews(offer));
     dispatch(Operation.loadNearbyOffers(offer));
+  },
+  onFavoriteClick(evt, id, status) {
+    evt.preventDefault();
+    if (status) {
+      dispatch(Operation.addFavorite(id));
+    } else {
+      dispatch(Operation.removeFavorite(id));
+    }
   }
 });
 

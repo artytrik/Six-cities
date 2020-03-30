@@ -11,7 +11,12 @@ const offers = [
   {
     id: 1,
     name: `Beautiful & luxurious apartment at great location`,
-    type: `Apartment`,
+    type: `apartment`,
+    city: `Amsterdam`,
+    cityCoordinates: {
+      location: [1, 1],
+      zoom: 12
+    },
     bedrooms: 3,
     adults: 4,
     price: 120,
@@ -39,7 +44,12 @@ const offers = [
   {
     id: 2,
     name: `Wood and stone place`,
-    type: `Private room`,
+    type: `room`,
+    city: `Moscow`,
+    cityCoordinates: {
+      location: [2, 2],
+      zoom: 12
+    },
     bedrooms: 1,
     adults: 2,
     price: 80,
@@ -67,7 +77,12 @@ const offers = [
   {
     id: 3,
     name: `Canal View Prinsengracht`,
-    type: `Apartment`,
+    type: `apartment`,
+    city: `Amsterdam`,
+    cityCoordinates: {
+      location: [1, 1],
+      zoom: 12
+    },
     bedrooms: 2,
     adults: 3,
     price: 132,
@@ -95,7 +110,12 @@ const offers = [
   {
     id: 4,
     name: `Nice, cozy, warm big bed apartment`,
-    type: `Apartment`,
+    type: `apartment`,
+    city: `Amsterdam`,
+    cityCoordinates: {
+      location: [1, 1],
+      zoom: 12
+    },
     bedrooms: 3,
     adults: 5,
     price: 180,

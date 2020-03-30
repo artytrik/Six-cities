@@ -16,7 +16,7 @@ configure({
 const offer = {
   id: 1,
   name: `Beautiful & luxurious apartment at great location`,
-  type: `Apartment`,
+  type: `apartment`,
   price: 120,
   picture: `img/apartment-01.jpg`,
   premium: true,

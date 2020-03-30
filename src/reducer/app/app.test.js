@@ -5,7 +5,7 @@ const offers = [
   {
     name: `Beautiful & luxurious apartment at great location`,
     city: `Amsterdam`,
-    type: `Apartment`,
+    type: `apartment`,
     bedrooms: 3,
     adults: 4,
     price: 120,
@@ -32,7 +32,7 @@ const offers = [
   {
     name: `Wood and stone place`,
     city: `Moscow`,
-    type: `Private room`,
+    type: `room`,
     bedrooms: 1,
     adults: 2,
     price: 80,
@@ -59,7 +59,7 @@ const offers = [
   {
     name: `Canal View Prinsengracht`,
     city: `Vladivostok`,
-    type: `Apartment`,
+    type: `apartment`,
     bedrooms: 2,
     adults: 3,
     price: 132,
@@ -86,7 +86,7 @@ const offers = [
   {
     name: `Nice, cozy, warm big bed apartment`,
     city: `Amsterdam`,
-    type: `Apartment`,
+    type: `apartment`,
     bedrooms: 3,
     adults: 5,
     price: 180,

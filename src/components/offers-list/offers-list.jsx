@@ -15,41 +15,34 @@ const getSortedOffers = (offers, currentSortType) => {
 
   return offers;
 };
-class OffersList extends React.PureComponent {
-  render() {
-    const {
-      offers,
-      className,
-      currentSortType,
-      onCardHover
-    } = this.props;
-    const sortedOffers = getSortedOffers(offers, currentSortType);
 
-    return (
-      <div className={`${className} places__list`}>
-        {sortedOffers.map((offer) => (
-          <OfferCard
-            key={offer.id}
-            offer={offer}
-            onMouseHover={onCardHover}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+const OffersList = (props) => {
+  const {
+    offers,
+    className,
+    currentSortType,
+    onCardHover
+  } = props;
+  const sortedOffers = getSortedOffers(offers, currentSortType);
 
-OffersList.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    picture: PropTypes.string.isRequired,
-    premium: PropTypes.bool.isRequired
-  })).isRequired,
-  className: PropTypes.string.isRequired,
-  currentSortType: PropTypes.string.isRequired,
-  onCardHover: PropTypes.func.isRequired
+  return (
+    <div className={`${className} places__list`}>
+      {sortedOffers.map((offer) => (
+        <OfferCard
+          key={offer.id}
+          offer={offer}
+          onMouseHover={onCardHover}
+        />
+      ))}
+    </div>
+  );
 };
 
-export default OffersList;
+OffersList.propTypes = {
+  offers: PropTypes.array.isRequired,
+  className: PropTypes.string.isRequired,
+  currentSortType: PropTypes.string.isRequired,
+  onCardHover: PropTypes.func
+};
+
+export default React.memo(OffersList);

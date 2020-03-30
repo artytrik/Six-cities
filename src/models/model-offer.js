@@ -2,6 +2,10 @@ class ModelOffer {
   constructor(data) {
     this.bedrooms = data[`bedrooms`];
     this.city = data.city[`name`];
+    this.cityCoordinates = {
+      location: [data.city.location[`latitude`], data.city.location[`longitude`]],
+      zoom: data.city.location[`zoom`]
+    };
     this.description = data[`description`];
     this.inside = data[`goods`];
     this.user = {
@@ -29,37 +33,6 @@ class ModelOffer {
 
   static parseOffers(data) {
     return data.map(ModelOffer.parseOffer);
-  }
-
-  toRAW() {
-    return {
-      'bedrooms': this.bedrooms,
-      'city': {
-        'name': this.city
-      },
-      'description': this.description,
-      'goods': this.inside,
-      'host': {
-        'avatar_url': this.user.avatar,
-        'id': this.user.id,
-        'name': this.user.name,
-        'is_pro': this.user.superStar
-      },
-      'id': this.id,
-      'images': this.gallery,
-      'is_favorite': this.favorite,
-      'is_premium': this.premium,
-      'location': {
-        'latitude': this.coordinates[0],
-        'longitude': this.coordinates[1]
-      },
-      'max_adults': this.adults,
-      'preview_image': this.picture,
-      'price': this.price,
-      'rating': this.rating,
-      'title': this.name,
-      'type': this.type
-    };
   }
 }
 

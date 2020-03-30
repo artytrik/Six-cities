@@ -23,13 +23,24 @@ const store = createStore(
     )
 );
 
-store.dispatch(Operation.loadOffers());
+store.dispatch(Operation.loadOffers())
+    .then(() => {
+      ReactDOM.render(
+          <Provider store={store}>
+            <App />
+          </Provider>,
+          document.querySelector(`#root`)
+      );
+    })
+    .catch((err) => {
+      if (err.response >= 500) {
+        ReactDOM.render(
+            <div>
+              Сервер недоступен
+            </div>,
+            document.querySelector(`#root`)
+        );
+      }
+    });
 store.dispatch(Operation.checkAuth());
 store.dispatch(Operation.loadFavorites());
-
-ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.querySelector(`#root`)
-);

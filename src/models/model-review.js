@@ -19,21 +19,6 @@ class ModelReview {
   static parseReviews(data) {
     return data.map(ModelReview.parseReview);
   }
-
-  toRAW() {
-    return {
-      'comment': this.text,
-      'date': this.date,
-      'id': this.id,
-      'rating': this.rating,
-      'user': {
-        'avatar_url': this.user.avatar,
-        'id': this.user.id,
-        'name': this.user.name,
-        'is_pro': this.user.superStar
-      },
-    };
-  }
 }
 
 export default ModelReview;
