@@ -22,7 +22,7 @@ const offers = [
     ],
     rating: 4.8,
     description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-    inside: [`Wi-FI`, `Washing machine`, `Towels`, `Heating`],
+    features: [`Wi-FI`, `Washing machine`, `Towels`, `Heating`],
     user: {
       avatar: `img/avatar-angelina.jpg`,
       name: `Angelina`,
@@ -51,7 +51,7 @@ const offers = [
     ],
     rating: 4.8,
     description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-    inside: [`Wi-FI`, `Washing machine`, `Towels`, `Heating`],
+    features: [`Wi-FI`, `Washing machine`, `Towels`, `Heating`],
     user: {
       avatar: `img/avatar-angelina.jpg`,
       name: `Angelina`,
@@ -80,7 +80,7 @@ const offers = [
     ],
     rating: 4.8,
     description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-    inside: [`Wi-FI`, `Washing machine`, `Towels`, `Heating`],
+    features: [`Wi-FI`, `Washing machine`, `Towels`, `Heating`],
     user: {
       avatar: `img/avatar-angelina.jpg`,
       name: `Angelina`,
@@ -109,7 +109,7 @@ const offers = [
     ],
     rating: 4.8,
     description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-    inside: [`Wi-FI`, `Washing machine`, `Towels`, `Heating`],
+    features: [`Wi-FI`, `Washing machine`, `Towels`, `Heating`],
     user: {
       avatar: `img/avatar-angelina.jpg`,
       name: `Angelina`,

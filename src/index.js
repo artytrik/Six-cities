@@ -8,7 +8,7 @@ import {Operation} from './reducer/operation.js';
 import {ActionCreator, AuthorizationStatus} from './reducer/user/user.js';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
-import {createAPI} from './api.js';
+import {createAPI, Error} from './api.js';
 
 const onUnauthorized = () => {
   store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
@@ -33,7 +33,7 @@ store.dispatch(Operation.loadOffers())
       );
     })
     .catch((err) => {
-      if (err.response >= 500) {
+      if (err.response >= Error.SERVER) {
         ReactDOM.render(
             <div>
               Сервер недоступен

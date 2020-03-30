@@ -7,7 +7,7 @@ class ModelOffer {
       zoom: data.city.location[`zoom`]
     };
     this.description = data[`description`];
-    this.inside = data[`goods`];
+    this.features = data[`goods`];
     this.user = {
       avatar: data.host[`avatar_url`],
       id: data.host[`id`],

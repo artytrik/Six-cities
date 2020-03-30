@@ -1,12 +1,12 @@
 import React from 'react';
 import Review from '../review/review.jsx';
 import PropTypes from 'prop-types';
-import {MAX_REVIEWS} from '../../utils.js';
+import {MaxValue} from '../../utils.js';
 
 const ReviewsList = (props) => {
   const {reviews} = props;
 
-  const sortedReviews = reviews.slice(0, MAX_REVIEWS).sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+  const sortedReviews = reviews.slice(0, MaxValue.REVIEWS).sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
   return (
     <React.Fragment>

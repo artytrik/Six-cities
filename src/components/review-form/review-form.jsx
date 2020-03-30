@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {RatingValues, TextRating} from '../../utils.js';
+import {RatingValues, TextRating, ReviewLength} from '../../utils.js';
 import {LoadingStatus} from '../../reducer/review/review.js';
 
 class ReviewForm extends React.PureComponent {
@@ -81,7 +81,8 @@ class ReviewForm extends React.PureComponent {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!rating || loadingStatus === LoadingStatus.DISABLED || (comment.length < 50 || comment.length > 300)}
+          disabled={!rating || loadingStatus === LoadingStatus.DISABLED
+            || (comment.length < ReviewLength.MIN || comment.length > ReviewLength.MAX)}
         >
           Submit
         </button>
