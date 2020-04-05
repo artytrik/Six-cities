@@ -1,10 +1,10 @@
-import {Operation} from './operation.js';
+import {Operation} from './operation';
 import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../api.js";
-import {ActionType as DataActionType} from './data/data.js';
-import {ActionType as AppActionType} from './app/app.js';
-import {ActionType as UserActionType, AuthorizationStatus} from './user/user.js';
-import {ActionType as FavoriteActionType} from './favorite/favorite.js';
+import {ActionType as DataActionType} from './data/data';
+import {ActionType as AppActionType} from './app/app';
+import {ActionType as UserActionType, AuthorizationStatus} from './user/user';
+import {ActionType as FavoriteActionType} from './favorite/favorite';
 
 const api = createAPI(() => {});
 

@@ -1,5 +1,5 @@
-import {extend} from '../../utils.js';
-import {getUniqueCities} from '../../utils.js';
+import {extend} from '../../utils';
+import {getUniqueCities} from '../../utils';
 
 const initialState = {
   offers: [],

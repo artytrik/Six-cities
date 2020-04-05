@@ -1,4 +1,4 @@
-import {reducer, ActionCreator, ActionType, AuthorizationStatus} from './user.js';
+import {reducer, ActionCreator, ActionType, AuthorizationStatus} from './user';
 
 const user = {
   avatar: `img/1.png`,
