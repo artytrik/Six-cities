@@ -1,5 +1,5 @@
-import {reducer, ActionType, ActionCreator} from './app.js';
-import {SortType} from '../../utils.js';
+import {reducer, ActionType, ActionCreator} from './app';
+import {SortType} from '../../utils';
 
 const offers = [
   {

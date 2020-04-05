@@ -1,12 +1,12 @@
-import ModelOffer from '../models/model-offer.js';
-import ModelReview from '../models/model-review.js';
-import ModelUser from '../models/model-user.js';
-import {ActionCreator as DataActionCreator} from './data/data.js';
-import {ActionCreator as AppActionCreator} from './app/app.js';
-import {ActionCreator as UserActionCreator, AuthorizationStatus} from './user/user.js';
-import {ActionCreator as ReviewActionCreator, LoadingStatus} from './review/review.js';
-import {ActionCreator as FavoritesActionCreator} from './favorite/favorite.js';
-import {ServerRoute} from '../utils.js';
+import ModelOffer from '../models/model-offer';
+import ModelReview from '../models/model-review';
+import ModelUser from '../models/model-user';
+import {ActionCreator as DataActionCreator} from './data/data';
+import {ActionCreator as AppActionCreator} from './app/app';
+import {ActionCreator as UserActionCreator, AuthorizationStatus} from './user/user';
+import {ActionCreator as ReviewActionCreator, LoadingStatus} from './review/review';
+import {ActionCreator as FavoritesActionCreator} from './favorite/favorite';
+import {ServerRoute} from '../utils';
 
 export const Operation = {
   loadOffers: () => (dispatch, getState, api) => {

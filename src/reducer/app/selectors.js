@@ -1,4 +1,4 @@
-import NameSpace from '../name-space.js';
+import NameSpace from '../name-space';
 
 export const getSortType = (state) => state[NameSpace.APP].currentSortType;
 export const getActiveCity = (state) => state[NameSpace.APP].city;

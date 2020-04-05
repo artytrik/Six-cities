@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
-import {reducer as data} from './data/data.js';
-import {reducer as app} from './app/app.js';
-import {reducer as user} from './user/user.js';
-import {reducer as review} from './review/review.js';
-import {reducer as favorite} from './favorite/favorite.js';
-import NameSpace from './name-space.js';
+import {reducer as data} from './data/data';
+import {reducer as app} from './app/app';
+import {reducer as user} from './user/user';
+import {reducer as review} from './review/review';
+import {reducer as favorite} from './favorite/favorite';
+import NameSpace from './name-space';
 
 export default combineReducers({
   [NameSpace.DATA]: data,
