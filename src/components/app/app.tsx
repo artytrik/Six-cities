@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Main from '../main/main';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {HashRouter, Route, Switch} from 'react-router-dom';
 import OfferInformation from '../offer-information/offer-information';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer/app/app';
@@ -58,7 +58,7 @@ class App extends React.PureComponent<Props, {}> {
     } = this.props;
 
     return (
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
           <Route exact path={AppRoute.ROOT}>
             <Main
@@ -113,7 +113,7 @@ class App extends React.PureComponent<Props, {}> {
             }
           />
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }

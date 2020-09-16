@@ -2,6 +2,7 @@
   "name": "six-cities",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://artytrik.github.io/Six-cities",
   "description": "Личный проект «Шесть городов» от HTML Academy",
   "scripts": {
     "eslint": "npm run eslint.js && npm run eslint.ts",
@@ -10,7 +11,9 @@
     "test": "npm run eslint && npm run test.jest",
     "build": "webpack --mode production",
     "start": "webpack-dev-server",
-    "test.jest": "jest"
+    "test.jest": "jest",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d public"
   },
   "devDependencies": {
     "@babel/core": "7.8.4",
@@ -30,6 +33,7 @@
     "eslint": "5.13.0",
     "eslint-config-htmlacademy": "0.5.2",
     "eslint-plugin-react": "7.18.3",
+    "gh-pages": "3.1.0",
     "jest": "25.1.0",
     "react-test-renderer": "16.12.0",
     "redux-devtools-extension": "2.13.8",
